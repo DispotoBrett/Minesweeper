@@ -1,3 +1,5 @@
+package edu.sjsu.cs.cs151.minesweeper.app;
+
 /**
  * Tile represents a Minesweeper square, which may or may not contain a mine.
  *
