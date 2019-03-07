@@ -1,4 +1,4 @@
-package edu.sjsu.cs.cs151.minesweeper.app.tests;
+package edu.sjsu.cs.cs151.minesweeper.tests;
 
 import edu.sjsu.cs.cs151.minesweeper.app.Tile;
 import org.junit.*;
