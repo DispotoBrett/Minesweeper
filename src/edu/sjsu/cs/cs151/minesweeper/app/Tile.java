@@ -1,11 +1,11 @@
 package edu.sjsu.cs.cs151.minesweeper.app;
 
 /**
- * Tile represents a Minesweeper square, which may or may not contain a mine.
+ * Tile represents a MineSweeper square, which may or may not contain a mine.
  *
- * @author Jordan Conragan
- * @author Brett Dispoto
- * @author Patrick Silvestre
+ * @author JordanConragan
+ * @author BrettDispoto
+ * @author PatrickSilvestre
  */
 public final class Tile 
 {
@@ -23,7 +23,7 @@ public final class Tile
 	}
 	
 	/**
-	 * Accessor to determine is a tile has an underlying mine.
+	 * Accessor to determine is this tile has an underlying mine.
 	 * @return isMine denotes if this tile is a mine.
 	 */
 	public boolean isMine()
@@ -32,8 +32,8 @@ public final class Tile
 	}
 	
 	/**
-	 * Accessor to determine is a tile has been revealed.
-	 * @return isMine denotes if this tile has been revealed.
+	 * Accessor to determine is this tile has been revealed.
+	 * @return isRevealed denotes if this tile has been revealed.
 	 */
 	public boolean isRevealed()
 	{
@@ -41,12 +41,38 @@ public final class Tile
 	}
 	
 	/**
-	 * Accessor to determine is the tile has been flagged.
-	 * @return isMine denotes if this tile has been flagged.
+	 * Accessor to determine is this tile has been flagged.
+	 * @return isFlagged denotes if this tile has been flagged.
 	 */
 	public boolean isFlagged()
 	{
 		return isFlagged;
+	}
+	
+	/*
+	 * Reveals this tile, this action cannot be undone.
+	 * @precondition a tile cannot be revealed if it is currently flagged.
+	 * @return boolean indicating if the tile could be revealed successfully.
+	 */
+	public boolean reveal()
+	{
+		if(isFlagged)
+			return false;
+		
+		isRevealed = true;
+		return true;
+	}
+	
+	/**
+	 * Adds or removed a flag from this tile.
+	 * @precondition this tile must be unrevealed in order to be flagged/unflagged.
+	 */
+	public void toggleFlag()
+	{
+		if(isRevealed) 
+			return;
+		
+		isFlagged = (isFlagged) ? false: true;
 	}
 	//-------------------------Private Fields/ Methods------------------
 	
