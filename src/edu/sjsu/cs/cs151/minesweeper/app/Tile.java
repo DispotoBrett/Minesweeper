@@ -72,7 +72,7 @@ public final class Tile
 		if(isRevealed) 
 			return;
 		
-		isFlagged = (isFlagged) ? false: true;
+		isFlagged = !isFlagged;
 	}
 	//-------------------------Private Fields/ Methods------------------
 	
