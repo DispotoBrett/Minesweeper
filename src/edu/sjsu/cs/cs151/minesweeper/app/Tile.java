@@ -49,11 +49,12 @@ public final class Tile
 		return isFlagged;
 	}
 	
-	/*
+	/**
 	 * Reveals this tile, this action cannot be undone.
 	 * @precondition a tile cannot be revealed if it is currently flagged.
 	 * @return boolean indicating if the tile could be revealed successfully.
 	 */
+
 	public boolean reveal()
 	{
 		if(isFlagged)
@@ -74,7 +75,7 @@ public final class Tile
 		
 		isFlagged = !isFlagged;
 	}
-	//-------------------------Private Fields/ Methods------------------
+	//-------------------------Private Fields/Methods------------------
 	
 	private final boolean isMine;
 	private boolean isRevealed;

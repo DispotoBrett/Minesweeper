@@ -88,6 +88,5 @@ public class TileTests
 		assertFalse(testTile.isFlagged());
 		assertTrue(testTile.reveal());
 		assertTrue(testTile.isRevealed());
-		
 	}
 }
