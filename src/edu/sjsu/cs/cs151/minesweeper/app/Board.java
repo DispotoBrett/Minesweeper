@@ -77,8 +77,8 @@ public final class Board
 			mines.add(i);
 		
 		Collections.shuffle(mines);
-        mines.subList(0, NUM_MINES).clear();
-
+        mines = new ArrayList<Integer>(mines.subList(0, NUM_MINES));
+        
 		int tileCounter = 0;
 		for(int i = 0; i < NUM_ROWS; i++)
 		{
