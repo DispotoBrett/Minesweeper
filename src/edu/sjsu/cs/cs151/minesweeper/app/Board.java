@@ -1,7 +1,25 @@
 package edu.sjsu.cs.cs151.minesweeper.app;
+import java.util.ArrayList;
+import java.util.Collections;
 
-public class Board
-{
+/**
+ * Represents the MineSweeper board, is responsible tile management.
+ * @author JordanConragan
+ * @author BrettDispoto
+ * @author PatrickSilvestre
+ */
+public final class Board
+{	
+	//-------------------------Public Interface-----------------------
+	
+	/**
+	 * Constructs a new Board instance, with randomized mine placement.
+	 */
+	public Board()
+	{
+		tiles = new Tile[NUM_ROWS][NUM_COLLUMS];
+		initalizeTiles();
+	}
 	
 	public void revealTile(int row, int col)
 	{
@@ -22,7 +40,6 @@ public class Board
 		}
 	}
 	
-	
 	public int adjacentMines(int row, int col)
 	{
 		int mines = 0;
@@ -42,5 +59,39 @@ public class Board
 		return mines; 
 	}
 	
+	//-------------------------Private Fields/Methods------------------
 	private Tile[][] tiles;
+	private final static int NUM_ROWS = 9;
+	private final static int NUM_COLLUMS = 9;
+	private final static int NUM_MINES = 9;
+	
+	/**
+	 * Initializes all tiles, randomly choosing which have underlying mines.
+	 * @postcondition This board will now have a new set of tiles, some of which are mines.
+	 */
+	private void initalizeTiles()
+	{
+		ArrayList<Integer> mines = new ArrayList<Integer>();
+		
+		for(int i = 0; i < NUM_ROWS * NUM_COLLUMS; i++)
+			mines.add(i);
+		
+		Collections.shuffle(mines);
+        mines.subList(0, NUM_MINES).clear();
+
+		int tileCounter = 0;
+		for(int i = 0; i < NUM_ROWS; i++)
+		{
+			for(int j = 0; j < NUM_COLLUMS; j++)
+			{
+				if(mines.contains(tileCounter))
+					tiles[i][j] = new Tile(true);
+				else
+					tiles[i][j] = new Tile(false);
+				
+				tileCounter++;
+			}
+		}
+	}
 }
+
