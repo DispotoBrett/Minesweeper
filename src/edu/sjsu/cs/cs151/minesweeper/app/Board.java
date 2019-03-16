@@ -12,15 +12,23 @@ public final class Board
 {	
 	//-------------------------Public Interface-----------------------
 	
+	public  final static int NUM_ROWS = 9;
+	public final static int NUM_COLS = 9;
+	public final static int NUM_MINES = 9;
 	/**
 	 * Constructs a new Board instance, with randomized mine placement.
 	 */
 	public Board()
 	{
-		tiles = new Tile[NUM_ROWS][NUM_COLLUMS];
+		tiles = new Tile[NUM_ROWS][NUM_COLS];
 		initalizeTiles();
 	}
 	
+	/**
+	* Reveals the tile specified, and all.surrounding tiles without mines, recursively.
+	* @param row the row of the tile specified
+	* @param col the column of the tile specified
+	*/
 	public void revealTile(int row, int col)
 	{
 		if(!tiles[col][row].isRevealed() && !tiles[row][col].isFlagged()) //Mine is neither revealed nor flagged
@@ -40,6 +48,11 @@ public final class Board
 		}
 	}
 	
+	/**
+	* Gets the number of mines adjacent to the tile specified.
+	* @param row the row of the tile specified
+	* @param col the column of the tile specified
+	*/
 	public int adjacentMines(int row, int col)
 	{
 		int mines = 0;
@@ -58,12 +71,18 @@ public final class Board
 		
 		return mines; 
 	}
+
+	/**
+	* gets the tile at the specified location.
+	* @return Tile at the specified location
+	*/
+	public Tile getTileAt(int row, int col)
+	{
+		return tiles[row][col];
+	}
 	
 	//-------------------------Private Fields/Methods------------------
 	private Tile[][] tiles;
-	private final static int NUM_ROWS = 9;
-	private final static int NUM_COLLUMS = 9;
-	private final static int NUM_MINES = 9;
 	
 	/**
 	 * Initializes all tiles, randomly choosing which have underlying mines.
@@ -73,7 +92,7 @@ public final class Board
 	{
 		ArrayList<Integer> mines = new ArrayList<Integer>();
 		
-		for(int i = 0; i < NUM_ROWS * NUM_COLLUMS; i++)
+		for(int i = 0; i < NUM_ROWS * NUM_COLS; i++)
 			mines.add(i);
 		
 		Collections.shuffle(mines);
@@ -82,7 +101,7 @@ public final class Board
 		int tileCounter = 0;
 		for(int i = 0; i < NUM_ROWS; i++)
 		{
-			for(int j = 0; j < NUM_COLLUMS; j++)
+			for(int j = 0; j < NUM_COLS; j++)
 			{
 				if(mines.contains(tileCounter))
 					tiles[i][j] = new Tile(true);
