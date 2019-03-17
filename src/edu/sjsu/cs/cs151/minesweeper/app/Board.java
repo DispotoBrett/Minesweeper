@@ -34,15 +34,22 @@ public final class Board
 	*/
 	public void revealTile(int row, int col)
 	{
-		if(!tiles[col][row].isRevealed() && !tiles[row][col].isFlagged()) //Mine is neither revealed nor flagged
+		Tile currentTile = tiles[row][col];
+		
+		if(!currentTile.isRevealed() && !currentTile.isFlagged() && adjacentMines(row, col) != 0)
 		{
-			tiles[col][row].reveal();
+			currentTile.reveal();
+		}
+		
+		else if(!currentTile.isRevealed() && !currentTile.isFlagged()) //Mine is neither revealed nor flagged
+		{
+			currentTile.reveal();
 			
-			for(int i = row + 1; i >= row - 1; i--) //Begins with the row directly above the clicked tile and moves down
+			for(int i = row - 1; i <= row + 1; i++) //Begins with the row directly above the clicked tile and moves down
 			{
-				for(int j = col -1; j <= col - 1; j++) //Begins from the column directly left of the clicked tile and moves right
+				for(int j = col - 1; j <= col + 1; j++) //Begins from the column directly left of the clicked tile and moves right
 				{
-					if(i >= 0 && j >= 0 && i < tiles.length && j < tiles[0].length) //Only true if i and j are valid indices 
+					if(i >= 0 && j >= 0 && i < NUM_ROWS && j < NUM_COLS) //Only true if i and j are valid indices
 					{
 						revealTile(i, j); 
 					}
@@ -60,11 +67,11 @@ public final class Board
 	{
 		int mines = 0;
 		
-		for(int i = row + 1; i >= row - 1; i--) //Begins with the row directly above the clicked tile
+		for(int i = row - 1; i <= row + 1; i++) //Begins with the row directly above the clicked tile
 		{
-			for(int j = col -1; j <= col - 1; j++) //Begins from the column directly left of the clicked tile
+			for(int j = col - 1; j <= col + 1; j++) //Begins from the column directly left of the clicked tile
 			{
-				if(i >= 0 && j >= 0 && i < tiles.length && j < tiles[0].length) //Only true if i and j are valid indices 
+				if(i >= 0 && j >= 0 && i < NUM_ROWS && j < NUM_COLS) //Only true if i and j are valid indices 
 				{
 					if(tiles[i][j].isMine()) 
 						mines++;
