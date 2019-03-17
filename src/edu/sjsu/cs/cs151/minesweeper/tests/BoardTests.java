@@ -9,7 +9,7 @@ public class BoardTests
 	@Test
 	public void constructorTest()
 	{
-		Board testBoard = new Board();
+		Board testBoard = new Board(false);
 		
 		int numberOfMines = 0;
 		int numberOfTiles = 0;
@@ -22,7 +22,7 @@ public class BoardTests
 				numberOfTiles++;
 			}
 		}
-		
+
 		assertEquals(numberOfMines, Board.NUM_MINES);
 		assertEquals(numberOfTiles, Board.NUM_ROWS * Board.NUM_COLS);
 	}

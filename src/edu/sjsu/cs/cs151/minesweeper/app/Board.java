@@ -1,6 +1,7 @@
 package edu.sjsu.cs.cs151.minesweeper.app;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * Represents the MineSweeper board, is responsible tile management.
@@ -15,13 +16,15 @@ public final class Board
 	public  final static int NUM_ROWS = 9;
 	public final static int NUM_COLS = 9;
 	public final static int NUM_MINES = 9;
+	
 	/**
 	 * Constructs a new Board instance, with randomized mine placement.
+	 * @param usePresetSeed determines whether mine placement is predetermined or randomized
 	 */
-	public Board()
+	public Board(boolean usePresetSeed)
 	{
 		tiles = new Tile[NUM_ROWS][NUM_COLS];
-		initalizeTiles();
+		initalizeTiles(usePresetSeed);
 	}
 	
 	/**
@@ -88,14 +91,18 @@ public final class Board
 	 * Initializes all tiles, randomly choosing which have underlying mines.
 	 * @postcondition This board will now have a new set of tiles, some of which are mines.
 	 */
-	private void initalizeTiles()
+	private void initalizeTiles(boolean usePresetSeed)
 	{
 		ArrayList<Integer> mines = new ArrayList<Integer>();
 		
 		for(int i = 0; i < NUM_ROWS * NUM_COLS; i++)
 			mines.add(i);
 		
-		Collections.shuffle(mines);
+		if(usePresetSeed)
+			Collections.shuffle(mines, new Random(0));
+		else
+			Collections.shuffle(mines);
+		
         mines = new ArrayList<Integer>(mines.subList(0, NUM_MINES));
         
 		int tileCounter = 0;
