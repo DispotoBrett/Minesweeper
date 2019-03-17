@@ -13,7 +13,7 @@ public final class Board
 {	
 	//-------------------------Public Interface-----------------------
 	
-	public  final static int NUM_ROWS = 9;
+	public final static int NUM_ROWS = 9;
 	public final static int NUM_COLS = 9;
 	public final static int NUM_MINES = 9;
 	
@@ -25,6 +25,7 @@ public final class Board
 	{
 		tiles = new Tile[NUM_ROWS][NUM_COLS];
 		initalizeTiles(usePresetSeed);
+		numberTilesRevealed = 0;
 	}
 	
 	/**
@@ -39,11 +40,13 @@ public final class Board
 		if(!currentTile.isRevealed() && !currentTile.isFlagged() && adjacentMines(row, col) != 0)
 		{
 			currentTile.reveal();
+			numberTilesRevealed++;
 		}
 		
 		else if(!currentTile.isRevealed() && !currentTile.isFlagged()) //Mine is neither revealed nor flagged
 		{
 			currentTile.reveal();
+			numberTilesRevealed++;
 			
 			for(int i = row - 1; i <= row + 1; i++) //Begins with the row directly above the clicked tile and moves down
 			{
@@ -83,6 +86,15 @@ public final class Board
 	}
 
 	/**
+	 * Gets the number of tiles revealed on the Board.
+	 * @return The number of tiles revealed
+	 */
+	public int getNumberTilesRevealed()
+	{
+		return numberTilesRevealed;
+	}
+
+	/**
 	* gets the tile at the specified location.
 	* @return Tile at the specified location
 	*/
@@ -93,6 +105,7 @@ public final class Board
 	
 	//-------------------------Private Fields/Methods------------------
 	private Tile[][] tiles;
+	private int numberTilesRevealed;
 	
 	/**
 	 * Initializes all tiles, randomly choosing which have underlying mines.
