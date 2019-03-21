@@ -1,4 +1,4 @@
-package edu.sjsu.cs.cs151.minesweeper.ui;
+package edu.sjsu.cs.cs151.minesweeper.view;
 
 import javax.swing.*;
 import java.awt.geom.*;
@@ -7,35 +7,47 @@ import java.awt.Color;
 
 public class Explosion extends JComponent implements Explodable
 {
-	private int width = 10;
-	private int height = 10;
+	private static final long serialVersionUID = 1L;
+	private int width;
+	private int height;
 	private int x, y;
-	private double count;
-
+	private int fadeCount;
+	private int count;
+	private boolean fade;
+	
 	public Explosion(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
+		width = 10;
+		height = 10;
 		count = 0;
+		fadeCount = 255;
+		fade = false;
 	}
 
 	public void explode()
 	{
 		if(count < 10)
 		{
-			if(width % 2 == 1)
+			if(width % 2 == 0)
+			{
 				x--;
-			if(width % 3 == 1)
 				y--;
-
-			height++;
+			}
+			height++; 
 			width++; 
-			count = count + .1;
+			count++;
 		}
-	
+		if(count > 80)
+		{
+			fade = true;
+			if(fadeCount > 0)
+				fadeCount--;
+		}
 		else
 		{
-			int delta = (int) ( 1.0/100 * Math.pow(count, 3) );
+			int delta = (int) ( 1.0/1000 * Math.pow(count, 3) );
 			height += delta * 2;
 			width += delta * 2;
 			x -= delta;
@@ -43,16 +55,17 @@ public class Explosion extends JComponent implements Explodable
 			count++;
 		}
 	}
-	
-	public int getIconWidth(){return width;}
-	public int getIconHeight(){return height;}
-	
 
 	public void paint(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		Ellipse2D.Double explosion = new Ellipse2D.Double(x, y, width, height);
-		g2.setColor(Color.RED);
+
+		if(!fade)
+			g2.setColor(Color.RED);
+		else
+			g2.setColor(new Color(fadeCount, 0, 0));
+	
 		g2.fill(explosion);
 	}	
 }

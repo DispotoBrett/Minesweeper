@@ -1,4 +1,4 @@
-package edu.sjsu.cs.cs151.minesweeper.app;
+package edu.sjsu.cs.cs151.minesweeper.model;
 
 /**
  * The over-arching game logic class.

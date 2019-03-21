@@ -1,4 +1,4 @@
-package edu.sjsu.cs.cs151.minesweeper.app;
+package edu.sjsu.cs.cs151.minesweeper.model;
 
 /**
  * Tile represents a MineSweeper square, which may or may not contain a mine.

@@ -1,4 +1,4 @@
-package edu.sjsu.cs.cs151.minesweeper.ui;
+package edu.sjsu.cs.cs151.minesweeper.view;
 
 public interface Explodable
 {

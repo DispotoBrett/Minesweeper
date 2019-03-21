@@ -1,4 +1,4 @@
-package edu.sjsu.cs.cs151.minesweeper.app;
+package edu.sjsu.cs.cs151.minesweeper.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
