@@ -29,7 +29,7 @@ public final class Board
 	}
 	
 	/**
-	* Reveals the tile specified, and all.surrounding tiles without mines, recursively.
+	* Reveals the tile specified, and all surrounding tiles without mines, recursively.
 	* @param row the row of the tile specified
 	* @param col the column of the tile specified
 	*/
@@ -59,6 +59,16 @@ public final class Board
 				}
 			}
 		}
+	}
+
+	/**
+	 * Flags the tile specified.
+	 * @param row the row of the tile specified
+	 * @param col the column of the tile specified
+	 */
+	public void toggleFlag(int row, int col)
+	{
+		tiles[row][col].toggleFlag();
 	}
 	
 	/**

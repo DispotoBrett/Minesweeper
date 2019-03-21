@@ -1,9 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.tests;
-
 import org.junit.*;
-
 import edu.sjsu.cs.cs151.minesweeper.model.Board;
-
 import static org.junit.Assert.*;
 
 public class BoardTests
@@ -33,6 +30,30 @@ public class BoardTests
 	public void revealTest()
 	{
 		
+	}
+
+	@Test
+	public void flagTest()
+	{
+		Board testBoard = new Board(true);
+
+		assertFalse(testBoard.getTileAt(0, 0).isMine());
+
+		assertFalse(testBoard.getTileAt(0, 0).isFlagged());
+
+		testBoard.toggleFlag(0,0);
+		assertTrue(testBoard.getTileAt(0,0).isFlagged());
+
+		testBoard.revealTile(0,0);
+		assertFalse(testBoard.getTileAt(0,0).isRevealed());
+		assertTrue(testBoard.getTileAt(0, 0).isFlagged());
+
+		testBoard.toggleFlag(0, 0);
+		assertFalse(testBoard.getTileAt(0, 0).isFlagged());
+
+		testBoard.revealTile(0, 0);
+		testBoard.toggleFlag(0, 0);
+		assertFalse(testBoard.getTileAt(0, 0).isFlagged());
 	}
 	
 	@Test
