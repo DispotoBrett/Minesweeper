@@ -27,12 +27,6 @@ public class BoardTests
 	}
 	
 	@Test
-	public void revealTest()
-	{
-		
-	}
-
-	@Test
 	public void flagTest()
 	{
 		Board testBoard = new Board(true);
@@ -57,8 +51,44 @@ public class BoardTests
 	}
 	
 	@Test
-	public void adjacentTilesTest()
+	public void revealTest()
 	{
 		
+	}
+	
+	@Test
+	public void adjacentMinesTest()
+	{
+		Board testBoard = new Board(true);
+		int twoMines = testBoard.adjacentMines(3,4);
+		assertTrue(twoMines == 2);
+		int noMines = testBoard.adjacentMines(0, 0);
+		assertTrue(noMines == 0);
+		int threeMines = testBoard.adjacentMines(4, 5);
+		assertTrue(threeMines == 3);
+	}
+	
+	@Test
+	public void visualTest() //Useful for determine the test cases
+	{
+		Board test = new Board(true);
+		
+		for(int i = 0; i < Board.NUM_ROWS; i++)
+		{
+			for(int j = 0; j < Board.NUM_COLS; j++)
+			{
+				Tile current = test.getTileAt(i, j);
+				
+				if(current.isMine())
+					System.out.print("X ");
+				else if(current.isFlagged())
+					System.out.print("F ");
+				else if(current.isRevealed())
+					System.out.print(test.adjacentMines(i, j));
+				else
+					System.out.print("O ");
+			}
+			System.out.println();
+		}
 	}
 }
