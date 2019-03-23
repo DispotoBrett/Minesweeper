@@ -14,3 +14,4 @@ bin/edu/sjsu/cs/cs151/minesweeper/view/Explodable.class
 bin/edu/sjsu/cs/cs151/minesweeper/view/Explosion.class
 bin/edu/sjsu/cs/cs151/minesweeper/view/ExplosionTester.class
 MineSweeper.iml
+/bin/

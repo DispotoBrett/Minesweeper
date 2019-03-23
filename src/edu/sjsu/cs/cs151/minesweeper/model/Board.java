@@ -37,13 +37,16 @@ public final class Board
 	{
 		Tile currentTile = tiles[row][col];
 		
-		if(!currentTile.isRevealed() && !currentTile.isFlagged() && adjacentMines(row, col) != 0)
+		if(currentTile.isMine() || currentTile.isFlagged() || currentTile.isRevealed()) // Tile can neither be a mine, flagged, or revealed
+		{
+			return;
+		}		
+		else if(adjacentMines(row, col) != 0) // Reveals a single tile if there is an adjacent mine 
 		{
 			currentTile.reveal();
 			numberTilesRevealed++;
 		}
-		
-		else if(!currentTile.isRevealed() && !currentTile.isFlagged()) //Mine is neither revealed nor flagged
+		else // Recursively reveals adjacent tiles if the current has no adjacent mine
 		{
 			currentTile.reveal();
 			numberTilesRevealed++;
