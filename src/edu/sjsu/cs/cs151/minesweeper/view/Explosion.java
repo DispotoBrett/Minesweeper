@@ -34,8 +34,8 @@ public class Explosion extends JComponent implements Explodable
 		height = 0;
 		count  = 0;
 		fadeCount = RGB_RED_INIT;
-		this.frameWidth = frameWidth;
-		this.frameHeight = frameHeight;
+		this.frameWidth = frameWidth - BORDER_OFFSET;
+		this.frameHeight = frameHeight - BORDER_OFFSET;
 	}
 
 	/**
@@ -71,8 +71,8 @@ public class Explosion extends JComponent implements Explodable
 		g2.fill(explosion);
 
 		//"Game over" text
-		String text = "Game over.";
-		Font font = new Font("Sans-Serif", Font.PLAIN, 48);
+		String text = " GAME OVER";
+		Font font = new Font("TimesRoman", Font.PLAIN, FONT_SIZE);
 		g2.setFont(font);
 		FontRenderContext context = g2.getFontRenderContext();
 		Rectangle2D bounds = font.getStringBounds(text, context);
@@ -99,6 +99,8 @@ public class Explosion extends JComponent implements Explodable
 	private static final int RGB_RED_INIT = 255;
 	private static final int FRAME_OFFSET = 2;
 	private static final int EXPONENT = 3;
+	private static final int FONT_SIZE = 48;
+	private static final int BORDER_OFFSET = 40;
 	private static final double DELTA_OFFSET = 0.001;
 	private static final long serialVersionUID = 1L;
 }

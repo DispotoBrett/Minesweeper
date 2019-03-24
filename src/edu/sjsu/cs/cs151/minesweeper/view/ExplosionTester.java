@@ -18,9 +18,6 @@ public class ExplosionTester
 		Explosion explosion = new Explosion(EXPLOSION_X, EXPLOSION_Y, WIDTH, HEIGHT);
 		frame.add(explosion);
 
-//		FadeableString gameOverText = new FadeableString("Game over.", Color.WHITE, 48, WIDTH, HEIGHT);
-//		frame.add(gameOverText);
-
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setVisible(true);
@@ -28,7 +25,6 @@ public class ExplosionTester
 		Timer t = new Timer(DELAY, event ->
 								{
 									explosion.explode();
-									//gameOverText.fadeIn();
 									frame.repaint();
 								});
 		t.start();
