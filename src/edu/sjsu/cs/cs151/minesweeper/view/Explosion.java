@@ -23,6 +23,8 @@ public class Explosion extends JComponent implements Explodable
 	 * 					of the bounding rectangle of the explosion.
 	 * @param y the y-coordinate of the upper left-hand corner 
 	 * 					of the bounding rectangle of the explosion.
+	 * @param frameWidth the width of the frame.
+	 * @param frameHight the height of the frame.
 	 */
 	public Explosion(int x, int y, int frameWidth, int frameHeight)
 	{
