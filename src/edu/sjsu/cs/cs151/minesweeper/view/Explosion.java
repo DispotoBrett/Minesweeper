@@ -24,7 +24,7 @@ public class Explosion extends JComponent implements Explodable
 	 * @param y the y-coordinate of the upper left-hand corner 
 	 * 					of the bounding rectangle of the explosion.
 	 */
-	public Explosion(int x, int y)
+	public Explosion(int x, int y, int frameWidth, int frameHeight)
 	{
 		this.x = x;
 		this.y = y;
@@ -32,6 +32,8 @@ public class Explosion extends JComponent implements Explodable
 		height = 0;
 		count  = 0;
 		fadeCount = RGB_RED_INIT;
+		this.frameWidth = frameWidth;
+		this.frameHeight = frameHeight;
 	}
 
 	/**
@@ -41,13 +43,16 @@ public class Explosion extends JComponent implements Explodable
 	{
 		if(fadeCount > 0)
 			fadeCount--;
-
-		int delta = (int) ( 1.0/1000 * Math.pow(count, 3) );
-		height += delta * 2;
-		width += delta * 2;
-		x -= delta;
-		y -= delta;
-		count++;
+		
+		if(width < frameWidth * FRAME_OFFSET)
+		{			
+			int delta = (int) ( DELTA_OFFSET * Math.pow(count, EXPONENT) );
+			height += delta * 2;
+			width += delta * 2;
+			x -= delta;
+			y -= delta;
+			count++;
+		}
 	}
 
 	/**
@@ -82,13 +87,16 @@ public class Explosion extends JComponent implements Explodable
 		));
 		g2.drawString(
 				text,
-				(int) (ExplosionTester.WIDTH - extent) / 2,
-				(int) (((ExplosionTester.HEIGHT - (ascent + descent)) / 2) + ascent)
+				(int) (frameWidth - extent) / 2,
+				(int) (((frameHeight - (ascent + descent)) / 2) + ascent)
 		);
 	}
 	
 	//----------------Private Methods/Fields----------------------
-	private int x, y, height, width, fadeCount, count;
+	private int x, y, height, width, fadeCount, count, frameWidth, frameHeight;
 	private static final int RGB_RED_INIT = 255;
+	private static final int FRAME_OFFSET = 2;
+	private static final int EXPONENT = 3;
+	private static final double DELTA_OFFSET = 0.001;
 	private static final long serialVersionUID = 1L;
 }

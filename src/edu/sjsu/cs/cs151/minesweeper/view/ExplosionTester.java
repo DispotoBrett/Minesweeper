@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class ExplosionTester
 {
-	public static final int DELAY = 15;
+	public static final int DELAY = 18;
 	public static final int WIDTH = 400;
 	public static final int HEIGHT = 400;
 	public static final int EXPLOSION_X = 200;
@@ -15,7 +15,7 @@ public class ExplosionTester
 	{
 		JFrame frame = new JFrame("ExplosionTester");
 
-		Explosion explosion = new Explosion(EXPLOSION_X, EXPLOSION_Y);
+		Explosion explosion = new Explosion(EXPLOSION_X, EXPLOSION_Y, WIDTH, HEIGHT);
 		frame.add(explosion);
 
 //		FadeableString gameOverText = new FadeableString("Game over.", Color.WHITE, 48, WIDTH, HEIGHT);
