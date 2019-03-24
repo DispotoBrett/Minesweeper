@@ -18,16 +18,20 @@ public class FadeableString extends JComponent
    //----------------Public Interface-------------------------
 
    /**
-    * Creates a new FadeableString instance.
+    * Creates a new FadeableString instance centered in a frame.
     * @param string The string to be output.
     * @param color The color of the string.
     * @param fontSize The font size of the string.
+    * @param frameWidth The width of the frame (bounding rectangle).
+    * @param frameHeight The height of the frame (bounding rectangle).
     */
-   public FadeableString(String string, Color color, int fontSize)
+   public FadeableString(String string, Color color, int fontSize, int frameWidth, int frameHeight)
    {
       this.string = string;
       this.color = color;
       this.fontSize = fontSize;
+      this.frameWidth = frameWidth;
+      this.frameHeight = frameHeight;
       fadeCount = 0;
    }
 
@@ -65,8 +69,8 @@ public class FadeableString extends JComponent
               ));
       g2.drawString(
               string,
-              (int) (ExplosionTester.WIDTH - extent) / 2,
-              (int) (((ExplosionTester.HEIGHT - (ascent + descent)) / 2) + ascent)
+              (int) (frameWidth - extent) / 2,
+              (int) (((frameHeight - (ascent + descent)) / 2) + ascent)
               );
 
    }
@@ -74,6 +78,8 @@ public class FadeableString extends JComponent
    //----------------Private Methods/Fields----------------------
    private int fadeCount;
    private int fontSize;
+   private int frameWidth;
+   private int frameHeight;
    private Color color;
    private String string;
 
