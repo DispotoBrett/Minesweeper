@@ -1,6 +1,7 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
 import javax.swing.*;
+import java.awt.font.FontRenderContext;
 import java.awt.geom.*;
 import java.awt.*;
 import java.awt.Color;
@@ -40,7 +41,7 @@ public class Explosion extends JComponent implements Explodable
 	{
 		if(fadeCount > 0)
 			fadeCount--;
-	
+
 		int delta = (int) ( 1.0/1000 * Math.pow(count, 3) );
 		height += delta * 2;
 		width += delta * 2;
@@ -55,12 +56,36 @@ public class Explosion extends JComponent implements Explodable
 	 */
 	public void paint(Graphics g)
 	{
+		//Explosion
 		Graphics2D g2 = (Graphics2D) g;
 		Ellipse2D.Double explosion = new Ellipse2D.Double(x, y, width, height);
 
 		g2.setColor(new Color(fadeCount, 0, 0));
 		g2.fill(explosion);
-	}	
+
+		//"Game over" text
+		String text = "Game over.";
+		Font font = new Font("Sans-Serif", Font.PLAIN, 48);
+		g2.setFont(font);
+		FontRenderContext context = g2.getFontRenderContext();
+		Rectangle2D bounds = font.getStringBounds(text, context);
+
+		double ascent = -bounds.getY();
+		double descent = bounds.getHeight() - ascent;
+		double extent = bounds.getWidth();
+
+		g2.setColor(new Color(
+				RGB_RED_INIT,
+				RGB_RED_INIT,
+				RGB_RED_INIT,
+				RGB_RED_INIT - fadeCount
+		));
+		g2.drawString(
+				text,
+				(int) (ExplosionTester.WIDTH - extent) / 2,
+				(int) (((ExplosionTester.HEIGHT - (ascent + descent)) / 2) + ascent)
+		);
+	}
 	
 	//----------------Private Methods/Fields----------------------
 	private int x, y, height, width, fadeCount, count;
