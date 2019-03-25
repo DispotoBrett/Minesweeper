@@ -34,8 +34,8 @@ public class Explosion extends JComponent implements Explodable
 		height = 0;
 		count  = 0;
 		fadeCount = RGB_RED_INIT;
-		this.frameWidth = frameWidth - BORDER_OFFSET;
-		this.frameHeight = frameHeight - BORDER_OFFSET;
+		this.frameWidth = frameWidth;
+		this.frameHeight = frameHeight;
 	}
 
 	/**
@@ -93,8 +93,8 @@ public class Explosion extends JComponent implements Explodable
 		//draw string at center of given frame
 		g2.drawString(
 				text,
-				(int) ((frameWidth + BORDER_OFFSET) - extent) / 2,
-				(int) ((((frameHeight + BORDER_OFFSET) - (ascent + descent)) / 2) + ascent)
+				(int) ((frameWidth) - extent) / 2,
+				(int) ((((frameHeight) - (ascent + descent)) / 2) + ascent)
 		);
 	}
 	
@@ -104,7 +104,6 @@ public class Explosion extends JComponent implements Explodable
 	private static final int FRAME_OFFSET = 2;
 	private static final int EXPONENT = 3;
 	private static final int FONT_SIZE = 48;
-	private static final int BORDER_OFFSET = 40;
 	private static final double DELTA_OFFSET = 0.001;
 	private static final long serialVersionUID = 1L;
 }

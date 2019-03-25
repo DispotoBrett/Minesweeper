@@ -1,7 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class ExplosionTester
 {
@@ -14,12 +13,17 @@ public class ExplosionTester
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame("ExplosionTester");
-		Explosion explosion = new Explosion(EXPLOSION_X, EXPLOSION_Y, WIDTH, HEIGHT);
+		frame.setSize(WIDTH, HEIGHT);
+		frame.setVisible(true);
+		
+		int paneWidth = frame.getContentPane().getSize().width;
+		int paneHeight = frame.getContentPane().getSize().height;
+
+		Explosion explosion = new Explosion(EXPLOSION_X, EXPLOSION_Y, paneWidth, paneHeight);
 
 		frame.setResizable(false);
 		frame.add(explosion);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(WIDTH, HEIGHT);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
