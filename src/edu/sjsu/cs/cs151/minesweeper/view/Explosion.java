@@ -4,10 +4,9 @@ import javax.swing.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.*;
 import java.awt.*;
-import java.awt.Color;
 
 /**
- * Draws an explosion in a frame (swing).
+ * Draws an explosion in a content pane (swing).
  *
  * @author JordanConragan
  * @author BrettDispoto
@@ -23,10 +22,10 @@ public class Explosion extends JComponent implements Explodable
 	 * 					of the bounding rectangle of the explosion.
 	 * @param y the y-coordinate of the upper left-hand corner 
 	 * 					of the bounding rectangle of the explosion.
-	 * @param frameWidth the width of the frame.
-	 * @param frameHeight the height of the frame.
+	 * @param contentPaneWidth the width of the frame.
+	 * @param contentPaneHeight the height of the frame.
 	 */
-	public Explosion(int x, int y, int frameWidth, int frameHeight)
+	public Explosion(int x, int y, int contentPaneWidth, int contentPaneHeight)
 	{
 		this.x = x;
 		this.y = y;
@@ -34,8 +33,8 @@ public class Explosion extends JComponent implements Explodable
 		height = 0;
 		count  = 0;
 		fadeCount = RGB_RED_INIT;
-		this.frameWidth = frameWidth;
-		this.frameHeight = frameHeight;
+		this.contentPaneWidth = contentPaneWidth;
+		this.contentPaneHeight = contentPaneHeight;
 	}
 
 	/**
@@ -46,7 +45,7 @@ public class Explosion extends JComponent implements Explodable
 		if(fadeCount > 0)
 			fadeCount--;
 		
-		if(width < frameWidth * FRAME_OFFSET)
+		if(width < contentPaneWidth * CONTENT_PANE_OFFSET)
 		{			
 			int delta = (int) (DELTA_OFFSET * Math.pow(count, EXPONENT));
 			height += delta * 2;
@@ -93,15 +92,15 @@ public class Explosion extends JComponent implements Explodable
 		//draw string at center of given frame
 		g2.drawString(
 				text,
-				(int) ((frameWidth) - extent) / 2,
-				(int) ((((frameHeight) - (ascent + descent)) / 2) + ascent)
+				(int) (contentPaneWidth - extent) / 2,
+				(int) (((contentPaneHeight - (ascent + descent)) / 2) + ascent)
 		);
 	}
 	
 	//----------------Private Methods/Fields----------------------
-	private int x, y, height, width, fadeCount, count, frameWidth, frameHeight;
+	private int x, y, height, width, fadeCount, count, contentPaneWidth, contentPaneHeight;
 	private static final int RGB_RED_INIT = 255;
-	private static final int FRAME_OFFSET = 2;
+	private static final int CONTENT_PANE_OFFSET = 2;
 	private static final int EXPONENT = 3;
 	private static final int FONT_SIZE = 48;
 	private static final double DELTA_OFFSET = 0.001;
