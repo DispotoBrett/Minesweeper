@@ -24,7 +24,7 @@ public class Explosion extends JComponent implements Explodable
 	 * @param y the y-coordinate of the upper left-hand corner 
 	 * 					of the bounding rectangle of the explosion.
 	 * @param frameWidth the width of the frame.
-	 * @param frameHight the height of the frame.
+	 * @param frameHeight the height of the frame.
 	 */
 	public Explosion(int x, int y, int frameWidth, int frameHeight)
 	{
@@ -48,7 +48,7 @@ public class Explosion extends JComponent implements Explodable
 		
 		if(width < frameWidth * FRAME_OFFSET)
 		{			
-			int delta = (int) ( DELTA_OFFSET * Math.pow(count, EXPONENT) );
+			int delta = (int) (DELTA_OFFSET * Math.pow(count, EXPONENT));
 			height += delta * 2;
 			width += delta * 2;
 			x -= delta;
@@ -71,10 +71,12 @@ public class Explosion extends JComponent implements Explodable
 		g2.fill(explosion);
 
 		//"Game over" text
-		String text = " GAME OVER";
+		String text = "GAME OVER";
 		Font font = new Font("TimesRoman", Font.PLAIN, FONT_SIZE);
 		g2.setFont(font);
 		FontRenderContext context = g2.getFontRenderContext();
+
+		//get bounding rectangle of string
 		Rectangle2D bounds = font.getStringBounds(text, context);
 
 		double ascent = -bounds.getY();
@@ -82,15 +84,17 @@ public class Explosion extends JComponent implements Explodable
 		double extent = bounds.getWidth();
 
 		g2.setColor(new Color(
-				RGB_RED_INIT,
-				RGB_RED_INIT,
-				RGB_RED_INIT,
-				RGB_RED_INIT - fadeCount
+				Color.WHITE.getRed(),
+				Color.WHITE.getGreen(),
+				Color.WHITE.getBlue(),
+				Color.WHITE.getAlpha() - fadeCount
 		));
+
+		//draw string at center of given frame
 		g2.drawString(
 				text,
-				(int) (frameWidth - extent) / 2,
-				(int) (((frameHeight - (ascent + descent)) / 2) + ascent)
+				(int) ((frameWidth + BORDER_OFFSET) - extent) / 2,
+				(int) ((((frameHeight + BORDER_OFFSET) - (ascent + descent)) / 2) + ascent)
 		);
 	}
 	
