@@ -19,6 +19,7 @@ public class Model
       numberOfTiles = gameBoard.NUM_ROWS * gameBoard.NUM_COLS;
       gameInProgress = true;
       gameWon = false;
+      gameLost = false;
    }
 
    /**
@@ -32,9 +33,6 @@ public class Model
          gameInProgress = false;
          gameWon = true;
       }
-
-      //loss condition (last tile revealed was a mine)
-      //TODO
    }
 
    /**
@@ -54,6 +52,15 @@ public class Model
    {
       return gameWon;
    }
+   
+   /**
+    * Gets whether or not the game has been lost.
+    * @return true if the game has been lost, false otherwise
+    */
+   public boolean gameLost()
+   {
+	   return gameLost;
+   }
 
    /**
     * Reveals the tile specified, and all surrounding tiles without mines, recursively.
@@ -62,7 +69,10 @@ public class Model
     */
    public void revealTile(int row, int col)
    {
-      gameBoard.revealTile(row, col);
+	  gameLost = gameBoard.isMine(row, col);
+	  
+      if(!gameLost)
+    	  gameBoard.revealTile(row, col);
    }
 
    /**
@@ -91,4 +101,5 @@ public class Model
    private int numberOfTiles;
    private boolean gameInProgress;
    private boolean gameWon;
+   private boolean gameLost;
 }

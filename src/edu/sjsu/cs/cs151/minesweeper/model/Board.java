@@ -117,6 +117,15 @@ public final class Board
 		return tiles[row][col];
 	}
 	
+	/**
+	* determines if the tile at the specified location is a mine
+	* @return Whether the tile at (row, col) is a mine
+	* 	*/
+	public Boolean isMine(int row, int col)
+	{
+		return tiles[row][col].isMine();
+	}
+	
 	//-------------------------Private Fields/Methods------------------
 	private Tile[][] tiles;
 	private int numberTilesRevealed;
