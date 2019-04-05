@@ -34,19 +34,18 @@ public final class Board
 	* @param col the column of the tile specified
 	* @param whether a tile was revealed or not
 	*/
-	public boolean revealTile(int row, int col)
+	public void revealTile(int row, int col)
 	{
 		Tile currentTile = tiles[row][col];
 		
 		if(currentTile.isMine() || currentTile.isFlagged() || currentTile.isRevealed()) // Tile can neither be a mine, flagged, or revealed
 		{
-			return false;
+			return;
 		}		
 		else if(adjacentMines(row, col) != 0) // Reveals a single tile if there is an adjacent mine 
 		{
 			currentTile.reveal();
 			numberTilesRevealed++;
-			return true;
 		}
 		else // Recursively reveals adjacent tiles if the current has no adjacent mine
 		{
@@ -63,7 +62,6 @@ public final class Board
 					}
 				}
 			}
-			return true;
 		}
 	}
 
