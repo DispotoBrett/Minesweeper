@@ -32,7 +32,6 @@ public final class Board
 	* Reveals the tile specified, and all surrounding tiles without mines, recursively.
 	* @param row the row of the tile specified
 	* @param col the column of the tile specified
-	* @param whether a tile was revealed or not
 	*/
 	public void revealTile(int row, int col)
 	{
