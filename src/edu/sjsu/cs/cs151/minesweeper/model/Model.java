@@ -17,36 +17,25 @@ public class Model
    {
       gameBoard = new Board(false);
       numberOfTiles = gameBoard.NUM_ROWS * gameBoard.NUM_COLS;
-      gameInProgress = true;
       gameWon = false;
       gameLost = false;
    }
 
    /**
-    * Updates the game progress based on the win/loss condition for MineSweeper
+    * Updates the game progress based on the win/loss condition for MineSweeper.
     */
    public void updateGameProgress()
    {
       //win condition (all non-mine tiles have been revealed)
       if (gameBoard.getNumberTilesRevealed() == numberOfTiles - gameBoard.NUM_MINES)
       {
-         gameInProgress = false;
          gameWon = true;
       }
    }
 
    /**
-    * Gets the game progress.
-    * @return True if the game is in progress, false otherwise
-    */
-   public boolean gameInProgress()
-   {
-      return gameInProgress;
-   }
-
-   /**
     * Gets whether or not the game has been won.
-    * @return True if the game has been won, false otherwise
+    * @return True if the game has been won, false otherwise.
     */
    public boolean gameWon()
    {
@@ -55,7 +44,7 @@ public class Model
    
    /**
     * Gets whether or not the game has been lost.
-    * @return true if the game has been lost, false otherwise
+    * @return True if the game has been lost, false otherwise.
     */
    public boolean gameLost()
    {
@@ -99,7 +88,6 @@ public class Model
    //-------------------------Private Fields/Methods------------------
    private Board gameBoard;
    private int numberOfTiles;
-   private boolean gameInProgress;
    private boolean gameWon;
    private boolean gameLost;
 }
