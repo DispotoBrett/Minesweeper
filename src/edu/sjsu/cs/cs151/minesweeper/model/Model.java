@@ -84,7 +84,16 @@ public class Model
    {
       return gameBoard.getTileAt(row, col);
    }
-
+   
+   /**
+    * Accessor for the underlying game board
+    * @return the underlying game board
+    */
+   public Board getBoard()
+   {
+	   return gameBoard;
+   }
+   
    //-------------------------Private Fields/Methods------------------
    private Board gameBoard;
    private int numberOfTiles;
