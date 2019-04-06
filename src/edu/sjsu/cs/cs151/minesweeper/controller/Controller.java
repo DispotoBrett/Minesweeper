@@ -17,12 +17,8 @@ public class Controller
 	
 	//TODO: updateGameInfo()
 	
-	//TODO: 
-	
 	
 	//-------------------------Private Fields/Methods------------------
 	private Model model;
 	private View view;
-	
-	//TODO: messageQueue
 }
