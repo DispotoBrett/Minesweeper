@@ -1,5 +1,7 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -10,10 +12,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.*;
 
 public class View
 {
-	
+	public static final int SPACE_BETWEEN_TILES = 5;
 	public static final int RIGHT_CLICK = 1;
 	public static final int LEFT_CLICK = 2;
 	
@@ -53,8 +56,8 @@ public class View
 		{
 			for(int j = 0; j < columns; j++)
 			{
-				messageQueue.add(new int[] {1,2,3});
-				JButton button = new JButton(new TileIcon(false, false, i, j));
+				TileIcon tile = new TileIcon(false, false, i, j);
+				JButton button = new JButton(tile);
 				
 				button.addMouseListener( new MouseAdapter() 
 				{
@@ -68,7 +71,8 @@ public class View
 							messageQueue.add(new int[] {row, col, RIGHT_CLICK});
 					}	
 				});
-						
+				button.setPreferredSize(new Dimension(tile.getIconWidth(), tile.getIconHeight()));	
+				button.setBorder(new BevelBorder(BevelBorder.RAISED));
 				panel.add(button);
 			}
 		}
@@ -80,6 +84,5 @@ public class View
 		
 		
 		frame.setVisible(true);
-		panel.setVisible(true);
 	}
 }

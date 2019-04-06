@@ -14,17 +14,17 @@ import javax.swing.Icon;
 public final class TileIcon implements Icon
 {
 	//----------------Public Interface-------------------------
-
+	
 	public TileIcon(boolean revealed, boolean flagged, int row, int col)
 	{
-		this.width 	= 25;
-		this.height = 25;
+		this.width 	= 30;
+		this.height = 30;
 		this.revealed = revealed;
 		this.flagged  = flagged;
 		this.row = row;
 		this.col = col;
 		
-		color = revealed ? Color.WHITE : Color.GRAY;
+		color = revealed ? Color.WHITE : Color.LIGHT_GRAY;
 	}
 	
 	public void paintIcon(Component c, Graphics g, int x, int y)
