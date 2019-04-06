@@ -37,6 +37,11 @@ public class View
 		//TODO
 	}
 	
+	public void reveal(int row, int col)
+	{
+		buttons[row][col] = new JButton( new TileIcon(true, false, row, col));
+	}
+	
 	public Queue<int[]> getQueue()
 	{
 		return messageQueue;
@@ -59,6 +64,7 @@ public class View
 		frame = new JFrame("Minesweeper");
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(rows, columns));
+		buttons = new JButton[9][9];
 		
 		// Fills the panel with buttons
 		for(int i = 0; i < rows; i++)
@@ -85,6 +91,7 @@ public class View
 				
 				button.setPreferredSize(new Dimension(tile.getIconWidth(), tile.getIconHeight()));	
 				button.setBorder(new BevelBorder(BevelBorder.RAISED));
+				buttons[i][j] = button;
 				panel.add(button);
 			}
 		}
@@ -96,4 +103,6 @@ public class View
 		frame.pack();
 		frame.setVisible(true);
 	}
+	
+	private static JButton buttons[][];
 }

@@ -16,27 +16,27 @@ public class SampleUI
 		{
 			for(int j = 0; j < 9; j++)
 				{
-					JButton b = new JButton(new TileIcon(Color.GRAY, false));
+					JButton b = new JButton(new TileIcon(false, false, 0 , 0));
 					b.addMouseListener(new MouseAdapter() { 
 				          public void mousePressed(MouseEvent me)
 				          { 
-				          		boolean flagged = ((TileIcon) b.getIcon()).flagged;
-				          		boolean revealed = ((TileIcon) b.getIcon()).revealed;
+				          		boolean flagged = ((TileIcon) b.getIcon()).isFlagged();
+				          		boolean revealed = ((TileIcon) b.getIcon()).isRevealed();
 
 				          		if(revealed) return;
 
 								if(SwingUtilities.isLeftMouseButton(me));
 								{
 									if(!flagged)
-										b.setIcon(new TileIcon(Color.WHITE, false));
+										b.setIcon(new TileIcon(true, false, 0 , 0 ));
 								}   
 
 								if(SwingUtilities.isRightMouseButton(me)) 
 								{
 									if( !flagged)
-										b.setIcon(new TileIcon(Color.GRAY, true));
+										b.setIcon(new TileIcon(false, true, 0 , 0 ));
 									else
-										b.setIcon(new TileIcon(Color.GRAY, false));
+										b.setIcon(new TileIcon(false, false, 0 , 0 ));
 
 								}        
 						  } 
@@ -55,59 +55,4 @@ public class SampleUI
 		frame.setSize(292,312);
 		frame.setVisible(true);
 	}
-
-	private static class TileIcon implements Icon
-	{
-		int width, height;
-		Color color;
-		boolean revealed;
-		boolean flagged;
-
-		public TileIcon(Color color, boolean flagged)
-		{
-			width = 25;
-			height = 25;
-			this.color = color;
-			this.flagged = flagged;
-			if(color == Color.WHITE)	revealed = true;
-			else revealed = false;
-
-		}
-		public void paintIcon(Component c, Graphics g, int x, int y)
-		{
-			Graphics2D g2 = (Graphics2D) g;
-			Rectangle rec = new Rectangle(width, height);
-
-
-			g2.setColor(color);
-			g2.fill(rec);
-
-			if(flagged)
-			{
-				Point2D.Double p1 = new Point2D.Double(10, 10);
-				Point2D.Double p2 = new Point2D.Double(5, 20);
-				Shape flagPole = new Line2D.Double(p1 , p2);
-				g2.setColor(Color.RED);
-				g2.draw(flagPole);
-				g2.fillPolygon(new int[]{0, 15, 10} , new int[]{0, 0, 10 },  3 );
-				g2.drawPolygon(new int[]{0, 15, 10} , new int[]{0, 0, 10 },  3 );
-			}
-		}	
-
-		public int getIconWidth()
-		{
-			return width;
-		}
-
-		public int getIconHeight()
-		{
-			return height;
-		}
-
-		public Color getColor()
-		{
-			return color;
-		}
-	}
-
 }

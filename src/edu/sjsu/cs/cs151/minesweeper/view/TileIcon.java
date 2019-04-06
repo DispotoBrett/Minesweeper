@@ -30,7 +30,7 @@ public final class TileIcon implements Icon
 		this.col = col;
 		color = revealed ? Color.WHITE : Color.LIGHT_GRAY;
 	}
-	
+
 	/**
 	 * Paints the Icon.
 	 * @param c the component being painted on
@@ -49,13 +49,13 @@ public final class TileIcon implements Icon
 
 		if(flagged)
 		{
-			Point2D.Double p1 = new Point2D.Double(10, 10);
-			Point2D.Double p2 = new Point2D.Double(5, 20);
+			Point2D.Double p1 = new Point2D.Double(FLAG_POLE_BASE_X, FLAG_POLE_BASE_Y);
+			Point2D.Double p2 = new Point2D.Double(FLAG_POLE_TOP_X, FLAG_POLE_TOP_Y);
 			Shape flagPole = new Line2D.Double(p1 , p2);
 			g2.setColor(Color.RED);
 			g2.draw(flagPole);
-			g2.fillPolygon(new int[]{0, 15, 10} , new int[]{0, 0, 10 },  3 );
-			g2.drawPolygon(new int[]{0, 15, 10} , new int[]{0, 0, 10 },  3 );
+			g2.fillPolygon(FLAG_COORDIANTES_X , FLAG_COORDIANTES_Y,  FLAG_COORDIANTES_X.length );
+			g2.drawPolygon(FLAG_COORDIANTES_X , FLAG_COORDIANTES_Y,  FLAG_COORDIANTES_X.length );
 		}
 	}	
 
@@ -116,6 +116,12 @@ public final class TileIcon implements Icon
 	//----------------Private Methods/Fields----------------------
 
 	private static final int WIDTH = 25, HEIGHT = 25;
+	private static final int FLAG_POLE_BASE_X = 10;
+	private static final int FLAG_POLE_BASE_Y = 10;
+	private static final int FLAG_POLE_TOP_X = 5;
+	private static final int FLAG_POLE_TOP_Y = 20;
+	private static final int[] FLAG_COORDIANTES_X = {0, 15, 10};
+	private static final int[] FLAG_COORDIANTES_Y = {0, 0 , 10};
 	private Color color;
 	private boolean revealed;
 	private boolean flagged;
