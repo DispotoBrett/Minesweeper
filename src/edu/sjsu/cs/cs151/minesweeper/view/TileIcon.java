@@ -63,6 +63,11 @@ public final class TileIcon implements Icon
 		return revealed;
 	}
 	
+	public boolean isFlagged()
+	{
+		return flagged;
+	}
+	
 	public int getRow()
 	{
 		return row;
