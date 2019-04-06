@@ -11,12 +11,9 @@ import java.awt.geom.Point2D;
 
 import javax.swing.Icon;
 
-public class TileIcon implements Icon
+public final class TileIcon implements Icon
 {
-	int width, height;
-	Color color;
-	boolean revealed;
-	boolean flagged;
+	//----------------Public Interface-------------------------
 
 	public TileIcon(boolean revealed, boolean flagged, int row, int col)
 	{
@@ -24,6 +21,8 @@ public class TileIcon implements Icon
 		this.height = 25;
 		this.revealed = revealed;
 		this.flagged  = flagged;
+		this.row = row;
+		this.col = col;
 		
 		color = revealed ? Color.WHITE : Color.GRAY;
 	}
@@ -63,4 +62,24 @@ public class TileIcon implements Icon
 	{
 		return revealed;
 	}
+	
+	public int getRow()
+	{
+		return row;
+	}
+	
+	public int getCol()
+	{
+		return col;
+	}
+	
+	//----------------Private Methods/Fields----------------------
+
+	private int width, height;
+	private Color color;
+	private boolean revealed;
+	private boolean flagged;
+	private int row;
+	private int col;
+
 }
