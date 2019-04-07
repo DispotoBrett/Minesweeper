@@ -3,6 +3,7 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
@@ -38,8 +39,20 @@ public class View
 	}
 	
 	public void reveal(int row, int col)
-	{
-		buttons[row][col] = new JButton( new TileIcon(true, false, row, col));
+	{		
+		if(!((TileIcon)buttons[row][col].getIcon()).isFlagged())
+			buttons[row][col].getActionListeners()[0].actionPerformed(REVEAL); 
+	}
+	
+	public void flag(int row, int col)
+	{		
+		if(!((TileIcon)buttons[row][col].getIcon()).isRevealed())
+		{
+			if(!((TileIcon)buttons[row][col].getIcon()).isFlagged())
+				buttons[row][col].getActionListeners()[0].actionPerformed(FLAG); 
+			else
+				buttons[row][col].getActionListeners()[0].actionPerformed(UNFLAG); 
+		}
 	}
 	
 	public Queue<int[]> getQueue()
@@ -73,11 +86,22 @@ public class View
 			{
 				TileIcon tile = new TileIcon(false, false, i, j);
 				JButton button = new JButton(tile);
+							
+				button.addActionListener(e -> {
+					int row = ((TileIcon)button.getIcon()).getRow();
+					int col = ((TileIcon)button.getIcon()).getRow();
+					if(e == REVEAL)
+						button.setIcon(new TileIcon(true, false,row, col));
+					else if(e == FLAG)
+						button.setIcon(new TileIcon(false, true,row, col));
+					else if(e == UNFLAG)
+						button.setIcon(new TileIcon(false, false,row, col));
+					});
 				
 				// Upon being clicked, the button will send a message to messageQueue that contains the location of the button and the type of click
 				button.addMouseListener( new MouseAdapter() 
 				{
-					public void MouseClicked(MouseEvent e) 
+			        public void mousePressed(MouseEvent e)
 					{
 						int row = ((TileIcon) button.getIcon()).getRow(); // The row of the button that was clicked
 						int col = ((TileIcon) button.getIcon()).getCol(); // The column of the button that was clicked
@@ -88,11 +112,11 @@ public class View
 							messageQueue.add(new int[] {row, col, RIGHT_CLICK});
 					}	
 				});
-				
+
 				button.setPreferredSize(new Dimension(tile.getIconWidth(), tile.getIconHeight()));	
-				button.setBorder(new BevelBorder(BevelBorder.RAISED));
+				//button.setBorder(new BevelBorder(BevelBorder.RAISED));
 				buttons[i][j] = button;
-				panel.add(button);
+				panel.add(i+ "" + j, button);
 			}
 		}
 		
@@ -105,4 +129,9 @@ public class View
 	}
 	
 	private static JButton buttons[][];
+	private static final ActionEvent REVEAL = new ActionEvent(new Object(), 0, "reveal");
+	private static final ActionEvent FLAG = new ActionEvent(new Object(), 0, "flag");
+	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 0, "unflag");
+
+	
 }
