@@ -114,7 +114,7 @@ public class View
 				});
 
 				button.setPreferredSize(new Dimension(tile.getIconWidth(), tile.getIconHeight()));	
-				//button.setBorder(new BevelBorder(BevelBorder.RAISED));
+				button.setBorder(new BevelBorder(BevelBorder.RAISED));
 				buttons[i][j] = button;
 				panel.add(i+ "" + j, button);
 			}
