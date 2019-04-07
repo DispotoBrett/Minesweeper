@@ -1,7 +1,7 @@
 package edu.sjsu.cs.cs151.minesweeper.model;
 
 /**
- * The over-arching game logic class.
+ * The over-arching model class. Manages data, logic, and rules.
  *
  * @author JordanConragan
  * @author BrettDispoto
@@ -20,19 +20,7 @@ public class Model
       gameWon = false;
       gameLost = false;
    }
-
-   /**
-    * Updates the game progress based on the win/loss condition for MineSweeper.
-    */
-   public void updateGameProgress()
-   {
-      //win condition (all non-mine tiles have been revealed)
-      if (gameBoard.getNumberTilesRevealed() == numberOfTiles - gameBoard.NUM_MINES)
-      {
-         gameWon = true;
-      }
-   }
-
+   
    /**
     * Gets whether or not the game has been won.
     * @return True if the game has been won, false otherwise.
@@ -52,16 +40,23 @@ public class Model
    }
 
    /**
-    * Reveals the tile specified, and all surrounding tiles without mines, recursively.
+    * Reveals the tile specified, and all surrounding tiles without mines, recursively, and updates game win/loss state.
     * @param row The row of the tile specified.
     * @param col The column of the tile specified.
     */
    public void revealTile(int row, int col)
    {
-	  gameLost = gameBoard.isMine(row, col);
+	  //lose condition (tile to be revealed is a mine)
+      gameLost = gameBoard.isMine(row, col);
 	  
       if(!gameLost)
     	  gameBoard.revealTile(row, col);
+
+      //win condition (all non-mine tiles have been revealed)
+      if (gameBoard.getNumberTilesRevealed() == numberOfTiles - gameBoard.NUM_MINES)
+      {
+         gameWon = true;
+      }
    }
 
    /**

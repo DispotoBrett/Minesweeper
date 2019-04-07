@@ -1,7 +1,7 @@
 package edu.sjsu.cs.cs151.minesweeper.tests;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+import org.junit.*;
+import static org.junit.Assert.*;
 import edu.sjsu.cs.cs151.minesweeper.model.Model;
 
 public class ModelTests
@@ -11,40 +11,40 @@ public class ModelTests
    {
 	   Model game = new Model();
 	   
-	   assertEquals(false, game.gameWon());
-	   assertEquals(false, game.gameLost());
+	   assertFalse( game.gameWon());
+	   assertFalse(game.gameLost());
    }
    
    @Test
    public void winTest()
    {
 	   Model game = new Model();
-	   
-	   assertEquals(false, game.gameWon());
-	   assertEquals(false, game.gameLost());
-	   
+
+		assertFalse( game.gameWon());
+		assertFalse(game.gameLost());
 
 	   for(int i = 0; i < 9; i++)
 	   {
 		   for(int j = 0; j < 9; j++)
 		   {
-				   if(!game.getBoard().isMine(i , j))
-						   game.revealTile(i, j);
+		   	if(!game.getBoard().isMine(i , j))
+				{
+					game.revealTile(i, j);
+				}
 		   }
 	   }
-	   game.updateGameProgress();
-	   
-	   assertEquals(true, game.gameWon());	   
+
+		assertTrue(game.gameWon());
+		assertFalse(game.gameLost());
    }
    
    @Test
    public void loseTest()
    {
 	   Model game = new Model();
-	   
-	   assertEquals(false, game.gameWon());
-	   assertEquals(false, game.gameLost());
-	   
+
+		assertFalse( game.gameWon());
+		assertFalse(game.gameLost());
 
 	   for(int i = 0; i < 9; i++)
 	   {
@@ -52,12 +52,37 @@ public class ModelTests
 		   {
 				   if(game.getBoard().isMine(i , j))
 				   {
-						   game.revealTile(i, j);
-						   break;
+				   	game.revealTile(i, j);
+				   	break;
 				   }
 		   }
 	   }
-	   
-	   assertEquals(true, game.gameLost());	   
+
+		assertFalse(game.gameWon());
+		assertTrue(game.gameLost());
    }
+
+   @Test
+	public void revealTileTest()
+	{
+		Model game = new Model();
+
+		assertFalse(game.getTileAt(0, 0).isRevealed());
+
+		game.revealTile(0, 0);
+
+		assertTrue(game.getTileAt(0, 0).isRevealed());
+	}
+
+   @Test
+	public void toggleFlagTest()
+	{
+		Model game = new Model();
+
+		assertFalse(game.getTileAt(0, 0).isFlagged());
+
+		game.getTileAt(0,0).toggleFlag();
+
+		assertTrue(game.getTileAt(0, 0).isFlagged());
+	}
 }

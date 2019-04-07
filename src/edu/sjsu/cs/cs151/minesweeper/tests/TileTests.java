@@ -1,10 +1,8 @@
 package edu.sjsu.cs.cs151.minesweeper.tests;
 
 import org.junit.*;
-
-import edu.sjsu.cs.cs151.minesweeper.model.Tile;
-
 import static org.junit.Assert.*;
+import edu.sjsu.cs.cs151.minesweeper.model.Tile;
 
 public class TileTests
 {

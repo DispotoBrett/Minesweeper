@@ -1,9 +1,9 @@
 package edu.sjsu.cs.cs151.minesweeper.tests;
+
 import org.junit.*;
+import static org.junit.Assert.*;
 import edu.sjsu.cs.cs151.minesweeper.model.Board;
 import edu.sjsu.cs.cs151.minesweeper.model.Tile;
-
-import static org.junit.Assert.*;
 
 public class BoardTests
 {
@@ -108,7 +108,7 @@ public class BoardTests
 	
 	
 	@Test
-	public void visualTest() //Useful for determine the test cases
+	public void visualTest() //Useful for determining the test cases
 	{
 		Board test = new Board(true);
 		test.revealTile(0, 8);
