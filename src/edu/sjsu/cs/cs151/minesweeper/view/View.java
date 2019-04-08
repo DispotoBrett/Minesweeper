@@ -1,14 +1,13 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.LinkedList;
 import java.util.Queue;
-
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,7 +28,7 @@ public class View
 	{
 		this.rows = rows;
 		this.columns = cols;
-		messageQueue = new LinkedList<>();
+		messageQueue = new ArrayBlockingQueue<int[]>(1); //TODO: fix param
 		initializeFrame();
 	}
 	
@@ -39,7 +38,7 @@ public class View
 	}
 	
 	public void reveal(int row, int col)
-	{		
+	{	
 		if(!((TileIcon)buttons[row][col].getIcon()).isFlagged())
 			buttons[row][col].getActionListeners()[0].actionPerformed(REVEAL); 
 	}
@@ -65,7 +64,7 @@ public class View
 	JPanel panel;
 	private int rows;
 	private int columns;
-	private Queue<int[]> messageQueue;
+	private BlockingQueue<int[]> messageQueue;
 	
 	
 	/**
@@ -89,7 +88,8 @@ public class View
 							
 				button.addActionListener(e -> {
 					int row = ((TileIcon)button.getIcon()).getRow();
-					int col = ((TileIcon)button.getIcon()).getRow();
+					int col = ((TileIcon)button.getIcon()).getCol();
+										
 					if(e == REVEAL)
 						button.setIcon(new TileIcon(true, false,row, col));
 					else if(e == FLAG)
