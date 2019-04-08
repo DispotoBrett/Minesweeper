@@ -81,7 +81,7 @@ public class ModelTests
 
 		assertFalse(game.getTileAt(0, 0).isFlagged());
 
-		game.getTileAt(0,0).toggleFlag();
+		game.toggleFlag(0, 0);
 
 		assertTrue(game.getTileAt(0, 0).isFlagged());
 	}
