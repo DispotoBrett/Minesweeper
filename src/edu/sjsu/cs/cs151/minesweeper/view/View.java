@@ -66,6 +66,11 @@ public class View
 	private int columns;
 	private BlockingQueue<int[]> messageQueue;
 	
+	private static JButton buttons[][];
+	private static final ActionEvent REVEAL = new ActionEvent(new Object(), 0, "reveal");
+	private static final ActionEvent FLAG = new ActionEvent(new Object(), 0, "flag");
+	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 0, "unflag");
+	
 	
 	/**
 	 * Creates frame, creates the panel, and fills the panel with buttons
@@ -76,7 +81,7 @@ public class View
 		frame = new JFrame("Minesweeper");
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(rows, columns));
-		buttons = new JButton[9][9];
+		buttons = new JButton[rows][columns];
 		
 		// Fills the panel with buttons
 		for(int i = 0; i < rows; i++)
@@ -126,12 +131,5 @@ public class View
 		frame.setSize(400,400);
 		frame.pack();
 		frame.setVisible(true);
-	}
-	
-	private static JButton buttons[][];
-	private static final ActionEvent REVEAL = new ActionEvent(new Object(), 0, "reveal");
-	private static final ActionEvent FLAG = new ActionEvent(new Object(), 0, "flag");
-	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 0, "unflag");
-
-	
+	}	
 }
