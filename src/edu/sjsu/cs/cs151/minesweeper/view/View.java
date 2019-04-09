@@ -43,11 +43,11 @@ public class View
 			buttons[row][col].getActionListeners()[0].actionPerformed(REVEAL); 
 	}
 	
-	public void flag(int row, int col)
+	public void flag(int row, int col, boolean flag)
 	{		
 		if(!((TileIcon)buttons[row][col].getIcon()).isRevealed())
 		{
-			if(!((TileIcon)buttons[row][col].getIcon()).isFlagged())
+			if(flag)
 				buttons[row][col].getActionListeners()[0].actionPerformed(FLAG); 
 			else
 				buttons[row][col].getActionListeners()[0].actionPerformed(UNFLAG); 
