@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.border.*;
 
 public class View
@@ -43,6 +44,11 @@ public class View
 			buttons[row][col].getActionListeners()[0].actionPerformed(REVEAL); 
 	}
 	
+	public void explode(int row, int col)
+	{	
+		buttons[row][col].getActionListeners()[0].actionPerformed(EXPLODE); 
+	}
+	
 	public void flag(int row, int col, boolean flag)
 	{		
 		if(!((TileIcon)buttons[row][col].getIcon()).isRevealed())
@@ -67,10 +73,10 @@ public class View
 	private BlockingQueue<int[]> messageQueue;
 	
 	private static JButton buttons[][];
-	private static final ActionEvent REVEAL = new ActionEvent(new Object(), 0, "reveal");
-	private static final ActionEvent FLAG = new ActionEvent(new Object(), 0, "flag");
-	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 0, "unflag");
-	
+	private static final ActionEvent REVEAL = new ActionEvent (new Object(), 0, "reveal");
+	private static final ActionEvent FLAG = new ActionEvent   (new Object(), 1, "flag");
+	private static final ActionEvent UNFLAG = new ActionEvent (new Object(), 2, "unflag");
+	private static final ActionEvent EXPLODE = new ActionEvent(new Object(), 3, "explode");
 	
 	/**
 	 * Creates frame, creates the panel, and fills the panel with buttons
@@ -101,8 +107,18 @@ public class View
 						button.setIcon(new TileIcon(false, true,row, col));
 					else if(e == UNFLAG)
 						button.setIcon(new TileIcon(false, false,row, col));
-					});
-				
+					else if(e == EXPLODE)
+					{
+						Explosion explosion = new Explosion(button.getX(), button.getY(), frame.getContentPane().getWidth(), frame.getContentPane().getHeight());
+						frame.setGlassPane(explosion);
+						explosion.setVisible(true);
+						Timer t = new Timer(10, e2 -> {
+														explosion.explode();
+														frame.repaint();
+						});
+						t.start();
+					}
+				});
 				// Upon being clicked, the button will send a message to messageQueue that contains the location of the button and the type of click
 				button.addMouseListener( new MouseAdapter() 
 				{
@@ -122,7 +138,7 @@ public class View
 				button.setBorder(new BevelBorder(BevelBorder.RAISED));
 				buttons[i][j] = button;
 				panel.add(i+ "" + j, button);
-			}
+				}
 		}
 		
 		frame.add(panel);

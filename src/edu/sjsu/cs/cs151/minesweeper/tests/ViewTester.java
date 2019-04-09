@@ -23,7 +23,8 @@ public class ViewTester
 		        
 		        if(msg[2] == View.LEFT_CLICK)
 		        {
-			        model.getBoard().revealTile(msg[ROW_INDEX], msg[COL_INDEX]);
+			        model.getBoard().revealTile(msg[ROW_INDEX], msg[COL_INDEX]); //Comment to test explosion
+			        //view.explode(msg[ROW_INDEX], msg[COL_INDEX]); //uncomment to test explosion
 		        }
 		        else if(msg[2] == View.RIGHT_CLICK)
 		        {
