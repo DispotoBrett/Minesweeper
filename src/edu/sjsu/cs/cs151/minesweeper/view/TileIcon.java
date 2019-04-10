@@ -48,8 +48,8 @@ public final class TileIcon implements Icon
 			Shape flagPole = new Line2D.Double(p1 , p2);
 			g2.setColor(Color.RED);
 			g2.draw(flagPole);
-			g2.fillPolygon(FLAG_COORDIANTES_X , FLAG_COORDIANTES_Y,  FLAG_COORDIANTES_X.length );
-			g2.drawPolygon(FLAG_COORDIANTES_X , FLAG_COORDIANTES_Y,  FLAG_COORDIANTES_X.length );
+			g2.fillPolygon(FLAG_COORDINATES_X, FLAG_COORDINATES_Y,  FLAG_COORDINATES_X.length );
+			g2.drawPolygon(FLAG_COORDINATES_X, FLAG_COORDINATES_Y,  FLAG_COORDINATES_X.length );
 		}
 	}	
 
@@ -114,8 +114,8 @@ public final class TileIcon implements Icon
 	private static final int FLAG_POLE_BASE_Y = 10;
 	private static final int FLAG_POLE_TOP_X = 5;
 	private static final int FLAG_POLE_TOP_Y = 20;
-	private static final int[] FLAG_COORDIANTES_X = {0, 15, 10};
-	private static final int[] FLAG_COORDIANTES_Y = {0, 0 , 10};
+	private static final int[] FLAG_COORDINATES_X = {0, 15, 10};
+	private static final int[] FLAG_COORDINATES_Y = {0, 0 , 10};
 	private Color color;
 	private boolean revealed;
 	private boolean flagged;

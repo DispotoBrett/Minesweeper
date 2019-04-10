@@ -24,7 +24,7 @@ public final class Board
 	public Board(boolean usePresetSeed)
 	{
 		tiles = new Tile[NUM_ROWS][NUM_COLS];
-		initalizeTiles(usePresetSeed);
+		initializeTiles(usePresetSeed);
 		numberTilesRevealed = 0;
 	}
 	
@@ -133,7 +133,7 @@ public final class Board
 	 * Initializes all tiles, randomly choosing which have underlying mines.
 	 * @postcondition This board will now have a new set of tiles, some of which are mines.
 	 */
-	private void initalizeTiles(boolean usePresetSeed)
+	private void initializeTiles(boolean usePresetSeed)
 	{
 		ArrayList<Integer> mines = new ArrayList<Integer>();
 		
