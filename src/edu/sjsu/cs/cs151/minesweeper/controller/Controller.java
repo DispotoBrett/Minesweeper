@@ -1,7 +1,7 @@
 package edu.sjsu.cs.cs151.minesweeper.controller;
 
-import edu.sjsu.cs.cs151.minesweeper.model.*;
-import edu.sjsu.cs.cs151.minesweeper.view.*;
+import edu.sjsu.cs.cs151.minesweeper.model.Model;
+import edu.sjsu.cs.cs151.minesweeper.view.View;
 
 /**
  * The controller class, which coordinates a model object and a view object.

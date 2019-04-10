@@ -1,9 +1,10 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
 import javax.swing.*;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.*;
 import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Draws an explosion in a content pane (swing).

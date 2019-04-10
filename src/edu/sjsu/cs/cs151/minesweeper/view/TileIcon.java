@@ -1,15 +1,9 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Shape;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-
-import javax.swing.Icon;
 
 public final class TileIcon implements Icon
 {

@@ -1,9 +1,10 @@
 package edu.sjsu.cs.cs151.minesweeper.tests;
 
-import org.junit.*;
-import static org.junit.Assert.*;
 import edu.sjsu.cs.cs151.minesweeper.model.Board;
 import edu.sjsu.cs.cs151.minesweeper.model.Tile;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class BoardTests
 {

@@ -1,19 +1,14 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
-import javax.swing.border.*;
 
 public class View
 {
