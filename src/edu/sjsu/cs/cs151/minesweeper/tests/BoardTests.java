@@ -59,13 +59,13 @@ public class BoardTests
 		Board testBoard = new Board(true);
 		
 		int noMines = testBoard.adjacentMines(0, 0);
-		assertTrue(noMines == 0);
+		assertEquals(0, noMines);
 		
 		int twoMines = testBoard.adjacentMines(3,4);
-		assertTrue(twoMines == 2);
+		assertEquals(2, twoMines);
 		
 		int threeMines = testBoard.adjacentMines(4, 5);
-		assertTrue(threeMines == 3);
+		assertEquals(3, threeMines);
 	}
 	
 	@Test
@@ -73,37 +73,37 @@ public class BoardTests
 	{
 		Board testBoard = new Board(true);
 		// Testing a single reveal
-		assertTrue(!testBoard.getTileAt(0, 4).isRevealed());
+		assertFalse(testBoard.getTileAt(0, 4).isRevealed());
 		testBoard.revealTile(0, 4);
 		assertTrue(testBoard.getTileAt(0, 4).isRevealed());
 		
 		// Testing the recursive reveal
-		assertTrue(!testBoard.getTileAt(1, 8).isRevealed());
+		assertFalse(testBoard.getTileAt(1, 8).isRevealed());
 		testBoard.revealTile(0, 8);
 		assertTrue(testBoard.getTileAt(1, 8).isRevealed());
 		
 		// Testing single reveal on a flag
-		assertTrue(!testBoard.getTileAt(2, 4).isRevealed());
+		assertFalse(testBoard.getTileAt(2, 4).isRevealed());
 		testBoard.toggleFlag(2, 4);
 		testBoard.revealTile(2, 4);
-		assertTrue(!testBoard.getTileAt(2, 4).isRevealed());
+		assertFalse(testBoard.getTileAt(2, 4).isRevealed());
 		
 		// Testing recursive reveal on a flag
-		assertTrue(!testBoard.getTileAt(5, 2).isRevealed());
-		assertTrue(!testBoard.getTileAt(4, 2).isRevealed());
-		assertTrue(!testBoard.getTileAt(3, 2).isRevealed());
+		assertFalse(testBoard.getTileAt(5, 2).isRevealed());
+		assertFalse(testBoard.getTileAt(4, 2).isRevealed());
+		assertFalse(testBoard.getTileAt(3, 2).isRevealed());
 		testBoard.toggleFlag(4, 2);
 		assertTrue(testBoard.getTileAt(4, 2).isFlagged());
 		testBoard.revealTile(8, 0);
 		assertTrue(testBoard.getTileAt(5, 2).isRevealed());
-		assertTrue(!testBoard.getTileAt(4, 2).isRevealed());
-		assertTrue(!testBoard.getTileAt(3, 2).isRevealed());
+		assertFalse(testBoard.getTileAt(4, 2).isRevealed());
+		assertFalse(testBoard.getTileAt(3, 2).isRevealed());
 		
 		// Testing single reveal on a mine
 		assertTrue(testBoard.getTileAt(1, 4).isMine());
-		assertTrue(!testBoard.getTileAt(1, 4).isRevealed());
+		assertFalse(testBoard.getTileAt(1, 4).isRevealed());
 		testBoard.revealTile(1, 4);
-		assertTrue(!testBoard.getTileAt(1, 4).isRevealed());
+		assertFalse(testBoard.getTileAt(1, 4).isRevealed());
 	}
 	
 	
