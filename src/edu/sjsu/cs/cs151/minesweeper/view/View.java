@@ -25,7 +25,7 @@ public class View
 	{
 		this.rows = rows;
 		this.columns = cols;
-		messageQueue = new ArrayBlockingQueue<int[]>(1); //TODO: fix param
+		messageQueue = new ArrayBlockingQueue<int[]>(10); //TODO: fix param
 		initializeFrame();
 	}
 
