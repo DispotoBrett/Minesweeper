@@ -9,13 +9,13 @@ public class ExplosionTester
 	public static final int HEIGHT = 400;
 	public static final int EXPLOSION_X = 200;
 	public static final int EXPLOSION_Y = 200;
-	
+
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame("ExplosionTester");
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setVisible(true);
-		
+
 		int paneWidth = frame.getContentPane().getSize().width;
 		int paneHeight = frame.getContentPane().getSize().height;
 
@@ -26,12 +26,12 @@ public class ExplosionTester
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+
 		Timer t = new Timer(DELAY, event ->
-								{
-									explosion.explode();
-									frame.repaint();
-								});
+		{
+			explosion.explode();
+			frame.repaint();
+		});
 		t.start();
 	}
 }

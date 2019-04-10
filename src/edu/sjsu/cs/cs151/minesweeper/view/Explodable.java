@@ -2,6 +2,7 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 
 /**
  * An implementing class has the ability to, graphically or otherwise, explode.
+ *
  * @author JordanConragan
  * @author BrettDispoto
  * @author PatrickSilvestre

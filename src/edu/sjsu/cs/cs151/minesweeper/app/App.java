@@ -10,7 +10,7 @@ package edu.sjsu.cs.cs151.minesweeper.app;
 
 public class App
 {
-   public static void main(String[] args)
-   {
-   }
+	public static void main(String[] args)
+	{
+	}
 }

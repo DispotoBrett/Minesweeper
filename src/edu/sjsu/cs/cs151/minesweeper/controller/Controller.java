@@ -13,11 +13,9 @@ import edu.sjsu.cs.cs151.minesweeper.view.View;
 
 public class Controller
 {
-	// TODO: mainLoop()
-	
+	//TODO: mainLoop()
 	//TODO: updateGameInfo()
-	
-	
+
 	//-------------------------Private Fields/Methods------------------
 	private Model model;
 	private View view;
