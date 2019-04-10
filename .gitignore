@@ -16,3 +16,5 @@ bin/edu/sjsu/cs/cs151/minesweeper/view/ExplosionTester.class
 MineSweeper.iml
 /bin/
 .idea/uiDesigner.xml
+.idea/codeStyles/Project.xml
+.idea/codeStyles/codeStyleConfig.xml
