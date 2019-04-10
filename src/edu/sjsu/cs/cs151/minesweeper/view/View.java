@@ -66,8 +66,8 @@ public class View
 	private int rows;
 	private int columns;
 	private BlockingQueue<int[]> messageQueue;
-	
-	private static JButton buttons[][];
+
+	private static JButton[][] buttons;
 	private static final ActionEvent REVEAL = new ActionEvent (new Object(), 0, "reveal");
 	private static final ActionEvent FLAG = new ActionEvent   (new Object(), 1, "flag");
 	private static final ActionEvent UNFLAG = new ActionEvent (new Object(), 2, "unflag");
