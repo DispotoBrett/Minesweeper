@@ -20,7 +20,7 @@ public class ViewTester
 			if (!view.getQueue().isEmpty())
 			{
 				int[] msg = view.getQueue().remove();
-
+				System.out.println("Click Detected: You've clicked the mine at(" + msg[ROW_INDEX] + ", " + msg[COL_INDEX] + ")");
 				if (msg[2] == View.LEFT_CLICK)
 				{
 					model.getBoard().revealTile(msg[ROW_INDEX], msg[COL_INDEX]); //Comment to test explosion
@@ -44,6 +44,7 @@ public class ViewTester
 				if (model.getBoard().getTileAt(i, j).isRevealed())
 				{
 					view.reveal(i, j);
+					System.out.println("Revealing tile at: "+"(" + i + ", " + j + ")");
 				}
 				else
 				{
@@ -54,6 +55,7 @@ public class ViewTester
 				if (model.getBoard().getTileAt(i, j).isMine())
 				{
 					view.flag(i, j, true);
+					System.out.println("Flagging tile at: "+"(" + i + ", " + j + ")");
 				}
 			}
 		}
