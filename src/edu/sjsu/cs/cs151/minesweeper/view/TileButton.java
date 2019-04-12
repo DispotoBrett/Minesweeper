@@ -16,6 +16,13 @@ import java.awt.Dimension;
 public class TileButton extends JButton
 {
 	//----------------Public Interface-------------------------
+	/**
+	 * Constructs a new TileButton
+	 * @param row the row of the button
+	 * @param col the column of the button
+	 * @param messageQueue the message Queue (user input)
+	 * @param frame the frame to be painted on (for explosions)
+	 */
 	public TileButton(int row, int col,  BlockingQueue<int[]> messageQueue, JFrame frame)
 	{
 		super(new TileIcon(false, false));
@@ -66,6 +73,10 @@ public class TileButton extends JButton
 		setBorder(new BevelBorder(BevelBorder.RAISED));
 	}
 	
+	/**
+	 * Sets or removes flag from this tile.
+	 * @param flag whether or not the tile should be flagged.
+	 */
 	public void flag(boolean flag)
 	{
 		if (flag)
@@ -74,11 +85,17 @@ public class TileButton extends JButton
 			getActionListeners()[0].actionPerformed(UNFLAG);
 	}
 	
+	/**
+	 * Explodes this tile.
+	 */
 	public void explode()
 	{
 		getActionListeners()[0].actionPerformed(EXPLODE);
 	}
 	
+	/**
+	 * Reveals this tile.
+	 */
 	public void reveal()
 	{
 		getActionListeners()[0].actionPerformed(REVEAL);

@@ -32,7 +32,7 @@ public class View
 	{
 		this.rows = rows;
 		this.columns = cols;
-		messageQueue = new ArrayBlockingQueue<int[]>(10); //TODO: fix param
+		messageQueue = new ArrayBlockingQueue<int[]>(10); //TODO: reassess
 		initializeFrame();
 	}
 
@@ -51,7 +51,7 @@ public class View
 	 */
 	public void reveal(int row, int col)
 	{
-		buttons[row][col].reveal();
+		boardPanel.reveal(row, col);
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class View
 	public void explode(int row, int col)
 	{
 		
-		buttons[row][col].explode();
+		boardPanel.explode(row, col);
 	}
 
 
@@ -73,7 +73,7 @@ public class View
 	 */
 	public void flag(int row, int col, boolean flag)
 	{
-		buttons[row][col].flag(flag);
+		boardPanel.flag(row, col, flag);
 	}
 
 	/**
@@ -87,11 +87,10 @@ public class View
 
 	//-------------------------Private Fields/Methods------------------
 	JFrame frame;
-	JPanel boardPanel;
+	BoardPanel boardPanel;
 	private int rows;
 	private int columns;
 	private BlockingQueue<int[]> messageQueue;
-	private static TileButton[][] buttons;
 
 	/**
 	 * Creates frame, creates the boardPanel, and fills the boardPanel with buttons
@@ -100,21 +99,8 @@ public class View
 	private void initializeFrame()
 	{
 		frame = new JFrame("Minesweeper");
-		boardPanel = new JPanel();
-		boardPanel.setLayout(new GridLayout(rows, columns));
-		buttons = new TileButton[rows][columns];
-
-		// Fills the boardPanel with buttons
-		for (int i = 0; i < rows; i++)
-		{
-			for (int j = 0; j < columns; j++)
-			{
-				TileButton button = new TileButton(i, j, messageQueue, frame);
-				buttons[i][j] = button;
-				boardPanel.add(button);
-			}
-		}
-
+		boardPanel = new BoardPanel(rows, columns, messageQueue, frame);
+		
 		frame.add(boardPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);

@@ -1,6 +1,8 @@
-package edu.sjsu.cs.cs151.minesweeper.view;
+package edu.sjsu.cs.cs151.minesweeper.tests;
 
 import javax.swing.*;
+
+import edu.sjsu.cs.cs151.minesweeper.view.Explosion;
 
 public class ExplosionTester
 {
