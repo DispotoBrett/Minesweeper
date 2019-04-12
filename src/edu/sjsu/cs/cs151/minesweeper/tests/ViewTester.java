@@ -35,7 +35,7 @@ public class ViewTester
 		}
 	}
 
-	public static void sync()
+	private static void sync()
 	{
 		for (int i = 0; i < Board.NUM_ROWS; i++)
 		{
@@ -59,5 +59,7 @@ public class ViewTester
 				}
 			}
 		}
+
+		System.out.println("Number of tiles revealed: " + model.getBoard().getNumberTilesRevealed());
 	}
 }
