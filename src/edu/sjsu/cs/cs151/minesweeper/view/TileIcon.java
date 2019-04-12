@@ -17,12 +17,9 @@ public final class TileIcon implements Icon
 	 * @param row      the row of the tile in a board
 	 * @param col      the column of the tile in a board
 	 */
-	public TileIcon(boolean revealed, boolean flagged, int row, int col)
+	public TileIcon(boolean revealed, boolean flagged)
 	{
-		this.revealed = revealed;
 		this.flagged = flagged;
-		this.row = row;
-		this.col = col;
 		color = revealed ? Color.WHITE : Color.LIGHT_GRAY;
 	}
 
@@ -76,16 +73,6 @@ public final class TileIcon implements Icon
 	}
 
 	/**
-	 * Tells if the tile has been revealed
-	 *
-	 * @return boolean indicating if the tile has been revealed
-	 */
-	public boolean isRevealed()
-	{
-		return revealed;
-	}
-
-	/**
 	 * Tells if the tile has been flagged
 	 *
 	 * @return boolean indicating if the tile has been flagged
@@ -93,26 +80,6 @@ public final class TileIcon implements Icon
 	public boolean isFlagged()
 	{
 		return flagged;
-	}
-
-	/**
-	 * Gets the tile's row in a Board.
-	 *
-	 * @return the icon's row
-	 */
-	public int getRow()
-	{
-		return row;
-	}
-
-	/**
-	 * Gets the tile's column in a Board.
-	 *
-	 * @return the icon's column
-	 */
-	public int getCol()
-	{
-		return col;
 	}
 
 	//----------------Private Methods/Fields----------------------
@@ -125,9 +92,7 @@ public final class TileIcon implements Icon
 	private static final int[] FLAG_COORDINATES_X = {0, 15, 10};
 	private static final int[] FLAG_COORDINATES_Y = {0, 0, 10};
 	private Color color;
-	private boolean revealed;
 	private boolean flagged;
-	private int row;
-	private int col;
+
 
 }

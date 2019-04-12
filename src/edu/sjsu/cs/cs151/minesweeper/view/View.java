@@ -10,6 +10,13 @@ import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * View class for Minesweeper using MVC pattern.
+ *  
+ * @author JordanConragan
+ * @author BrettDispoto
+ * @author PatrickSilvestre
+ */
 public class View
 {
 	public static final int RIGHT_CLICK = 1;
@@ -29,39 +36,50 @@ public class View
 		initializeFrame();
 	}
 
+	/**
+	 * Updates View subsequent to changes in Model.
+	 */
 	public void change()
 	{
 		//TODO
 	}
 
+	/**
+	 * Reveals the tiles at the specified location
+	 * @param row the row the tile
+	 * @param col the column of the tile
+	 */
 	public void reveal(int row, int col)
 	{
-		if (!((TileIcon) buttons[row][col].getIcon()).isFlagged())
-		{
-			buttons[row][col].getActionListeners()[0].actionPerformed(REVEAL);
-		}
+		buttons[row][col].reveal();
 	}
 
+	/**
+	 * Explodes the tiles at the specified location
+	 * @param row the row the tile
+	 * @param col the column of the tile
+	 */
 	public void explode(int row, int col)
 	{
-		buttons[row][col].getActionListeners()[0].actionPerformed(EXPLODE);
+		
+		buttons[row][col].explode();
 	}
 
+
+	/**
+	 * Flags the tiles at the specified location
+	 * @param row the row the tile
+	 * @param col the column of the tile
+	 */
 	public void flag(int row, int col, boolean flag)
 	{
-		if (!((TileIcon) buttons[row][col].getIcon()).isRevealed())
-		{
-			if (flag)
-			{
-				buttons[row][col].getActionListeners()[0].actionPerformed(FLAG);
-			}
-			else
-			{
-				buttons[row][col].getActionListeners()[0].actionPerformed(UNFLAG);
-			}
-		}
+		buttons[row][col].flag(flag);
 	}
 
+	/**
+	 * Gets the message queue (messages from user input).
+	 * @return the message queue
+	 */
 	public Queue<int[]> getQueue()
 	{
 		return messageQueue;
@@ -69,91 +87,35 @@ public class View
 
 	//-------------------------Private Fields/Methods------------------
 	JFrame frame;
-	JPanel panel;
+	JPanel boardPanel;
 	private int rows;
 	private int columns;
 	private BlockingQueue<int[]> messageQueue;
-
-	private static JButton[][] buttons;
-	private static final ActionEvent REVEAL = new ActionEvent(new Object(), 0, "reveal");
-	private static final ActionEvent FLAG = new ActionEvent(new Object(), 1, "flag");
-	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 2, "unflag");
-	private static final ActionEvent EXPLODE = new ActionEvent(new Object(), 3, "explode");
+	private static TileButton[][] buttons;
 
 	/**
-	 * Creates frame, creates the panel, and fills the panel with buttons
+	 * Creates frame, creates the boardPanel, and fills the boardPanel with buttons
 	 * Created to keep the constructor relatively clear
 	 */
 	private void initializeFrame()
 	{
 		frame = new JFrame("Minesweeper");
-		panel = new JPanel();
-		panel.setLayout(new GridLayout(rows, columns));
-		buttons = new JButton[rows][columns];
+		boardPanel = new JPanel();
+		boardPanel.setLayout(new GridLayout(rows, columns));
+		buttons = new TileButton[rows][columns];
 
-		// Fills the panel with buttons
+		// Fills the boardPanel with buttons
 		for (int i = 0; i < rows; i++)
 		{
 			for (int j = 0; j < columns; j++)
 			{
-				TileIcon tile = new TileIcon(false, false, i, j);
-				JButton button = new JButton(tile);
-
-				button.addActionListener(e -> {
-					int row = ((TileIcon) button.getIcon()).getRow();
-					int col = ((TileIcon) button.getIcon()).getCol();
-
-					if (e == REVEAL)
-					{
-						button.setIcon(new TileIcon(true, false, row, col));
-					}
-					else if (e == FLAG)
-					{
-						button.setIcon(new TileIcon(false, true, row, col));
-					}
-					else if (e == UNFLAG)
-					{
-						button.setIcon(new TileIcon(false, false, row, col));
-					}
-					else if (e == EXPLODE)
-					{
-						Explosion explosion = new Explosion(button.getX(), button.getY(), frame.getContentPane().getWidth(), frame.getContentPane().getHeight());
-						frame.setGlassPane(explosion);
-						explosion.setVisible(true);
-						Timer t = new Timer(10, e2 -> {
-							explosion.explode();
-							frame.repaint();
-						});
-						t.start();
-					}
-				});
-				// Upon being clicked, the button will send a message to messageQueue that contains the location of the button and the type of click
-				button.addMouseListener(new MouseAdapter()
-				{
-					public void mousePressed(MouseEvent e)
-					{
-						int row = ((TileIcon) button.getIcon()).getRow(); // The row of the button that was clicked
-						int col = ((TileIcon) button.getIcon()).getCol(); // The column of the button that was clicked
-
-						if (SwingUtilities.isLeftMouseButton(e))
-						{
-							messageQueue.add(new int[]{row, col, LEFT_CLICK});
-						}
-						else if (SwingUtilities.isRightMouseButton(e))
-						{
-							messageQueue.add(new int[]{row, col, RIGHT_CLICK});
-						}
-					}
-				});
-
-				button.setPreferredSize(new Dimension(tile.getIconWidth(), tile.getIconHeight()));
-				button.setBorder(new BevelBorder(BevelBorder.RAISED));
+				TileButton button = new TileButton(i, j, messageQueue, frame);
 				buttons[i][j] = button;
-				panel.add(i + "" + j, button);
+				boardPanel.add(button);
 			}
 		}
 
-		frame.add(panel);
+		frame.add(boardPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setSize(400, 400);
