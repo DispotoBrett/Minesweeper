@@ -14,8 +14,6 @@ public final class TileIcon implements Icon
 	 *
 	 * @param revealed indicates if the tile has been revealed
 	 * @param flagged  indicates if the tile has been flagged
-	 * @param row      the row of the tile in a board
-	 * @param col      the column of the tile in a board
 	 */
 	public TileIcon(boolean revealed, boolean flagged)
 	{

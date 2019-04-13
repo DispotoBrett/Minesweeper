@@ -1,18 +1,13 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 /**
  * View class for Minesweeper using MVC pattern.
- *  
+ *
  * @author JordanConragan
  * @author BrettDispoto
  * @author PatrickSilvestre
@@ -46,6 +41,7 @@ public class View
 
 	/**
 	 * Reveals the tiles at the specified location
+	 *
 	 * @param row the row the tile
 	 * @param col the column of the tile
 	 */
@@ -56,18 +52,20 @@ public class View
 
 	/**
 	 * Explodes the tiles at the specified location
+	 *
 	 * @param row the row the tile
 	 * @param col the column of the tile
 	 */
 	public void explode(int row, int col)
 	{
-		
+
 		boardPanel.explode(row, col);
 	}
 
 
 	/**
 	 * Flags the tiles at the specified location
+	 *
 	 * @param row the row the tile
 	 * @param col the column of the tile
 	 */
@@ -78,6 +76,7 @@ public class View
 
 	/**
 	 * Gets the message queue (messages from user input).
+	 *
 	 * @return the message queue
 	 */
 	public Queue<int[]> getQueue()
@@ -100,7 +99,7 @@ public class View
 	{
 		frame = new JFrame("Minesweeper");
 		boardPanel = new BoardPanel(rows, columns, messageQueue, frame);
-		
+
 		frame.add(boardPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);

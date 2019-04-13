@@ -12,5 +12,5 @@ public interface Explodable
 	/**
 	 * Initiates and carry's out the explosion.
 	 */
-	public void explode();
+	void explode();
 }

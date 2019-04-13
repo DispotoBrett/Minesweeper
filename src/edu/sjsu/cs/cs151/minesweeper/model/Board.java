@@ -147,7 +147,7 @@ public final class Board
 	 */
 	private void initializeTiles(boolean usePresetSeed)
 	{
-		ArrayList<Integer> mines = new ArrayList<Integer>();
+		ArrayList<Integer> mines = new ArrayList<>();
 
 		for (int i = 0; i < NUM_ROWS * NUM_COLS; i++)
 		{
@@ -163,7 +163,7 @@ public final class Board
 			Collections.shuffle(mines);
 		}
 
-		mines = new ArrayList<Integer>(mines.subList(0, NUM_MINES));
+		mines = new ArrayList<>(mines.subList(0, NUM_MINES));
 
 		int tileCounter = 0;
 		for (int i = 0; i < NUM_ROWS; i++)

@@ -9,6 +9,7 @@ import java.awt.Dimension;
 
 /**
  * Visual Representation of a tile.
+ *
  * @author JordanConragan
  * @author BrettDispoto
  * @author PatrickSilvestre
@@ -16,17 +17,19 @@ import java.awt.Dimension;
 public class TileButton extends JButton
 {
 	//----------------Public Interface-------------------------
+
 	/**
 	 * Constructs a new TileButton
-	 * @param row the row of the button
-	 * @param col the column of the button
+	 *
+	 * @param row          the row of the button
+	 * @param col          the column of the button
 	 * @param messageQueue the message Queue (user input)
-	 * @param frame the frame to be painted on (for explosions)
+	 * @param frame        the frame to be painted on (for explosions)
 	 */
-	public TileButton(int row, int col,  BlockingQueue<int[]> messageQueue, JFrame frame)
+	public TileButton(int row, int col, BlockingQueue<int[]> messageQueue, JFrame frame)
 	{
 		super(new TileIcon(false, false));
-		
+
 		addMouseListener(new MouseAdapter()
 		{
 			public void mousePressed(MouseEvent e)
@@ -40,8 +43,8 @@ public class TileButton extends JButton
 					messageQueue.add(new int[]{row, col, View.RIGHT_CLICK});
 				}
 			}
-		});	
-		
+		});
+
 		addActionListener(e -> {
 			if (e == REVEAL)
 			{
@@ -68,23 +71,28 @@ public class TileButton extends JButton
 				t.start();
 			}
 		});
-		
+
 		setPreferredSize(new Dimension(getIcon().getIconWidth(), getIcon().getIconHeight()));
 		setBorder(new BevelBorder(BevelBorder.RAISED));
 	}
-	
+
 	/**
 	 * Sets or removes flag from this tile.
+	 *
 	 * @param flag whether or not the tile should be flagged.
 	 */
 	public void flag(boolean flag)
 	{
 		if (flag)
+		{
 			getActionListeners()[0].actionPerformed(FLAG);
+		}
 		else
+		{
 			getActionListeners()[0].actionPerformed(UNFLAG);
+		}
 	}
-	
+
 	/**
 	 * Explodes this tile.
 	 */
@@ -92,7 +100,7 @@ public class TileButton extends JButton
 	{
 		getActionListeners()[0].actionPerformed(EXPLODE);
 	}
-	
+
 	/**
 	 * Reveals this tile.
 	 */
@@ -100,14 +108,13 @@ public class TileButton extends JButton
 	{
 		getActionListeners()[0].actionPerformed(REVEAL);
 	}
-	
+
 	//----------------Private Methods/Fields----------------------
 
 	private static final ActionEvent REVEAL = new ActionEvent(new Object(), 0, "reveal");
 	private static final ActionEvent FLAG = new ActionEvent(new Object(), 1, "flag");
 	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 2, "unflag");
 	private static final ActionEvent EXPLODE = new ActionEvent(new Object(), 3, "explode");
-	
-	
-	
+
+
 }

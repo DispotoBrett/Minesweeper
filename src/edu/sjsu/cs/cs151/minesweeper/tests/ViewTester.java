@@ -44,7 +44,7 @@ public class ViewTester
 				if (model.getBoard().getTileAt(i, j).isRevealed())
 				{
 					view.reveal(i, j);
-					System.out.println("Revealing tile at: "+"(" + i + ", " + j + ")");
+					System.out.println("Revealing tile at: " + "(" + i + ", " + j + ")");
 				}
 				else
 				{
@@ -55,7 +55,7 @@ public class ViewTester
 				if (model.getBoard().getTileAt(i, j).isMine())
 				{
 					view.flag(i, j, true);
-					System.out.println("Flagging tile at: "+"(" + i + ", " + j + ")");
+					System.out.println("Flagging tile at: " + "(" + i + ", " + j + ")");
 				}
 			}
 		}
