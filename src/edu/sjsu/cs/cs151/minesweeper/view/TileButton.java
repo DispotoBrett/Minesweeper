@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.util.concurrent.BlockingQueue;
+import java.awt.Color;
 import java.awt.Dimension;
 
 
@@ -32,7 +33,7 @@ public class TileButton extends JButton
 
 		addMouseListener(new MouseAdapter()
 		{
-			public void mousePressed(MouseEvent e)
+			public void mouseClicked(MouseEvent e)
 			{
 				if (SwingUtilities.isLeftMouseButton(e))
 				{
@@ -42,7 +43,18 @@ public class TileButton extends JButton
 				{
 					messageQueue.add(new int[]{row, col, View.RIGHT_CLICK});
 				}
+				setBackground(null);
 			}
+			
+		    public void mouseEntered(MouseEvent e) 
+		    {
+		        setBackground(Color.yellow);
+		    }
+		    
+		    public void mouseExited(MouseEvent e) 
+		    {
+		        setBackground(null);
+		    }	    
 		});
 
 		addActionListener(e -> {
