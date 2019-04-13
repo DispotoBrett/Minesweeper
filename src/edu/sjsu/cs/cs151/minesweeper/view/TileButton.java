@@ -48,7 +48,7 @@ public class TileButton extends JButton
 		addActionListener(e -> {
 			if (e == REVEAL)
 			{
-				setIcon(new TileIcon(true, false));
+				setIcon(new TileIcon(true, false, (Integer) e.getSource()));
 			}
 			else if (e == FLAG)
 			{
@@ -103,9 +103,11 @@ public class TileButton extends JButton
 
 	/**
 	 * Reveals this tile.
+	 * @param adjMines the number of mines adjacent to this mine
 	 */
-	public void reveal()
+	public void reveal(int adjMines)
 	{
+		REVEAL.setSource(adjMines);
 		getActionListeners()[0].actionPerformed(REVEAL);
 	}
 

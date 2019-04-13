@@ -19,6 +19,21 @@ public final class TileIcon implements Icon
 	{
 		this.flagged = flagged;
 		color = revealed ? Color.WHITE : Color.LIGHT_GRAY;
+		this.adjMines = 0;
+	}
+	
+	/**
+	 * Constructs a new TileIcon.
+	 *
+	 * @param revealed indicates if the tile has been revealed
+	 * @param flagged  indicates if the tile has been flagged
+	 * @param adjMines the number of mines adjacent to this mine
+	 */
+	public TileIcon(boolean revealed, boolean flagged, int adjMines)
+	{
+		this.flagged = flagged;
+		color = revealed ? Color.WHITE : Color.LIGHT_GRAY;
+		this.adjMines = adjMines;
 	}
 
 	/**
@@ -47,6 +62,12 @@ public final class TileIcon implements Icon
 			g2.draw(flagPole);
 			g2.fillPolygon(FLAG_COORDINATES_X, FLAG_COORDINATES_Y, FLAG_COORDINATES_X.length);
 			g2.drawPolygon(FLAG_COORDINATES_X, FLAG_COORDINATES_Y, FLAG_COORDINATES_X.length);
+		}
+		
+		else if(adjMines != 0)
+		{
+				g2.setColor(Color.BLACK);
+				g2.drawString(adjMines + "", WIDTH/2, HEIGHT/2);
 		}
 	}
 
@@ -91,6 +112,7 @@ public final class TileIcon implements Icon
 	private static final int[] FLAG_COORDINATES_Y = {0, 0, 10};
 	private Color color;
 	private boolean flagged;
+	private int adjMines;
 
 
 }

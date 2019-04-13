@@ -43,7 +43,7 @@ public class ViewTester
 			{
 				if (model.getBoard().getTileAt(i, j).isRevealed())
 				{
-					view.reveal(i, j);
+					view.reveal(i, j, model.getBoard().adjacentMines(i, j));
 					System.out.println("Revealing tile at: " + "(" + i + ", " + j + ")");
 				}
 				else

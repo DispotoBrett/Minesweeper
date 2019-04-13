@@ -43,13 +43,13 @@ public class BoardPanel extends JPanel
 
 	/**
 	 * Reveals the tiles at the specified location
-	 *
 	 * @param row the row the tile
 	 * @param col the column of the tile
+	 * @param adjMines the number of mines adjacent to this mine
 	 */
-	public void reveal(int row, int col)
+	public void reveal(int row, int col, int adjMines)
 	{
-		tileButtons[row][col].reveal();
+		tileButtons[row][col].reveal(adjMines);
 	}
 
 	/**
