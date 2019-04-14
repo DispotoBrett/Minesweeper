@@ -120,6 +120,15 @@ public final class Board
 	{
 		return tiles[row][col].isMine();
 	}
+	
+	/**
+	 * gets the table of indicating adjacent mines.
+	 * @return table of indicating adjacent mines
+	 */
+	public int[][] adjacentMines() 
+	{
+		return adjMines;
+	}
 
 	//-------------------------Private Fields/Methods------------------
 	private Tile[][] tiles;

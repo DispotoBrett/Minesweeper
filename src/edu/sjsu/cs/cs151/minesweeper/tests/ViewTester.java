@@ -1,25 +1,26 @@
 package edu.sjsu.cs.cs151.minesweeper.tests;
 
+import javax.swing.SwingUtilities;
+
 import edu.sjsu.cs.cs151.minesweeper.model.Board;
 import edu.sjsu.cs.cs151.minesweeper.model.Model;
 import edu.sjsu.cs.cs151.minesweeper.view.View;
 
 public class ViewTester
 {
-	static View view = new View(Board.NUM_ROWS, Board.NUM_COLS);
 	static Model model = new Model();
+	static View view = new View(Board.NUM_ROWS, Board.NUM_COLS, model.getBoard().adjacentMines());
 	static final int ROW_INDEX = 0;
 	static final int COL_INDEX = 1;
+	static int[] msg;
 
 	public static void main(String[] args) throws InterruptedException
 	{
-		sync(); //to flag every mine
-
 		while (true)
 		{
 			if (!view.getQueue().isEmpty())
 			{
-				int[] msg = view.getQueue().remove();
+				msg = view.getQueue().remove();
 				System.out.println("Click Detected: You've clicked the mine at(" + msg[ROW_INDEX] + ", " + msg[COL_INDEX] + ")");
 				if (msg[2] == View.LEFT_CLICK)
 				{
@@ -43,23 +44,17 @@ public class ViewTester
 			{
 				if (model.getBoard().getTileAt(i, j).isRevealed())
 				{
-					view.reveal(i, j, model.getBoard().adjacentMines(i, j));
-					System.out.println("Revealing tile at: " + "(" + i + ", " + j + ")");
+					view.reveal(i, j);
 				}
 				else
 				{
 					view.flag(i, j, model.getBoard().getTileAt(i, j).isFlagged());
 				}
-
-				//-------------To see Mine placement-----------
-				if (model.getBoard().getTileAt(i, j).isMine())
-				{
-					view.flag(i, j, true);
-					System.out.println("Flagging tile at: " + "(" + i + ", " + j + ")");
-				}
 			}
 		}
-
-		System.out.println("Number of tiles revealed: " + model.getBoard().getNumberTilesRevealed());
+		if(model.getTileAt(msg[View.LEFT_CLICK], msg[View.RIGHT_CLICK]).isMine()) 
+		{
+			view.explode(msg[View.LEFT_CLICK], msg[View.RIGHT_CLICK]);
+		}
 	}
 }

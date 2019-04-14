@@ -22,8 +22,9 @@ public class BoardPanel extends JPanel
 	 * @param cols         the number of columns on board
 	 * @param messageQueue the message queue to collect user input
 	 * @param frame        the frame to be painted on (for explosions, which need glassPane)
+	 * @param adjMines 
 	 */
-	public BoardPanel(int rows, int cols, BlockingQueue<int[]> messageQueue, JFrame frame)
+	public BoardPanel(int rows, int cols, BlockingQueue<int[]> messageQueue, JFrame frame, int[][] adjMines)
 	{
 		super();
 		setLayout(new GridLayout(rows, cols));
@@ -34,7 +35,7 @@ public class BoardPanel extends JPanel
 		{
 			for (int j = 0; j < cols; j++)
 			{
-				TileButton button = new TileButton(i, j, messageQueue, frame);
+				TileButton button = new TileButton(i, j, messageQueue, frame, adjMines[i][j]);
 				tileButtons[i][j] = button;
 				add(button);
 			}
@@ -47,9 +48,9 @@ public class BoardPanel extends JPanel
 	 * @param col the column of the tile
 	 * @param adjMines the number of mines adjacent to this mine
 	 */
-	public void reveal(int row, int col, int adjMines)
+	public void reveal(int row, int col)
 	{
-		tileButtons[row][col].reveal(adjMines);
+		tileButtons[row][col].reveal();
 	}
 
 	/**

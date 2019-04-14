@@ -26,8 +26,9 @@ public class TileButton extends JButton
 	 * @param col          the column of the button
 	 * @param messageQueue the message Queue (user input)
 	 * @param frame        the frame to be painted on (for explosions)
+	 * @param adjMines 
 	 */
-	public TileButton(int row, int col, BlockingQueue<int[]> messageQueue, JFrame frame)
+	public TileButton(int row, int col, BlockingQueue<int[]> messageQueue, JFrame frame, int adjMines)
 	{
 		super(new TileIcon(false, false));
 
@@ -60,7 +61,7 @@ public class TileButton extends JButton
 		addActionListener(e -> {
 			if (e == REVEAL)
 			{
-				setIcon(new TileIcon(true, false, (Integer) e.getSource()));
+				setIcon(new TileIcon(true, false, adjMines));
 			}
 			else if (e == FLAG)
 			{
@@ -117,9 +118,8 @@ public class TileButton extends JButton
 	 * Reveals this tile.
 	 * @param adjMines the number of mines adjacent to this mine
 	 */
-	public void reveal(int adjMines)
+	public void reveal()
 	{
-		REVEAL.setSource(adjMines);
 		getActionListeners()[0].actionPerformed(REVEAL);
 	}
 

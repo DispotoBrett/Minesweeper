@@ -22,13 +22,14 @@ public class View
 	 *
 	 * @param rows the number of rows of tiles that the View will display
 	 * @param cols the number of columns of tiles that the View will display
+	 * @param  
 	 */
-	public View(int rows, int cols)
+	public View(int rows, int cols, int[][] adjMines)
 	{
 		this.rows = rows;
 		this.columns = cols;
 		messageQueue = new ArrayBlockingQueue<int[]>(10); //TODO: reassess
-		initializeFrame();
+		initializeFrame(adjMines);
 	}
 
 	/**
@@ -43,11 +44,10 @@ public class View
 	 * Reveals the tiles at the specified location
 	 * @param row the row the tile
 	 * @param col the column of the tile
-	 * @param adjMines the number of mines adjacent to this mine
 	 */
-	public void reveal(int row, int col, int adjMines)
+	public void reveal(int row, int col)
 	{
-		boardPanel.reveal(row, col, adjMines);
+		boardPanel.reveal(row, col);
 	}
 
 	/**
@@ -94,11 +94,12 @@ public class View
 	/**
 	 * Creates frame, creates the boardPanel, and fills the boardPanel with buttons
 	 * Created to keep the constructor relatively clear
+	 * @param adjMines 
 	 */
-	private void initializeFrame()
+	private void initializeFrame(int[][] adjMines)
 	{
 		frame = new JFrame("Minesweeper");
-		boardPanel = new BoardPanel(rows, columns, messageQueue, frame);
+		boardPanel = new BoardPanel(rows, columns, messageQueue, frame, adjMines);
 
 		frame.add(boardPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -86,7 +86,7 @@ public class Explosion extends JComponent implements Explodable
 		double ascent = -bounds.getY();
 		double descent = bounds.getHeight() - ascent;
 		double extent = bounds.getWidth();
-
+		
 		g2.setColor(new Color(
 				Color.WHITE.getRed(),
 				Color.WHITE.getGreen(),
@@ -105,9 +105,9 @@ public class Explosion extends JComponent implements Explodable
 	//----------------Private Methods/Fields----------------------
 	private int x, y, height, width, fadeCount, count, contentPaneWidth, contentPaneHeight;
 	private static final int RGB_RED_INIT = 255;
-	private static final int CONTENT_PANE_OFFSET = 2;
+	private static final int CONTENT_PANE_OFFSET = 3;
 	private static final int EXPONENT = 3;
-	private static final int FONT_SIZE = 48;
+	private static final int FONT_SIZE = 32;
 	private static final double DELTA_OFFSET = 0.001;
 	private static final long serialVersionUID = 1L;
 }
