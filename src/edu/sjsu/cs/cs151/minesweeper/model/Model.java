@@ -51,7 +51,7 @@ public class Model
 	public void revealTile(int row, int col)
 	{
 		//lose condition (tile to be revealed is a mine)
-		gameLost = gameBoard.isMine(row, col);
+		gameLost = gameBoard.isMine(row, col) && !gameBoard.getTileAt(row, col).isFlagged();
 
 		if (!gameLost)
 		{

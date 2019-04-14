@@ -34,7 +34,7 @@ public class TileButton extends JButton
 
 		addMouseListener(new MouseAdapter()
 		{
-			public void mouseClicked(MouseEvent e)
+			public void mouseReleased(MouseEvent e)
 			{
 				if (SwingUtilities.isLeftMouseButton(e))
 				{

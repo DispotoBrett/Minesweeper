@@ -9,29 +9,30 @@ import edu.sjsu.cs.cs151.minesweeper.view.View;
 public class ViewTester
 {
 	static Model model = new Model();
-	static View view = new View(Board.NUM_ROWS, Board.NUM_COLS, model.getBoard().adjacentMines());
+	static View view;
 	static final int ROW_INDEX = 0;
 	static final int COL_INDEX = 1;
 	static int[] msg;
 
 	public static void main(String[] args) throws InterruptedException
 	{
+		view = new View(Board.NUM_ROWS, Board.NUM_COLS, model.getBoard().adjacentMines());
+
 		while (true)
 		{
 			if (!view.getQueue().isEmpty())
 			{
 				msg = view.getQueue().remove();
-				System.out.println("Click Detected: You've clicked the mine at(" + msg[ROW_INDEX] + ", " + msg[COL_INDEX] + ")");
 				if (msg[2] == View.LEFT_CLICK)
 				{
-					model.getBoard().revealTile(msg[ROW_INDEX], msg[COL_INDEX]); //Comment to test explosion
+					model.revealTile(msg[ROW_INDEX], msg[COL_INDEX]); //Comment to test explosion
 					//view.explode(msg[ROW_INDEX], msg[COL_INDEX]); break; //uncomment to test explosion
 				}
 				else if (msg[2] == View.RIGHT_CLICK)
 				{
 					model.getTileAt(msg[ROW_INDEX], msg[COL_INDEX]).toggleFlag();
 				}
-				sync();
+				SwingUtilities.invokeLater( () -> sync());
 			}
 		}
 	}
@@ -52,7 +53,7 @@ public class ViewTester
 				}
 			}
 		}
-		if(model.getTileAt(msg[View.LEFT_CLICK], msg[View.RIGHT_CLICK]).isMine()) 
+		if(model.gameLost()) 
 		{
 			view.explode(msg[View.LEFT_CLICK], msg[View.RIGHT_CLICK]);
 		}
