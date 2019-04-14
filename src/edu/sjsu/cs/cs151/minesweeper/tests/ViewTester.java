@@ -55,7 +55,7 @@ public class ViewTester
 		}
 		if(model.gameLost()) 
 		{
-			view.explode(msg[View.LEFT_CLICK], msg[View.RIGHT_CLICK]);
+			view.explode(msg[ROW_INDEX], msg[COL_INDEX]);		
 		}
 	}
 }
