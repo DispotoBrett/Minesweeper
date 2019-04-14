@@ -1,5 +1,7 @@
 package edu.sjsu.cs.cs151.minesweeper.tests;
 
+import java.lang.reflect.InvocationTargetException;
+
 import javax.swing.SwingUtilities;
 
 import edu.sjsu.cs.cs151.minesweeper.model.Board;
@@ -14,9 +16,9 @@ public class ViewTester
 	static final int COL_INDEX = 1;
 	static int[] msg;
 
-	public static void main(String[] args) throws InterruptedException
+	public static void main(String[] args) throws InterruptedException, InvocationTargetException
 	{
-		view = new View(Board.NUM_ROWS, Board.NUM_COLS, model.getBoard().adjacentMines());
+		SwingUtilities.invokeAndWait(() -> view = new View(Board.NUM_ROWS, Board.NUM_COLS, model.getBoard().adjacentMines()));
 
 		while (true)
 		{
@@ -25,37 +27,41 @@ public class ViewTester
 				msg = view.getQueue().remove();
 				if (msg[2] == View.LEFT_CLICK)
 				{
-					model.revealTile(msg[ROW_INDEX], msg[COL_INDEX]); //Comment to test explosion
-					//view.explode(msg[ROW_INDEX], msg[COL_INDEX]); break; //uncomment to test explosion
+					model.revealTile(msg[ROW_INDEX], msg[COL_INDEX]);
 				}
 				else if (msg[2] == View.RIGHT_CLICK)
 				{
 					model.getTileAt(msg[ROW_INDEX], msg[COL_INDEX]).toggleFlag();
 				}
-				SwingUtilities.invokeLater(() -> sync());
+				sync();
 			}
 		}
 	}
 
 	private static void sync()
 	{
-		for (int i = 0; i < Board.NUM_ROWS; i++)
-		{
-			for (int j = 0; j < Board.NUM_COLS; j++)
+		try 
+		{	
+			for (int i = 0; i < Board.NUM_ROWS; i++)
 			{
-				if (model.getBoard().getTileAt(i, j).isRevealed())
+				for (int j = 0; j < Board.NUM_COLS; j++)
 				{
-					view.reveal(i, j);
-				}
-				else
-				{
-					view.flag(i, j, model.getBoard().getTileAt(i, j).isFlagged());
+					final int row = i, col = j;
+					if (model.getBoard().getTileAt(i, j).isRevealed())
+					{
+						SwingUtilities.invokeAndWait(() -> view.reveal(row, col));
+					}
+					else
+					{
+						SwingUtilities.invokeAndWait(() ->view.flag(row, col, model.getBoard().getTileAt(row, col).isFlagged()));
+					}
 				}
 			}
+			if (model.gameLost())
+			{
+				SwingUtilities.invokeAndWait( () -> view.explode(msg[ROW_INDEX], msg[COL_INDEX]));
+			}
 		}
-		if (model.gameLost())
-		{
-			view.explode(msg[ROW_INDEX], msg[COL_INDEX]);
-		}
+		catch(Exception e) {}
 	}
 }
