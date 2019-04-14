@@ -71,8 +71,25 @@ public final class TileIcon implements Icon
 		
 		else if(adjMines != 0)
 		{
-				g2.setColor(Color.BLACK);
-				g2.drawString(adjMines + "", WIDTH/2, HEIGHT/2);
+			Color fontColor;
+			if(adjMines >= MIN_YELLOW)
+			{
+				if(adjMines >= MIN_RED)
+				{
+					fontColor = Color.RED;
+				}
+				else
+				{
+					fontColor = Color.ORANGE;
+				}
+			}
+			else 
+			{
+				fontColor = Color.BLACK;
+			}
+			g2.setFont(new Font("Monospaced", Font.BOLD,FONT_SIZE ));	
+			g2.setColor(fontColor);
+			g2.drawString(adjMines + "", FONT_X, FONT_Y);
 		}
 	}
 
@@ -121,6 +138,11 @@ public final class TileIcon implements Icon
 	private static final int BASE2_WIDTH = WIDTH - 16;
 	private static final int BASE1_HEIGHT = 21;
 	private static final int BASE2_HEIGHT = 18;
+	private static final int FONT_SIZE = 19;
+	private static final int FONT_X = 7;
+	private static final int FONT_Y = HEIGHT - 5;
+	private static final int MIN_YELLOW = 2;
+	private static final int MIN_RED = 4;
 	private Color color;
 	private boolean flagged;
 	private int adjMines;
