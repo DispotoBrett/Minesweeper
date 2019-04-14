@@ -26,7 +26,7 @@ public class TileButton extends JButton
 	 * @param col          the column of the button
 	 * @param messageQueue the message Queue (user input)
 	 * @param frame        the frame to be painted on (for explosions)
-	 * @param adjMines 
+	 * @param adjMines     the number of mines adjacent to the tile
 	 */
 	public TileButton(int row, int col, BlockingQueue<int[]> messageQueue, JFrame frame, int adjMines)
 	{
@@ -46,16 +46,16 @@ public class TileButton extends JButton
 				}
 				setBackground(null);
 			}
-			
-		    public void mouseEntered(MouseEvent e) 
-		    {
-		        setBackground(Color.yellow);
-		    }
-		    
-		    public void mouseExited(MouseEvent e) 
-		    {
-		        setBackground(null);
-		    }	    
+
+			public void mouseEntered(MouseEvent e)
+			{
+				setBackground(Color.yellow);
+			}
+
+			public void mouseExited(MouseEvent e)
+			{
+				setBackground(null);
+			}
 		});
 
 		addActionListener(e -> {
@@ -116,7 +116,6 @@ public class TileButton extends JButton
 
 	/**
 	 * Reveals this tile.
-	 * @param adjMines the number of mines adjacent to this mine
 	 */
 	public void reveal()
 	{
@@ -124,11 +123,8 @@ public class TileButton extends JButton
 	}
 
 	//----------------Private Methods/Fields----------------------
-
 	private static final ActionEvent REVEAL = new ActionEvent(new Object(), 0, "reveal");
 	private static final ActionEvent FLAG = new ActionEvent(new Object(), 1, "flag");
 	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 2, "unflag");
 	private static final ActionEvent EXPLODE = new ActionEvent(new Object(), 3, "explode");
-
-
 }

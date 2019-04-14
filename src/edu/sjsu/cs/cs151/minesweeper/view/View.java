@@ -20,9 +20,9 @@ public class View
 	/**
 	 * Constructor for View
 	 *
-	 * @param rows the number of rows of tiles that the View will display
-	 * @param cols the number of columns of tiles that the View will display
-	 * @param  
+	 * @param rows     the number of rows of tiles that the View will display
+	 * @param cols     the number of columns of tiles that the View will display
+	 * @param adjMines the 2d array that stores the number of adjacent mines for each tile
 	 */
 	public View(int rows, int cols, int[][] adjMines)
 	{
@@ -42,6 +42,7 @@ public class View
 
 	/**
 	 * Reveals the tiles at the specified location
+	 *
 	 * @param row the row the tile
 	 * @param col the column of the tile
 	 */
@@ -94,7 +95,8 @@ public class View
 	/**
 	 * Creates frame, creates the boardPanel, and fills the boardPanel with buttons
 	 * Created to keep the constructor relatively clear
-	 * @param adjMines 
+	 *
+	 * @param adjMines the 2d array that stores the number of adjacent mines for each tile
 	 */
 	private void initializeFrame(int[][] adjMines)
 	{

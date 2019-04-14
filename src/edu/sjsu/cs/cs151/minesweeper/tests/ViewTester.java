@@ -32,7 +32,7 @@ public class ViewTester
 				{
 					model.getTileAt(msg[ROW_INDEX], msg[COL_INDEX]).toggleFlag();
 				}
-				SwingUtilities.invokeLater( () -> sync());
+				SwingUtilities.invokeLater(() -> sync());
 			}
 		}
 	}
@@ -53,9 +53,9 @@ public class ViewTester
 				}
 			}
 		}
-		if(model.gameLost()) 
+		if (model.gameLost())
 		{
-			view.explode(msg[ROW_INDEX], msg[COL_INDEX]);		
+			view.explode(msg[ROW_INDEX], msg[COL_INDEX]);
 		}
 	}
 }

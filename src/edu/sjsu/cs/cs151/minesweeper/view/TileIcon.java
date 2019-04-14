@@ -21,7 +21,7 @@ public final class TileIcon implements Icon
 		color = revealed ? Color.WHITE : Color.LIGHT_GRAY;
 		this.adjMines = 0;
 	}
-	
+
 	/**
 	 * Constructs a new TileIcon.
 	 *
@@ -49,7 +49,6 @@ public final class TileIcon implements Icon
 		Graphics2D g2 = (Graphics2D) g;
 		Rectangle rec = new Rectangle(WIDTH, HEIGHT);
 
-
 		g2.setColor(color);
 		g2.fill(rec);
 
@@ -68,13 +67,13 @@ public final class TileIcon implements Icon
 			g2.fillPolygon(FLAG_COORDINATES_X, FLAG_COORDINATES_Y, FLAG_COORDINATES_X.length);
 			g2.drawPolygon(FLAG_COORDINATES_X, FLAG_COORDINATES_Y, FLAG_COORDINATES_X.length);
 		}
-		
-		else if(adjMines != 0)
+
+		else if (adjMines != 0)
 		{
 			Color fontColor;
-			if(adjMines >= MIN_YELLOW)
+			if (adjMines >= MIN_YELLOW)
 			{
-				if(adjMines >= MIN_RED)
+				if (adjMines >= MIN_RED)
 				{
 					fontColor = Color.RED;
 				}
@@ -83,11 +82,11 @@ public final class TileIcon implements Icon
 					fontColor = Color.ORANGE;
 				}
 			}
-			else 
+			else
 			{
 				fontColor = Color.BLACK;
 			}
-			g2.setFont(new Font("Monospaced", Font.BOLD,FONT_SIZE ));	
+			g2.setFont(new Font("Monospaced", Font.BOLD, FONT_SIZE));
 			g2.setColor(fontColor);
 			g2.drawString(adjMines + "", FONT_X, FONT_Y);
 		}
@@ -124,12 +123,11 @@ public final class TileIcon implements Icon
 	}
 
 	//----------------Private Methods/Fields----------------------
-
 	private static final int WIDTH = 25, HEIGHT = 25;
 	private static final int FLAG_POLE_BASE_Y = 10;
 	private static final int FLAG_POLE_TOP_Y = 20;
 	private static final int[] FLAG_COORDINATES_X = {5, WIDTH / 2, WIDTH / 2};
-	private static final int[] FLAG_COORDINATES_Y = {HEIGHT / 4 + 2, 5, HEIGHT / 2 };
+	private static final int[] FLAG_COORDINATES_Y = {HEIGHT / 4 + 2, 5, HEIGHT / 2};
 	private static final int BASE1_X = 5;
 	private static final int BASE2_X = 8;
 	private static final int BASE1_Y = 21;
@@ -146,6 +144,4 @@ public final class TileIcon implements Icon
 	private Color color;
 	private boolean flagged;
 	private int adjMines;
-
-
 }

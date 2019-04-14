@@ -86,7 +86,7 @@ public class Explosion extends JComponent implements Explodable
 		double ascent = -bounds.getY();
 		double descent = bounds.getHeight() - ascent;
 		double extent = bounds.getWidth();
-		
+
 		g2.setColor(new Color(
 				Color.WHITE.getRed(),
 				Color.WHITE.getGreen(),

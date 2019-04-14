@@ -15,7 +15,7 @@ public final class Board
 {
 	//-------------------------Public Interface-----------------------
 
-	public static int NUM_ROWS = 9;
+	public final static int NUM_ROWS = 9;
 	public final static int NUM_COLS = 9;
 	public final static int NUM_MINES = 9;
 
@@ -112,7 +112,7 @@ public final class Board
 	}
 
 	/**
-	 * determines if the tile at the specified location is a mine
+	 * Determines if the tile at the specified location is a mine
 	 *
 	 * @return Whether the tile at (row, col) is a mine
 	 */
@@ -120,12 +120,13 @@ public final class Board
 	{
 		return tiles[row][col].isMine();
 	}
-	
+
 	/**
-	 * gets the table of indicating adjacent mines.
+	 * Gets the table of indicating adjacent mines.
+	 *
 	 * @return table of indicating adjacent mines
 	 */
-	public int[][] adjacentMines() 
+	public int[][] adjacentMines()
 	{
 		return adjMines;
 	}
@@ -178,20 +179,20 @@ public final class Board
 			}
 		}
 	}
-	
+
 	/**
-	 * Initializes the 2d array that stores the number of adjacent mines for each index in tiles 
+	 * Initializes the 2d array that stores the number of adjacent mines for each index in tiles
 	 */
 	private void initializeAdjacentMines()
 	{
 		adjMines = new int[NUM_ROWS][NUM_COLS];
-	
-		for(int row = 0; row < NUM_ROWS; row++)
+
+		for (int row = 0; row < NUM_ROWS; row++)
 		{
-			for(int col = 0; col < NUM_COLS; col++)
+			for (int col = 0; col < NUM_COLS; col++)
 			{
 				int mines = 0;
-				
+
 				for (int i = row - 1; i <= row + 1; i++) //Begins with the row directly above the clicked tile
 				{
 					for (int j = col - 1; j <= col + 1; j++) //Begins from the column directly left of the clicked tile
@@ -208,6 +209,6 @@ public final class Board
 
 				adjMines[row][col] = mines;
 			}
-		}		
+		}
 	}
 }

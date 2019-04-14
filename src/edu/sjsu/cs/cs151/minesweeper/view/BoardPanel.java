@@ -22,7 +22,7 @@ public class BoardPanel extends JPanel
 	 * @param cols         the number of columns on board
 	 * @param messageQueue the message queue to collect user input
 	 * @param frame        the frame to be painted on (for explosions, which need glassPane)
-	 * @param adjMines 
+	 * @param adjMines     the 2d array that stores the number of adjacent mines for each tile
 	 */
 	public BoardPanel(int rows, int cols, BlockingQueue<int[]> messageQueue, JFrame frame, int[][] adjMines)
 	{
@@ -44,9 +44,9 @@ public class BoardPanel extends JPanel
 
 	/**
 	 * Reveals the tiles at the specified location
+	 *
 	 * @param row the row the tile
 	 * @param col the column of the tile
-	 * @param adjMines the number of mines adjacent to this mine
 	 */
 	public void reveal(int row, int col)
 	{
