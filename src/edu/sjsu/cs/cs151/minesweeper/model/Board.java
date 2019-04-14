@@ -15,7 +15,7 @@ public final class Board
 {
 	//-------------------------Public Interface-----------------------
 
-	public final static int NUM_ROWS = 9;
+	public static int NUM_ROWS = 9;
 	public final static int NUM_COLS = 9;
 	public final static int NUM_MINES = 9;
 
@@ -28,6 +28,7 @@ public final class Board
 	{
 		tiles = new Tile[NUM_ROWS][NUM_COLS];
 		initializeTiles(usePresetSeed);
+		initializeAdjacentMines();
 		numberTilesRevealed = 0;
 	}
 
@@ -87,23 +88,7 @@ public final class Board
 	 */
 	public int adjacentMines(int row, int col)
 	{
-		int mines = 0;
-
-		for (int i = row - 1; i <= row + 1; i++) //Begins with the row directly above the clicked tile
-		{
-			for (int j = col - 1; j <= col + 1; j++) //Begins from the column directly left of the clicked tile
-			{
-				if (i >= 0 && j >= 0 && i < NUM_ROWS && j < NUM_COLS) //Only true if i and j are valid indices
-				{
-					if (tiles[i][j].isMine())
-					{
-						mines++;
-					}
-				}
-			}
-		}
-
-		return mines;
+		return adjMines[row][col];
 	}
 
 	/**
@@ -138,6 +123,7 @@ public final class Board
 
 	//-------------------------Private Fields/Methods------------------
 	private Tile[][] tiles;
+	private int[][] adjMines; // Each index in adjMines stores a value that indicates how many mines are adjacent to the same index in tiles
 	private int numberTilesRevealed;
 
 	/**
@@ -182,5 +168,37 @@ public final class Board
 				tileCounter++;
 			}
 		}
+	}
+	
+	/**
+	 * Initializes the 2d array that stores the number of adjacent mines for each index in tiles 
+	 */
+	private void initializeAdjacentMines()
+	{
+		adjMines = new int[NUM_ROWS][NUM_COLS];
+	
+		for(int row = 0; row < NUM_ROWS; row++)
+		{
+			for(int col = 0; col < NUM_COLS; col++)
+			{
+				int mines = 0;
+				
+				for (int i = row - 1; i <= row + 1; i++) //Begins with the row directly above the clicked tile
+				{
+					for (int j = col - 1; j <= col + 1; j++) //Begins from the column directly left of the clicked tile
+					{
+						if (i >= 0 && j >= 0 && i < NUM_ROWS && j < NUM_COLS) //Only true if i and j are valid indices
+						{
+							if (tiles[i][j].isMine())
+							{
+								mines++;
+							}
+						}
+					}
+				}
+
+				adjMines[row][col] = mines;
+			}
+		}		
 	}
 }
