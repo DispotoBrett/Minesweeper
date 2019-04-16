@@ -53,13 +53,12 @@ public class BoardPanel extends JPanel
 	{
 		tileButtons[row][col].reveal();
 	}
-	
 
-	
+
 	@Override
 	public Dimension getPreferredSize()
 	{
-	    return new Dimension(225, 225);
+		return new Dimension(225, 225);
 	}
 
 	/**

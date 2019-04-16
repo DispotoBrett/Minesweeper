@@ -38,12 +38,12 @@ public final class TileIcon implements Icon
 		this.adjMines = adjMines;
 		this.isMine = isMine;
 	}
-	
+
 	/* Constructs a new TileIcon.
 	 *
 	 * @param revealed indicates if the tile has been revealed
 	 * @param flagged  indicates if the tile has been flagged
-	 * @param isMine paints a mine on the icon if revealed 
+	 * @param isMine paints a mine on the icon if revealed
 	 */
 	public TileIcon(boolean revealed, boolean flagged, boolean isMine)
 	{
@@ -66,16 +66,16 @@ public final class TileIcon implements Icon
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		Rectangle rec = new Rectangle(WIDTH, HEIGHT);
-		g2.setColor( revealed ? Color.WHITE : Color.LIGHT_GRAY);
+		g2.setColor(revealed ? Color.WHITE : Color.LIGHT_GRAY);
 		g2.fill(rec);
 
-		if(revealed && isMine)
+		if (revealed && isMine)
 		{
-		    g2.setColor(Color.black);
-		    g2.fill(new Ellipse2D.Double(BEVEL_BUFFER_X, BEVEL_BUFFER_Y , WIDTH - BEVEL_BUFFER, HEIGHT - BEVEL_BUFFER));
-		    g2.draw(new Ellipse2D.Double(BEVEL_BUFFER_X, BEVEL_BUFFER_Y, WIDTH - BEVEL_BUFFER, HEIGHT - BEVEL_BUFFER));
+			g2.setColor(Color.black);
+			g2.fill(new Ellipse2D.Double(BEVEL_BUFFER_X, BEVEL_BUFFER_Y, WIDTH - BEVEL_BUFFER, HEIGHT - BEVEL_BUFFER));
+			g2.draw(new Ellipse2D.Double(BEVEL_BUFFER_X, BEVEL_BUFFER_Y, WIDTH - BEVEL_BUFFER, HEIGHT - BEVEL_BUFFER));
 		}
-		
+
 		else if (flagged)
 		{
 			Point2D.Double p1 = new Point2D.Double(WIDTH / 2, FLAG_POLE_BASE_Y);
