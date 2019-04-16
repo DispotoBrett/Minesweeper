@@ -106,7 +106,6 @@ public class View
 		frame.add(boardPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		frame.setSize(400, 400);
 		frame.pack();
 		frame.setVisible(true);
 	}

@@ -13,7 +13,7 @@ import java.awt.geom.Rectangle2D;
  * @author BrettDispoto
  * @author PatrickSilvestre
  */
-public class Explosion extends JComponent implements Explodable
+public class Explosion extends JComponent
 {
 	//----------------Public Interface-------------------------
 

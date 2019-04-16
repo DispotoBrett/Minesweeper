@@ -1,5 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.concurrent.BlockingQueue;
 
@@ -51,6 +52,14 @@ public class BoardPanel extends JPanel
 	public void reveal(int row, int col)
 	{
 		tileButtons[row][col].reveal();
+	}
+	
+
+	
+	@Override
+	public Dimension getPreferredSize()
+	{
+	    return new Dimension(225, 225);
 	}
 
 	/**
