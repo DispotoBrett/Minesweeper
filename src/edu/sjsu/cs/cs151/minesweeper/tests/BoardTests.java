@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
+
 public class BoardTests
 {
 	@Test
@@ -146,11 +148,21 @@ public class BoardTests
 	{
 		Board test = new Board(true);
 		int tileCount = 0;
-
+		
 		for (Tile t : test)
 		{
 			tileCount++;
-			System.out.println(t.toString() + " Tile: " + tileCount);
 		}
+		assertEquals(81, tileCount);
+		
+		tileCount = 0;
+		Iterator iter = test.iterator();
+		while(iter.hasNext())
+		{
+		    iter.next();
+		    tileCount++;
+		}
+		assertEquals(81, tileCount); 
+
 	}
 }

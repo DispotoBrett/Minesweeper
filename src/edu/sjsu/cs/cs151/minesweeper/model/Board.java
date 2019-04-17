@@ -40,52 +40,6 @@ public final class Board implements Iterable<Tile>
 		return new BoardIterator();
 	}
 
-	private class BoardIterator implements Iterator
-	{
-		BoardIterator()
-		{
-			row = 0;
-			col = -1;
-		}
-
-		public boolean hasNext()
-		{
-			if (row == NUM_ROWS - 1 && col == NUM_COLS - 1)
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
-		}
-
-		public Tile next()
-		{
-			if (hasNext())
-			{
-				if (col == NUM_COLS - 1)
-				{
-					row++;
-					col = 0;
-				}
-				else
-				{
-					col++;
-				}
-
-				return getTileAt(row, col);
-			}
-			else
-			{
-				throw (new NoSuchElementException());
-			}
-		}
-
-		private int row;
-		private int col;
-	}
-
 	/**
 	 * Reveals the tile specified, and all surrounding tiles without mines, recursively.
 	 *
@@ -264,5 +218,40 @@ public final class Board implements Iterable<Tile>
 				adjMines[row][col] = mines;
 			}
 		}
+	}
+	
+	private class BoardIterator implements Iterator<Tile>
+	{
+		BoardIterator()
+		{
+			row = 0;
+			col = INIT_COLLUMN_INDEX;
+		}
+
+		public boolean hasNext()
+		{
+		    return (row < NUM_ROWS - 1 || col < NUM_COLS - 1);
+		}
+
+		public Tile next()
+		{
+			try
+			{
+			    if(++col == NUM_COLS) 
+			    {
+				col = 0;
+				row++;
+			    }
+			    return tiles[row][col];
+			}
+			catch(ArrayIndexOutOfBoundsException e)
+			{
+			    throw (new NoSuchElementException());
+			}
+		}
+
+		private int row;
+		private int col;
+		private int INIT_COLLUMN_INDEX = -1;
 	}
 }
