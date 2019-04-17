@@ -35,7 +35,7 @@ public final class Board implements Iterable<Tile>
 	 *
 	 * @return An iterator over the board's tiles.
 	 */
-	public Iterator<Tile> iterator()
+	public BoardIterator iterator()
 	{
 		return new BoardIterator();
 	}
@@ -220,7 +220,7 @@ public final class Board implements Iterable<Tile>
 		}
 	}
 	
-	private class BoardIterator implements Iterator<Tile>
+	public class BoardIterator implements Iterator<Tile>
 	{
 		BoardIterator()
 		{
@@ -242,12 +242,23 @@ public final class Board implements Iterable<Tile>
 				col = 0;
 				row++;
 			    }
+			    System.out.println(row + "____"     + col);
 			    return tiles[row][col];
 			}
 			catch(ArrayIndexOutOfBoundsException e)
 			{
 			    throw (new NoSuchElementException());
 			}
+		}
+		
+		public int prevRow()
+		{
+		    return row;
+		}
+		
+		public int prevCol()
+		{
+		    return col;
 		}
 
 		private int row;

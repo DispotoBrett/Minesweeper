@@ -163,6 +163,5 @@ public class BoardTests
 		    tileCount++;
 		}
 		assertEquals(81, tileCount); 
-
 	}
 }
