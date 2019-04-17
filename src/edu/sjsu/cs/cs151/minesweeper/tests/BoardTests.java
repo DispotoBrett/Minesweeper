@@ -140,4 +140,17 @@ public class BoardTests
 			System.out.println();
 		}
 	}
+
+	@Test
+	public void iteratorTest()
+	{
+		Board test = new Board(true);
+		int tileCount = 0;
+
+		for (Tile t : test)
+		{
+			tileCount++;
+			System.out.println(t.toString() + " Tile: " + tileCount);
+		}
+	}
 }

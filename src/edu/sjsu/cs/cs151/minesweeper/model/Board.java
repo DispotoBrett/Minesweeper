@@ -1,8 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Represents the MineSweeper board, is responsible tile management.
@@ -11,7 +9,7 @@ import java.util.Random;
  * @author BrettDispoto
  * @author PatrickSilvestre
  */
-public final class Board
+public final class Board implements Iterable<Tile>
 {
 	//-------------------------Public Interface-----------------------
 
@@ -30,6 +28,62 @@ public final class Board
 		initializeTiles(usePresetSeed);
 		initializeAdjacentMines();
 		numberTilesRevealed = 0;
+	}
+
+	/**
+	 * Constructs an iterator over the board's tiles.
+	 *
+	 * @return An iterator over the board's tiles.
+	 */
+	public Iterator<Tile> iterator()
+	{
+		return new BoardIterator();
+	}
+
+	private class BoardIterator implements Iterator
+	{
+		BoardIterator()
+		{
+			row = 0;
+			col = 0;
+		}
+
+		public boolean hasNext()
+		{
+			if (row == NUM_ROWS - 1 && col == NUM_COLS - 1)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+
+		public Tile next()
+		{
+			if (hasNext())
+			{
+				if (col == NUM_COLS - 1)
+				{
+					row++;
+					col = 0;
+				}
+				else
+				{
+					col++;
+				}
+
+				return getTileAt(row, col);
+			}
+			else
+			{
+				throw (new NoSuchElementException());
+			}
+		}
+
+		private int row;
+		private int col;
 	}
 
 	/**
