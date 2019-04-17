@@ -45,7 +45,7 @@ public final class Board implements Iterable<Tile>
 		BoardIterator()
 		{
 			row = 0;
-			col = 0;
+			col = -1;
 		}
 
 		public boolean hasNext()
