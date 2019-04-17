@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import javax.swing.SwingUtilities;
 
 import edu.sjsu.cs.cs151.minesweeper.model.Board;
+import edu.sjsu.cs.cs151.minesweeper.model.BoardIterator;
 import edu.sjsu.cs.cs151.minesweeper.model.Model;
 import edu.sjsu.cs.cs151.minesweeper.model.Tile;
 import edu.sjsu.cs.cs151.minesweeper.view.View;
@@ -33,7 +34,7 @@ public class ViewTester
 		}
 		else if (msg[2] == View.RIGHT_CLICK)
 		{
-		    model.getTileAt(msg[ROW_INDEX], msg[COL_INDEX]).toggleFlag();
+		    model.toggleFlag(msg[ROW_INDEX], msg[COL_INDEX]);
 		}
 		sync();
 	    }
@@ -46,19 +47,17 @@ public class ViewTester
 	
 	try
 	{
-	    Board.BoardIterator iter = model.getBoard().iterator();
+	    BoardIterator iter = model.boardIterator();
 	    Tile t;
 	    while (iter.hasNext())
 	    {
 		t = iter.next();
-		int row = iter.prevRow();
-		int col = iter.prevCol();
 		final boolean isFlagged = t.isFlagged();
 		
 		if (t.isRevealed())
-		    SwingUtilities.invokeAndWait(() -> view.reveal(row, col));
+		    SwingUtilities.invokeAndWait(() -> view.reveal(iter.prevRow(), iter.prevCol()));
 		else
-		    SwingUtilities.invokeAndWait(() -> view.flag(row, col, isFlagged));
+		    SwingUtilities.invokeAndWait(() -> view.flag(iter.prevRow(), iter.prevCol(), isFlagged));
 	    }
 
 	}

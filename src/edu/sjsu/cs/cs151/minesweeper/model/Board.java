@@ -37,7 +37,7 @@ public final class Board implements Iterable<Tile>
 	 */
 	public BoardIterator iterator()
 	{
-		return new BoardIterator();
+		return new BoardIterator(this);
 	}
 
 	/**
@@ -218,51 +218,5 @@ public final class Board implements Iterable<Tile>
 				adjMines[row][col] = mines;
 			}
 		}
-	}
-	
-	public class BoardIterator implements Iterator<Tile>
-	{
-		BoardIterator()
-		{
-			row = 0;
-			col = INIT_COLLUMN_INDEX;
-		}
-
-		public boolean hasNext()
-		{
-		    return (row < NUM_ROWS - 1 || col < NUM_COLS - 1);
-		}
-
-		public Tile next()
-		{
-			try
-			{
-			    if(++col == NUM_COLS) 
-			    {
-				col = 0;
-				row++;
-			    }
-			    System.out.println(row + "____"     + col);
-			    return tiles[row][col];
-			}
-			catch(ArrayIndexOutOfBoundsException e)
-			{
-			    throw (new NoSuchElementException());
-			}
-		}
-		
-		public int prevRow()
-		{
-		    return row;
-		}
-		
-		public int prevCol()
-		{
-		    return col;
-		}
-
-		private int row;
-		private int col;
-		private int INIT_COLLUMN_INDEX = -1;
 	}
 }

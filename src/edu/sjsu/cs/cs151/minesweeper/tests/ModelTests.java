@@ -69,11 +69,11 @@ public class ModelTests
 	{
 		Model game = new Model();
 
-		assertFalse(game.getTileAt(0, 0).isRevealed());
+		assertFalse(game.getBoard().getTileAt(0, 0).isRevealed());
 
 		game.revealTile(0, 0);
 
-		assertTrue(game.getTileAt(0, 0).isRevealed());
+		assertTrue(game.getBoard().getTileAt(0, 0).isRevealed());
 	}
 
 	@Test
@@ -81,10 +81,10 @@ public class ModelTests
 	{
 		Model game = new Model();
 
-		assertFalse(game.getTileAt(0, 0).isFlagged());
+		assertFalse(game.getBoard().getTileAt(0, 0).isFlagged());
 
 		game.toggleFlag(0, 0);
 
-		assertTrue(game.getTileAt(0, 0).isFlagged());
+		assertTrue(game.getBoard().getTileAt(0, 0).isFlagged());
 	}
 }

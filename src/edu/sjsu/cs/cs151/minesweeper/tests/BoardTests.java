@@ -1,12 +1,11 @@
 package edu.sjsu.cs.cs151.minesweeper.tests;
 
 import edu.sjsu.cs.cs151.minesweeper.model.Board;
+import edu.sjsu.cs.cs151.minesweeper.model.BoardIterator;
 import edu.sjsu.cs.cs151.minesweeper.model.Tile;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-
-import java.util.Iterator;
 
 public class BoardTests
 {
@@ -139,7 +138,7 @@ public class BoardTests
 					System.out.print("O ");
 				}
 			}
-			System.out.println();
+			System.out.println(); 
 		}
 	}
 
@@ -156,7 +155,8 @@ public class BoardTests
 		assertEquals(81, tileCount);
 		
 		tileCount = 0;
-		Iterator iter = test.iterator();
+		
+		BoardIterator iter = test.iterator();
 		while(iter.hasNext())
 		{
 		    iter.next();

@@ -17,7 +17,7 @@ public class Model
 	public Model()
 	{
 		gameBoard = new Board(false);
-		numberOfTiles = gameBoard.NUM_ROWS * gameBoard.NUM_COLS;
+		numberOfTiles = Board.NUM_ROWS * Board.NUM_COLS;
 		gameWon = false;
 		gameLost = false;
 	}
@@ -59,7 +59,7 @@ public class Model
 		}
 
 		//win condition (all non-mine tiles have been revealed)
-		if (gameBoard.getNumberTilesRevealed() == numberOfTiles - gameBoard.NUM_MINES)
+		if (gameBoard.getNumberTilesRevealed() == numberOfTiles - Board.NUM_MINES)
 		{
 			gameWon = true;
 		}
@@ -77,18 +77,6 @@ public class Model
 	}
 
 	/**
-	 * Gets the tile at the specified location.
-	 *
-	 * @param row The row of the tile specified.
-	 * @param col The column of the tile specified.
-	 * @return The tile at the specified location.
-	 */
-	public Tile getTileAt(int row, int col)
-	{
-		return gameBoard.getTileAt(row, col);
-	}
-
-	/**
 	 * Accessor for the underlying game board
 	 *
 	 * @return the underlying game board
@@ -96,6 +84,16 @@ public class Model
 	public Board getBoard()
 	{
 		return gameBoard;
+	}
+	
+	/**
+	 * Constructs an iterator over the board's tiles.
+	 *
+	 * @return An iterator over the board's tiles.
+	 */
+	public BoardIterator boardIterator()
+	{
+	    return gameBoard.iterator();
 	}
 
 	//-------------------------Private Fields/Methods------------------
