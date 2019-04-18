@@ -1,10 +1,14 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public final class TileIcon implements Icon
 {
@@ -78,18 +82,10 @@ public final class TileIcon implements Icon
 
 		else if (flagged)
 		{
-			Point2D.Double p1 = new Point2D.Double(WIDTH / 2, FLAG_POLE_BASE_Y);
-			Point2D.Double p2 = new Point2D.Double(WIDTH / 2, FLAG_POLE_TOP_Y);
-			Shape flagPole = new Line2D.Double(p1, p2);
-			Rectangle base1 = new Rectangle(BASE1_X, BASE1_Y, BASE1_WIDTH, BASE1_HEIGHT);
-			Rectangle base2 = new Rectangle(BASE2_X, BASE2_Y, BASE2_WIDTH, BASE2_HEIGHT);
-			g2.setColor(Color.BLACK);
-			g2.draw(flagPole);
-			g2.fill(base1);
-			g2.fill(base2);
-			g2.setColor(Color.RED);
-			g2.fillPolygon(FLAG_COORDINATES_X, FLAG_COORDINATES_Y, FLAG_COORDINATES_X.length);
-			g2.drawPolygon(FLAG_COORDINATES_X, FLAG_COORDINATES_Y, FLAG_COORDINATES_X.length);
+			BufferedImage img = null;
+			try {img = ImageIO.read(new File("resources\\flag.png"));}
+			catch (IOException e) {e.printStackTrace();}
+			g2.drawImage(img, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
 		}
 
 		else if (adjMines != 0)

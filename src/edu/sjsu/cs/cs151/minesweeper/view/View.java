@@ -1,6 +1,11 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -153,6 +158,7 @@ public class View
 		menuBar.add(help);
 		
 		frame.setJMenuBar(menuBar);
+		frame.pack();
 	}
 
 	/**
@@ -170,6 +176,11 @@ public class View
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.pack();
+		BufferedImage img = null;
+		try {img = ImageIO.read(new File("resources\\icon.jpg"));}
+		catch (IOException e) { e.printStackTrace();}
+		
+		frame.setIconImage(img);
 		frame.setVisible(true);
 	}
 }
