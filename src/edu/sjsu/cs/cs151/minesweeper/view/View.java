@@ -23,6 +23,11 @@ public class View
 	public static final int RIGHT_CLICK = 1;
 	public static final int LEFT_CLICK = 2;
 	public static final int RESET_GAME = 3;
+	public static final int EASY_DIFFICULTY = 4;
+	public static final int MEDIUM_DIFFICULTY = 5;
+	public static final int HARD_DIFFICULTY = 6;
+
+
 
 	/**
 	 * Constructor for View
@@ -124,15 +129,18 @@ public class View
 		
 		ButtonGroup difficulties = new ButtonGroup();
 		JRadioButtonMenuItem easy = new JRadioButtonMenuItem("Easy");
+		easy.addActionListener(e -> messageQueue.add(new int[] {-1, -1, EASY_DIFFICULTY}));
 		easy.setSelected(true);
 		difficulties.add(easy);
 		difficultyMenu.add(easy);
 		
 		JRadioButtonMenuItem medium = new JRadioButtonMenuItem("Medium");
+		medium.addActionListener(e -> messageQueue.add(new int[] {-1, -1, MEDIUM_DIFFICULTY}));
 		difficulties.add(medium);
 		difficultyMenu.add(medium);
 		
 		JRadioButtonMenuItem hard = new JRadioButtonMenuItem("Hard");
+		hard.addActionListener(e -> messageQueue.add(new int[] {-1, -1, HARD_DIFFICULTY}));
 		difficulties.add(hard);
 		difficultyMenu.add(hard);
 		
@@ -152,7 +160,7 @@ public class View
 		
 		JMenu help = new JMenu("Help");
 		JMenuItem about = new JMenuItem("About");
-		JMenuItem howTo = new JMenuItem("How to play this game");
+		JMenuItem howTo = new JMenuItem("How to Play");
 		
 		help.add(about);
 		help.add(howTo);

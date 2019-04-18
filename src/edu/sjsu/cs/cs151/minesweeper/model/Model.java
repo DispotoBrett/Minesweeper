@@ -27,7 +27,7 @@ public class Model
 	{
 		switch(d)
 		{
-			case EASY: gameBoard = new Board(8, 8, 10); break;
+			case EASY: gameBoard = new Board(9, 9, 9); break;
 			
 			case MEDIUM: gameBoard = new Board(16, 16, 40); break;
 			

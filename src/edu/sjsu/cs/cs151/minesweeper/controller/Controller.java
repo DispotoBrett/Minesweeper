@@ -19,11 +19,10 @@ import edu.sjsu.cs.cs151.minesweeper.view.View;
  */
 
 public class Controller
-{
-	
+{	
 	public Controller() throws InvocationTargetException, InterruptedException
 	{
-		model = new Model();
+		model = new Model(difficulty);
 		
 		SwingUtilities.invokeAndWait(() 
 				-> view = new View(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines()));
@@ -48,17 +47,21 @@ public class Controller
 				
 				else if(message[2] == View.RESET_GAME)
 				{
-					model = new Model();
+					model = new Model(difficulty);
 					view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
 				}
 				else if(message[2] == View.EXIT)
 				{
 					System.exit(0);
 				}
-					
+				else if(message[2] == View.EASY_DIFFICULTY)
+					difficulty = Model.Difficulty.EASY;
+				else if(message[2] == View.MEDIUM_DIFFICULTY)
+					difficulty = Model.Difficulty.MEDIUM;
+				else if(message[2] == View.HARD_DIFFICULTY)
+					difficulty = Model.Difficulty.HARD;
+				updateView();
 			}
-			
-			updateView();
 		}
 	}
 	
@@ -82,4 +85,6 @@ public class Controller
 	//-------------------------Private Fields/Methods------------------
 	private Model model;
 	private View view;
+	private Model.Difficulty difficulty = Model.Difficulty.EASY;
+
 }
