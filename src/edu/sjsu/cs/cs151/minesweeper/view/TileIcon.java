@@ -144,18 +144,6 @@ public final class TileIcon implements Icon
 
 	//----------------Private Methods/Fields----------------------
 	private static final int WIDTH = 25, HEIGHT = 25;
-	private static final int FLAG_POLE_BASE_Y = 10;
-	private static final int FLAG_POLE_TOP_Y = 20;
-	private static final int[] FLAG_COORDINATES_X = {5, WIDTH / 2, WIDTH / 2};
-	private static final int[] FLAG_COORDINATES_Y = {HEIGHT / 4 + 2, 5, HEIGHT / 2};
-	private static final int BASE1_X = 5;
-	private static final int BASE2_X = 8;
-	private static final int BASE1_Y = 21;
-	private static final int BASE2_Y = 18;
-	private static final int BASE1_WIDTH = WIDTH - 10;
-	private static final int BASE2_WIDTH = WIDTH - 16;
-	private static final int BASE1_HEIGHT = 21;
-	private static final int BASE2_HEIGHT = 18;
 	private static final int FONT_SIZE = 19;
 	private static final int FONT_X = 7;
 	private static final int FONT_Y = HEIGHT - 5;
