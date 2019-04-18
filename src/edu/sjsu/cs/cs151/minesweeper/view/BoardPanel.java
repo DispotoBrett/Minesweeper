@@ -58,7 +58,12 @@ public class BoardPanel extends JPanel
 	@Override
 	public Dimension getPreferredSize()
 	{
-		return new Dimension(225, 225);
+		if(tileButtons.length == EASY_ROW_SIZE)
+			return EASY_SIZE;
+		if(tileButtons.length == MED_ROW_SIZE)
+			return MEDIUM_SIZE;
+		else
+			return HARD_SIZE;
 	}
 
 	/**
@@ -84,4 +89,10 @@ public class BoardPanel extends JPanel
 	}
 
 	private TileButton[][] tileButtons;
+	public static final int EASY_ROW_SIZE = 9;
+	public static final int MED_ROW_SIZE = 16;
+	public static final Dimension EASY_SIZE = new Dimension(225, 225);
+	public static final Dimension MEDIUM_SIZE = new Dimension(435, 435);
+	public static final Dimension HARD_SIZE = new Dimension(600, 600);
+	
 }
