@@ -29,7 +29,9 @@ public class View
 		this.rows = rows;
 		this.columns = cols;
 		messageQueue = new ArrayBlockingQueue<int[]>(10); //TODO: reassess
+
 		initializeFrame(adjMines);
+		initializeMenu();
 	}
 
 	/**
@@ -91,6 +93,54 @@ public class View
 	private int rows;
 	private int columns;
 	private BlockingQueue<int[]> messageQueue;
+	
+	private void initializeMenu()
+	{
+		JMenuBar menuBar = new JMenuBar();
+		
+		JMenu game = new JMenu("Game");
+		
+		menuBar.add(game);
+		
+		JMenu difficultyMenu = new JMenu("Difficulty");
+		
+		ButtonGroup difficulties = new ButtonGroup();
+		JRadioButtonMenuItem easy = new JRadioButtonMenuItem("Easy");
+		easy.setSelected(true);
+		difficulties.add(easy);
+		difficultyMenu.add(easy);
+		
+		JRadioButtonMenuItem medium = new JRadioButtonMenuItem("Medium");
+		difficulties.add(medium);
+		difficultyMenu.add(medium);
+		
+		JRadioButtonMenuItem hard = new JRadioButtonMenuItem("Hard");
+		difficulties.add(hard);
+		difficultyMenu.add(hard);
+		
+		
+		game.add(difficultyMenu);
+		
+		JMenuItem startNew = new JMenuItem("Start New Game");
+		
+		game.add(startNew);	
+		
+		game.addSeparator();
+		
+		JMenuItem exit = new JMenuItem("Exit");
+		game.add(exit);
+		
+		JMenu help = new JMenu("Help");
+		JMenuItem about = new JMenuItem("About");
+		JMenuItem howTo = new JMenuItem("How to play this game");
+		
+		help.add(about);
+		help.add(howTo);
+		
+		menuBar.add(help);
+		
+		frame.setJMenuBar(menuBar);
+	}
 
 	/**
 	 * Creates frame, creates the boardPanel, and fills the boardPanel with buttons
