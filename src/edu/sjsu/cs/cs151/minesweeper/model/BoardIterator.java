@@ -29,7 +29,7 @@ public class BoardIterator implements Iterator<Tile>
      */
     public boolean hasNext()
     {
-        return (row < Board.NUM_ROWS - 1 || col < Board.NUM_COLS - 1);
+        return (row < boardInstance.getRows() - 1 || col < boardInstance.getColumns() - 1);
     }
     
     /**
@@ -40,7 +40,7 @@ public class BoardIterator implements Iterator<Tile>
     {
     	try
     	{
-    	    if(++col == Board.NUM_COLS) 
+    	    if(++col == boardInstance.getColumns()) 
     	    {
     		col = 0;
     		row++;

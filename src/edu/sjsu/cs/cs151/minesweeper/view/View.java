@@ -19,6 +19,7 @@ import java.util.concurrent.BlockingQueue;
  */
 public class View
 {
+	public static final int EXIT = 0;
 	public static final int RIGHT_CLICK = 1;
 	public static final int LEFT_CLICK = 2;
 	public static final int RESET_GAME = 3;
@@ -103,10 +104,10 @@ public class View
 		frame.add(boardPanel);
 		frame.pack();
 	}
-
+	
 	//-------------------------Private Fields/Methods------------------
-	JFrame frame;
-	BoardPanel boardPanel;
+	private JFrame frame;
+	private BoardPanel boardPanel;
 	private int rows;
 	private int columns;
 	private BlockingQueue<int[]> messageQueue;
@@ -146,6 +147,7 @@ public class View
 		game.addSeparator();
 		
 		JMenuItem exit = new JMenuItem("Exit");
+		exit.addActionListener( e -> messageQueue.add(new int[] {-1, -1, EXIT}) ); 
 		game.add(exit);
 		
 		JMenu help = new JMenu("Help");

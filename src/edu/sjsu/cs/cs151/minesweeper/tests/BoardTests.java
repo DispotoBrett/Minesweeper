@@ -16,9 +16,9 @@ public class BoardTests
 
 		int numberOfMines = 0;
 		int numberOfTiles = 0;
-		for (int row = 0; row < Board.NUM_ROWS; row++)
+		for (int row = 0; row < testBoard.getRows(); row++)
 		{
-			for (int col = 0; col < Board.NUM_COLS; col++)
+			for (int col = 0; col < testBoard.getColumns(); col++)
 			{
 				if (testBoard.getTileAt(row, col).isMine())
 				{
@@ -28,8 +28,8 @@ public class BoardTests
 			}
 		}
 
-		assertEquals(numberOfMines, Board.NUM_MINES);
-		assertEquals(numberOfTiles, Board.NUM_ROWS * Board.NUM_COLS);
+		assertEquals(numberOfMines, testBoard.getNumMines());
+		assertEquals(numberOfTiles, testBoard.getRows() * testBoard.getColumns());
 	}
 
 	@Test
@@ -115,9 +115,9 @@ public class BoardTests
 	{
 		Board test = new Board(true);
 		test.revealTile(0, 8);
-		for (int i = 0; i < Board.NUM_ROWS; i++)
+		for (int i = 0; i < test.getRows(); i++)
 		{
-			for (int j = 0; j < Board.NUM_COLS; j++)
+			for (int j = 0; j < test.getColumns(); j++)
 			{
 				Tile current = test.getTileAt(i, j);
 

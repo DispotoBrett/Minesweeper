@@ -26,7 +26,7 @@ public class Controller
 		model = new Model();
 		
 		SwingUtilities.invokeAndWait(() 
-				-> view = new View(Board.NUM_ROWS, Board.NUM_COLS, model.getBoard().adjacentMines()));
+				-> view = new View(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines()));
 		
 	}
 	
@@ -49,7 +49,11 @@ public class Controller
 				else if(message[2] == View.RESET_GAME)
 				{
 					model = new Model();
-					view.resetTo(Board.NUM_ROWS, Board.NUM_COLS, model.getBoard().adjacentMines());
+					view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
+				}
+				else if(message[2] == View.EXIT)
+				{
+					System.exit(0);
 				}
 					
 			}
