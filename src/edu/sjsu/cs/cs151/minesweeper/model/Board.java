@@ -13,10 +13,6 @@ public final class Board implements Iterable<Tile>
 {
 	//-------------------------Public Interface-----------------------
 
-	public final static int NUM_ROWS = 9;
-	public final static int NUM_COLS = 9;
-	public final static int NUM_MINES = 9;
-
 	/**
 	 * Constructs a new Board instance, with randomized mine placement.
 	 *
@@ -24,8 +20,24 @@ public final class Board implements Iterable<Tile>
 	 */
 	public Board(boolean usePresetSeed)
 	{
+		NUM_ROWS = 8;
+		NUM_COLS = 8;
+		NUM_MINES = 10;
+		
 		tiles = new Tile[NUM_ROWS][NUM_COLS];
 		initializeTiles(usePresetSeed);
+		initializeAdjacentMines();
+		numberTilesRevealed = 0;
+	}
+	
+	public Board(int row, int col, int numMines)
+	{
+		NUM_ROWS = row;
+		NUM_COLS = col;
+		NUM_MINES = numMines;
+		
+		tiles = new Tile[NUM_ROWS][NUM_COLS];
+		initializeTiles(false);
 		initializeAdjacentMines();
 		numberTilesRevealed = 0;
 	}
@@ -138,8 +150,43 @@ public final class Board implements Iterable<Tile>
 	{
 		return adjMines;
 	}
+	
+	/**
+	 * Gets the maximum number of rows in the Board
+	 * 
+	 * @return the number of rows in the Board
+	 */
+	public int getRows()
+	{
+		return NUM_ROWS;
+	}
+	
+	/**
+	 * Gets the maximum number of columns in the Board
+	 * 
+	 * @return the number of columns in the Board
+	 */
+	public int getColumns()
+	{
+		return NUM_COLS;
+	}
+	
+	/**
+	 * Gets the maximum number of mines in the Board
+	 * 
+	 * @return the number of mines in the Board
+	 */
+	public int getNumMines()
+	{
+		return NUM_MINES;
+	}
+
+
 
 	//-------------------------Private Fields/Methods------------------
+	private final int NUM_ROWS;
+	private final int NUM_COLS;
+	private final int NUM_MINES;
 	private Tile[][] tiles;
 	private int[][] adjMines; // Each index in adjMines stores a value that indicates how many mines are adjacent to the same index in tiles
 	private int numberTilesRevealed;

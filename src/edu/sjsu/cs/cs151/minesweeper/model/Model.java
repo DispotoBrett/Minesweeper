@@ -10,14 +10,33 @@ package edu.sjsu.cs.cs151.minesweeper.model;
 public class Model
 {
 	//-------------------------Public Interface-----------------------
-
+	public enum Difficulty{ EASY, MEDIUM, HARD };
+	
 	/**
 	 * Constructs a new Model instance.
 	 */
 	public Model()
 	{
 		gameBoard = new Board(false);
-		numberOfTiles = Board.NUM_ROWS * Board.NUM_COLS;
+		numberOfTiles = gameBoard.getRows() * gameBoard.getColumns();
+		gameWon = false;
+		gameLost = false;
+	}
+	
+	public Model(Difficulty d)
+	{
+		switch(d)
+		{
+			case EASY: gameBoard = new Board(8, 8, 10); break;
+			
+			case MEDIUM: gameBoard = new Board(16, 16, 40); break;
+			
+			case HARD: gameBoard = new Board(24, 24, 99); break;
+			
+			default: gameBoard = new Board(false);
+			
+		}
+		numberOfTiles = gameBoard.getRows() * gameBoard.getColumns();
 		gameWon = false;
 		gameLost = false;
 	}
@@ -59,7 +78,7 @@ public class Model
 		}
 
 		//win condition (all non-mine tiles have been revealed)
-		if (gameBoard.getNumberTilesRevealed() == numberOfTiles - Board.NUM_MINES)
+		if (gameBoard.getNumberTilesRevealed() == numberOfTiles - gameBoard.getNumMines() )
 		{
 			gameWon = true;
 		}
