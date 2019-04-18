@@ -16,6 +16,7 @@ public class View
 {
 	public static final int RIGHT_CLICK = 1;
 	public static final int LEFT_CLICK = 2;
+	public static final int RESET_GAME = 3;
 
 	/**
 	 * Constructor for View
@@ -86,6 +87,17 @@ public class View
 	{
 		return messageQueue;
 	}
+	
+	public void resetTo(int row, int col, int[][] adjMines)
+	{
+		this.rows = row;
+		columns = col;
+		frame.remove(boardPanel);
+		
+		boardPanel = new BoardPanel(rows, columns, messageQueue, frame, adjMines);
+		frame.add(boardPanel);
+		frame.pack();
+	}
 
 	//-------------------------Private Fields/Methods------------------
 	JFrame frame;
@@ -122,6 +134,7 @@ public class View
 		game.add(difficultyMenu);
 		
 		JMenuItem startNew = new JMenuItem("Start New Game");
+		startNew.addActionListener( e -> messageQueue.add(new int[] {-1, -1, RESET_GAME}));
 		
 		game.add(startNew);	
 		

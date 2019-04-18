@@ -1,8 +1,11 @@
 package edu.sjsu.cs.cs151.minesweeper.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
+
+import javax.swing.SwingUtilities;
 
 import edu.sjsu.cs.cs151.minesweeper.model.*;
 import edu.sjsu.cs.cs151.minesweeper.view.View;
@@ -18,14 +21,16 @@ import edu.sjsu.cs.cs151.minesweeper.view.View;
 public class Controller
 {
 	
-	public Controller()
+	public Controller() throws InvocationTargetException, InterruptedException
 	{
 		model = new Model();
 		
-		view = new View(Board.NUM_ROWS, Board.NUM_COLS, model.getBoard().adjacentMines());
+		SwingUtilities.invokeAndWait(() 
+				-> view = new View(Board.NUM_ROWS, Board.NUM_COLS, model.getBoard().adjacentMines()));
 		
 	}
-	public void mainLoop()
+	
+	public void mainLoop() throws InvocationTargetException, InterruptedException
 	{
 		Queue<int[]> mainQueue = view.getQueue();
 		
@@ -40,13 +45,20 @@ public class Controller
 				
 				else if(message[2] == View.LEFT_CLICK)
 					model.revealTile(message[0], message[1]);
+				
+				else if(message[2] == View.RESET_GAME)
+				{
+					model = new Model();
+					view.resetTo(Board.NUM_ROWS, Board.NUM_COLS, model.getBoard().adjacentMines());
+				}
+					
 			}
 			
 			updateView();
 		}
 	}
 	
-	public void updateView()
+	public void updateView() throws InvocationTargetException, InterruptedException
 	{
 		BoardIterator it = model.boardIterator();
 		
@@ -54,11 +66,10 @@ public class Controller
 		{
 			Tile current = it.next();
 			
-			if(current.isFlagged())
-				view.flag(it.prevRow(), it.prevCol(), true);
-			
-			else if(current.isRevealed())
-				view.reveal(it.prevRow(), it.prevCol());
+			if (current.isRevealed())
+			    SwingUtilities.invokeAndWait(() -> view.reveal(it.prevRow(), it.prevCol()));
+			else
+			    SwingUtilities.invokeAndWait(() -> view.flag(it.prevRow(), it.prevCol(), current.isFlagged()));
 		}
 		
 	}

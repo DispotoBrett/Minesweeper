@@ -85,4 +85,3 @@ public class BoardPanel extends JPanel
 
 	private TileButton[][] tileButtons;
 }
-	

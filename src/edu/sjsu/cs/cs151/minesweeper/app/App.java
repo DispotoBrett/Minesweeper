@@ -1,5 +1,7 @@
 package edu.sjsu.cs.cs151.minesweeper.app;
 
+import java.lang.reflect.InvocationTargetException;
+
 import edu.sjsu.cs.cs151.minesweeper.controller.Controller;
 
 /**
@@ -12,7 +14,7 @@ import edu.sjsu.cs.cs151.minesweeper.controller.Controller;
 
 public class App
 {
-	public static void main(String[] args)
+	public static void main(String[] args) throws InvocationTargetException, InterruptedException
 	{
 		Controller control = new Controller();
 		
