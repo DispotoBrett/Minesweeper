@@ -40,7 +40,7 @@ public class View
 	{
 		this.rows = rows;
 		this.columns = cols;
-		messageQueue = new ArrayBlockingQueue<int[]>(10); //TODO: reassess
+		messageQueue = new ArrayBlockingQueue<int[]>(1000); //TODO: reassess
 
 		initializeFrame(adjMines);
 		initializeMenu();
@@ -94,7 +94,7 @@ public class View
 	 *
 	 * @return the message queue
 	 */
-	public Queue<int[]> getQueue()
+	public BlockingQueue<int[]> getQueue()
 	{
 		return messageQueue;
 	}
@@ -119,6 +119,7 @@ public class View
 	
 	private void initializeMenu()
 	{
+	    
 		JMenuBar menuBar = new JMenuBar();
 		
 		JMenu game = new JMenu("Game");

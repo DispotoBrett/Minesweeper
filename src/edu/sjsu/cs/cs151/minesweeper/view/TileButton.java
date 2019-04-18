@@ -30,7 +30,8 @@ public class TileButton extends JButton
 	public TileButton(int row, int col, BlockingQueue<int[]> messageQueue, JFrame frame, int adjMines)
 	{
 		super(new TileIcon(false, false));
-
+		revealed = false;
+		
 		addMouseListener(new MouseAdapter()
 		{
 			public void mouseReleased(MouseEvent e)
@@ -45,23 +46,31 @@ public class TileButton extends JButton
 				}
 				setBackground(null);
 			}
+			
+			public void mousePressed(MouseEvent e)
+			{
+			    if(!revealed && SwingUtilities.isLeftMouseButton(e))
+				setBackground(Color.DARK_GRAY);
+
+			}			
 
 			public void mouseEntered(MouseEvent e)
 			{
-				setBackground(Color.yellow);
+				//setBackground(Color.yellow);
 			}
 
 			public void mouseExited(MouseEvent e)
 			{
 				setBackground(null);
 			}
-
 		});
 
 		addActionListener(e -> {
 			if (e == REVEAL)
 			{
+			    if(!revealed)
 				setIcon(new TileIcon(true, false, adjMines));
+			    revealed = true;
 			}
 			else if (e == FLAG)
 			{
@@ -127,7 +136,7 @@ public class TileButton extends JButton
 	 */
 	public void reveal()
 	{
-		getActionListeners()[0].actionPerformed(REVEAL);
+	    getActionListeners()[0].actionPerformed(REVEAL);
 	}
 
 	// ----------------Private Methods/Fields----------------------
@@ -136,5 +145,6 @@ public class TileButton extends JButton
 	private static final ActionEvent FLAG = new ActionEvent(new Object(), 1, "flag");
 	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 2, "unflag");
 	private static final ActionEvent EXPLODE = new ActionEvent(new Object(), 3, "explode");
+	public boolean revealed;
 
 }

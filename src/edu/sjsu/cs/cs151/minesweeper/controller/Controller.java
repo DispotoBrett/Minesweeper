@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.SwingUtilities;
 
@@ -31,37 +33,44 @@ public class Controller
 	
 	public void mainLoop() throws InvocationTargetException, InterruptedException
 	{
-		Queue<int[]> mainQueue = view.getQueue();
+		BlockingQueue<int[]> mainQueue = view.getQueue();
 		
 		while(true)
 		{
-			if(!mainQueue.isEmpty())
-			{
-				int[] message = mainQueue.remove();
-				
-				if(message[2] == View.RIGHT_CLICK)
-					model.toggleFlag(message[0], message[1]);
-				
-				else if(message[2] == View.LEFT_CLICK)
-					model.revealTile(message[0], message[1]);
-				
-				else if(message[2] == View.RESET_GAME)
+        		int[] message = mainQueue.take();
+        		
+        		if(message[2] == View.RIGHT_CLICK)
+        			model.toggleFlag(message[0], message[1]);
+        		
+        		else if(message[2] == View.LEFT_CLICK)
+        			model.revealTile(message[0], message[1]);
+        		
+        		else if(message[2] == View.RESET_GAME)
+        		{
+        			model = new Model(difficulty);
+        			view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
+        		}
+        		else if(message[2] == View.EXIT)
+        		{
+        			System.exit(0);
+        		}
+        		else if(message[2] == View.EASY_DIFFICULTY)
+        			difficulty = Model.Difficulty.EASY;
+        		else if(message[2] == View.MEDIUM_DIFFICULTY)
+        			difficulty = Model.Difficulty.MEDIUM;
+        		else if(message[2] == View.HARD_DIFFICULTY)
+        			difficulty = Model.Difficulty.HARD;
+        		ExecutorService service = Executors.newCachedThreadPool();
+        		service.execute(() -> {
+				try
 				{
-					model = new Model(difficulty);
-					view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
+				    updateView();
 				}
-				else if(message[2] == View.EXIT)
+				catch (InvocationTargetException | InterruptedException e)
 				{
-					System.exit(0);
+				    e.printStackTrace();
 				}
-				else if(message[2] == View.EASY_DIFFICULTY)
-					difficulty = Model.Difficulty.EASY;
-				else if(message[2] == View.MEDIUM_DIFFICULTY)
-					difficulty = Model.Difficulty.MEDIUM;
-				else if(message[2] == View.HARD_DIFFICULTY)
-					difficulty = Model.Difficulty.HARD;
-				updateView();
-			}
+			});
 		}
 	}
 	
