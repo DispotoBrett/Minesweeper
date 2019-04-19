@@ -188,7 +188,7 @@ public class View
 		frame.setResizable(false);
 		frame.pack();
 		BufferedImage img = null;
-		try {img = ImageIO.read(new File("resources\\icon.jpg"));}
+		try {img = ImageIO.read(new File("resources\\mine.png"));}
 		catch (IOException e) { e.printStackTrace();}
 		
 		frame.setIconImage(img);

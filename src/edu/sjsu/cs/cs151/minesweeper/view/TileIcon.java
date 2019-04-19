@@ -74,10 +74,11 @@ public final class TileIcon implements Icon
 		g2.fill(rec);
 
 		if (revealed && isMine)
-		{
-			g2.setColor(Color.black);
-			g2.fill(new Ellipse2D.Double(BEVEL_BUFFER_X, BEVEL_BUFFER_Y, WIDTH - BEVEL_BUFFER, HEIGHT - BEVEL_BUFFER));
-			g2.draw(new Ellipse2D.Double(BEVEL_BUFFER_X, BEVEL_BUFFER_Y, WIDTH - BEVEL_BUFFER, HEIGHT - BEVEL_BUFFER));
+		{	
+			BufferedImage img = null;
+			try {img = ImageIO.read(new File("resources\\mine.png"));}
+			catch (IOException e) {e.printStackTrace();}
+			g2.drawImage(img, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
 		}
 
 		else if (flagged)

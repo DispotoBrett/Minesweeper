@@ -84,7 +84,7 @@ public class TileButton extends JButton
 			{
 				SwingUtilities.invokeLater(() -> {
 					setBackground(Color.red);
-					setIcon(new TileIcon(true, false, true));
+					setIcon(new TileIcon(true, false, true));					
 					// TODO: Somehow feed the explosion the Board Panel's width and height, b/c when
 					// menus are added, they will be painted over.
 					Explosion explosion = new Explosion(getX(), getY(), frame.getContentPane().getWidth(),

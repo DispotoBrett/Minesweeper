@@ -43,8 +43,14 @@ public class Controller
         			model.toggleFlag(message[0], message[1]);
         		
         		else if(message[2] == View.LEFT_CLICK)
+        		{
         			model.revealTile(message[0], message[1]);
-        		
+        			
+        			if(model.gameLost())
+        				view.explode(message[0], message[1]); 
+
+        		}
+        			
         		else if(message[2] == View.RESET_GAME)
         		{
         			model = new Model(difficulty);
