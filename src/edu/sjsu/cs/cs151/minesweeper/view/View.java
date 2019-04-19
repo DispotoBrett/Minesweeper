@@ -3,6 +3,8 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -117,6 +119,34 @@ public class View
 	private int columns;
 	private BlockingQueue<int[]> messageQueue;
 	
+	
+	/**
+	 * Creates frame, creates the boardPanel, and fills the boardPanel with buttons
+	 * Created to keep the constructor relatively clear
+	 *
+	 * @param adjMines the 2d array that stores the number of adjacent mines for each tile
+	 */
+	private void initializeFrame(int[][] adjMines)
+	{
+		frame = new JFrame("Minesweeper");
+
+		frame.setLayout(new BorderLayout());
+				
+		boardPanel = new BoardPanel(rows, columns, messageQueue, frame, adjMines);
+		
+		frame.add(boardPanel);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
+		frame.pack();
+		BufferedImage img = null;
+		try {img = ImageIO.read(new File("resources\\mine.png"));}
+		catch (IOException e) { e.printStackTrace();}
+		
+		frame.setIconImage(img);
+		frame.setVisible(true);
+	}
+	
 	private void initializeMenu()
 	{
 	    
@@ -170,28 +200,5 @@ public class View
 		
 		frame.setJMenuBar(menuBar);
 		frame.pack();
-	}
-
-	/**
-	 * Creates frame, creates the boardPanel, and fills the boardPanel with buttons
-	 * Created to keep the constructor relatively clear
-	 *
-	 * @param adjMines the 2d array that stores the number of adjacent mines for each tile
-	 */
-	private void initializeFrame(int[][] adjMines)
-	{
-		frame = new JFrame("Minesweeper");
-		boardPanel = new BoardPanel(rows, columns, messageQueue, frame, adjMines);
-
-		frame.add(boardPanel);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.pack();
-		BufferedImage img = null;
-		try {img = ImageIO.read(new File("resources\\mine.png"));}
-		catch (IOException e) { e.printStackTrace();}
-		
-		frame.setIconImage(img);
-		frame.setVisible(true);
 	}
 }
