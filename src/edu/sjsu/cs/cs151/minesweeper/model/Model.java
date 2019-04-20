@@ -10,8 +10,9 @@ package edu.sjsu.cs.cs151.minesweeper.model;
 public class Model
 {
 	//-------------------------Public Interface-----------------------
-	public enum Difficulty{ EASY, MEDIUM, HARD };
-	
+	public enum Difficulty
+	{EASY, MEDIUM, HARD}
+
 	/**
 	 * Constructs a new Model instance.
 	 */
@@ -22,19 +23,26 @@ public class Model
 		gameWon = false;
 		gameLost = false;
 	}
-	
+
 	public Model(Difficulty d)
 	{
-		switch(d)
+		switch (d)
 		{
-			case EASY: gameBoard = new Board(9, 9, 9); break;
-			
-			case MEDIUM: gameBoard = new Board(16, 16, 40); break;
-			
-			case HARD: gameBoard = new Board(24, 24, 99); break;
-			
-			default: gameBoard = new Board(false);
-			
+			case EASY:
+				gameBoard = new Board(9, 9, 9);
+				break;
+
+			case MEDIUM:
+				gameBoard = new Board(16, 16, 40);
+				break;
+
+			case HARD:
+				gameBoard = new Board(24, 24, 99);
+				break;
+
+			default:
+				gameBoard = new Board(false);
+
 		}
 		numberOfTiles = gameBoard.getRows() * gameBoard.getColumns();
 		gameWon = false;
@@ -78,7 +86,7 @@ public class Model
 		}
 
 		//win condition (all non-mine tiles have been revealed)
-		if (gameBoard.getNumberTilesRevealed() == numberOfTiles - gameBoard.getNumMines() )
+		if (gameBoard.getNumberTilesRevealed() == numberOfTiles - gameBoard.getNumMines())
 		{
 			gameWon = true;
 		}
@@ -104,7 +112,7 @@ public class Model
 	{
 		return gameBoard;
 	}
-	
+
 	/**
 	 * Constructs an iterator over the board's tiles.
 	 *
@@ -112,7 +120,7 @@ public class Model
 	 */
 	public BoardIterator boardIterator()
 	{
-	    return gameBoard.iterator();
+		return gameBoard.iterator();
 	}
 
 	//-------------------------Private Fields/Methods------------------
