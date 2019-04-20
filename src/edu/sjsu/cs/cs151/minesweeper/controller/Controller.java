@@ -72,7 +72,7 @@ public class Controller
 	        			if(model.gameLost())
 	        			{
 	        				gameOver();
-	        				SwingUtilities.invokeAndWait(() -> view.explode(message[0], message[1])); 
+	        				SwingUtilities.invokeLater(() -> view.explode(message[0], message[1])); 
 	        			}
 					}
 					catch (InvocationTargetException | InterruptedException e)

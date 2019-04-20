@@ -107,7 +107,7 @@ public class Explosion extends JComponent
 				Color.WHITE.getAlpha() - fadeCount
 		));
 		
-		if((climax || g2.getColor().getAlpha() == 255)) //change to 255 for regular explosion
+		if((climax || g2.getColor().getAlpha() == 255))
 		{
 		    climax = true;
 		    if(fadeOut > 1)
