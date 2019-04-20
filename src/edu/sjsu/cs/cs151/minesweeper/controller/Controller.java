@@ -45,10 +45,6 @@ public class Controller
         		else if(message[2] == View.LEFT_CLICK)
         		{
         			model.revealTile(message[0], message[1]);
-        			
-        			if(model.gameLost())
-        				view.explode(message[0], message[1]); 
-
         		}
         			
         		else if(message[2] == View.RESET_GAME)
@@ -66,17 +62,25 @@ public class Controller
         			difficulty = Model.Difficulty.MEDIUM;
         		else if(message[2] == View.HARD_DIFFICULTY)
         			difficulty = Model.Difficulty.HARD;
-        		ExecutorService service = Executors.newCachedThreadPool();
-        		service.execute(() -> {
-				try
-				{
-				    updateView();
-				}
-				catch (InvocationTargetException | InterruptedException e)
-				{
-				    e.printStackTrace();
-				}
-			});
+        		if(message[0] != -1)
+        		{
+	        		ExecutorService service = Executors.newCachedThreadPool();
+	        		service.execute(() -> {
+					try
+					{
+					    updateView();
+	        			if(model.gameLost())
+	        			{
+	        				SwingUtilities.invokeLater(() -> view.explode(message[0], message[1])); 
+	        				gameOver();
+	        			}
+					}
+					catch (InvocationTargetException | InterruptedException e)
+					{
+					    e.printStackTrace();
+					}
+	        		});
+        		}
 		}
 	}
 	
@@ -94,6 +98,18 @@ public class Controller
 			    SwingUtilities.invokeAndWait(() -> view.flag(it.prevRow(), it.prevCol(), current.isFlagged()));
 		}
 		
+	}
+	
+	public void gameOver() throws InvocationTargetException, InterruptedException
+	{
+		BoardIterator it = model.boardIterator();
+		
+		while(it.hasNext())
+		{
+			Tile current = it.next();
+			if(current.isMine())
+				SwingUtilities.invokeAndWait(() -> view.exposeMine(it.prevRow(), it.prevCol()));
+		}
 	}
 	//TODO: updateGameInfo()
 

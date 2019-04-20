@@ -87,12 +87,22 @@ public class BoardPanel extends JPanel
 	{
 		tileButtons[row][col].flag(flag);
 	}
+	
+	/**
+	 * Exposes the mine at the specified location
+	 *
+	 * @param row the row the tile
+	 * @param col the column of the tile
+	 */
+	public void exposeMine(int row, int col) 
+	{
+		tileButtons[row][col].exposeMine();
+	}
 
 	private TileButton[][] tileButtons;
 	public static final int EASY_ROW_SIZE = 9;
 	public static final int MED_ROW_SIZE = 16;
 	public static final Dimension EASY_SIZE = new Dimension(225, 225);
 	public static final Dimension MEDIUM_SIZE = new Dimension(435, 435);
-	public static final Dimension HARD_SIZE = new Dimension(600, 600);
-	
+	public static final Dimension HARD_SIZE = new Dimension(600, 600);	
 }

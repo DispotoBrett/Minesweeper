@@ -25,7 +25,7 @@ public final class TileIcon implements Icon
 		this.flagged = flagged;
 		this.revealed = revealed;
 		this.adjMines = 0;
-		this.isMine = isMine;
+		this.showMine = showMine;
 	}
 
 	/**
@@ -40,21 +40,21 @@ public final class TileIcon implements Icon
 		this.flagged = flagged;
 		this.revealed = revealed;
 		this.adjMines = adjMines;
-		this.isMine = isMine;
+		this.showMine = showMine;
 	}
 
 	/* Constructs a new TileIcon.
 	 *
 	 * @param revealed indicates if the tile has been revealed
 	 * @param flagged  indicates if the tile has been flagged
-	 * @param isMine paints a mine on the icon if revealed
+	 * @param showMine paints a mine on the icon if revealed
 	 */
-	public TileIcon(boolean revealed, boolean flagged, boolean isMine)
+	public TileIcon(boolean revealed, boolean flagged, boolean showMine)
 	{
 		this.flagged = flagged;
 		this.revealed = revealed;
 		this.adjMines = 0;
-		this.isMine = isMine;
+		this.showMine = showMine;
 	}
 
 
@@ -73,18 +73,18 @@ public final class TileIcon implements Icon
 		g2.setColor(revealed ? Color.WHITE : Color.LIGHT_GRAY);
 		g2.fill(rec);
 
-		if (revealed && isMine)
+		if (showMine)
 		{	
 			BufferedImage img = null;
 			try {img = ImageIO.read(new File("resources/mine.png"));}
 			catch (IOException e) {e.printStackTrace();}
-			g2.drawImage(img, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
+			g2.drawImage(img, 0, 0, WIDTH, HEIGHT, g2.getColor(), null);
 		}
 
 		else if (flagged)
 		{
 			BufferedImage img = null;
-			try {img = ImageIO.read(new File("resourcesflag.png"));}
+			try {img = ImageIO.read(new File("resources/flag.png"));}
 			catch (IOException e) {e.printStackTrace();}
 			g2.drawImage(img, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
 		}
@@ -155,6 +155,6 @@ public final class TileIcon implements Icon
 	private static final int BEVEL_BUFFER_Y = 5;
 	private boolean flagged;
 	private int adjMines;
-	private boolean isMine;
+	private boolean showMine;
 	private boolean revealed;
 }

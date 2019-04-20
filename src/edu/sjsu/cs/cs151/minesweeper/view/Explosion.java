@@ -110,10 +110,10 @@ public class Explosion extends JComponent
 		if((climax || g2.getColor().getAlpha() == 255))
 		{
 		    climax = true;
-		    if(fadeOut > 0)
-			g2.setColor(new Color(255,255,255, --fadeOut));
+		    if(fadeOut > 1)
+		    	g2.setColor(new Color(255,255,255, --fadeOut));
 		    else
-			done = true;
+		    	done = true;
 		}
 
 		//draw string at center of given frame

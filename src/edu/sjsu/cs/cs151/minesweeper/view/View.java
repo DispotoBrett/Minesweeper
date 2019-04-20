@@ -90,6 +90,17 @@ public class View
 	{
 		boardPanel.flag(row, col, flag);
 	}
+	
+	/**
+	 * Shows the mine at the specified location
+	 *
+	 * @param row the row the tile
+	 * @param col the column of the tile
+	 */
+	public void exposeMine(int row, int col)
+	{
+		boardPanel.exposeMine(row, col);	
+	}
 
 	/**
 	 * Gets the message queue (messages from user input).

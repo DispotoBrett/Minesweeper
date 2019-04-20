@@ -85,6 +85,10 @@ public class TileButton extends JButton
 			{
 				setIcon(new TileIcon(false, false));
 			}
+			else if(e == EXPOSE_MINE)
+			{
+				setIcon(new TileIcon(false,false,true));
+			}
 			else if (e == EXPLODE)
 			{
 			    exploded = true;
@@ -97,7 +101,7 @@ public class TileButton extends JButton
 							frame.getContentPane().getHeight());
 					frame.setGlassPane(explosion);
 					explosion.setVisible(true);
-					t = new Timer(17, e2 -> {
+					t = new Timer(10, e2 -> {
 						explosion.explode();
 						frame.repaint();
 						if(explosion.isDone())
@@ -140,11 +144,18 @@ public class TileButton extends JButton
 	/**
 	 * Reveals this tile.
 	 *
-	 * @param adjMines the number of mines adjacent to this mine
 	 */
 	public void reveal()
 	{
 	    getActionListeners()[0].actionPerformed(REVEAL);
+	}
+	
+	/**
+	 * Places a mine icon on top of this tile
+	 */
+	public void exposeMine()
+	{
+	    getActionListeners()[0].actionPerformed(EXPOSE_MINE);
 	}
 
 	// ----------------Private Methods/Fields----------------------
@@ -153,6 +164,8 @@ public class TileButton extends JButton
 	private static final ActionEvent FLAG = new ActionEvent(new Object(), 1, "flag");
 	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 2, "unflag");
 	private static final ActionEvent EXPLODE = new ActionEvent(new Object(), 3, "explode");
+	private static final ActionEvent EXPOSE_MINE = new ActionEvent(new Object(), 3, "explode");
+
 	public boolean revealed;
 	private static boolean exploded;
 	private static JFrame theFrame;
@@ -165,5 +178,6 @@ public class TileButton extends JButton
 	    theFrame.getGlassPane().setVisible(false);
 	    theFrame.repaint();
 	}
+
 
 }
