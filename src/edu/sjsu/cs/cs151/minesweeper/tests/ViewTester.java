@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.SwingUtilities;
 
-import edu.sjsu.cs.cs151.minesweeper.model.Board;
 import edu.sjsu.cs.cs151.minesweeper.model.BoardIterator;
 import edu.sjsu.cs.cs151.minesweeper.model.Model;
 import edu.sjsu.cs.cs151.minesweeper.model.Tile;
@@ -68,7 +67,7 @@ public class ViewTester
 			}
 
 		}
-		catch (Exception e)
+		catch (Exception ignored)
 		{
 		}
 	}

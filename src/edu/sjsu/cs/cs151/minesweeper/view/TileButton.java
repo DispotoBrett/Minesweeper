@@ -25,7 +25,7 @@ public class TileButton extends JButton
 	 * @param col          the column of the button
 	 * @param messageQueue the message Queue (user input)
 	 * @param frame        the frame to be painted on (for explosions)
-	 * @param adjMines
+	 * @param adjMines     the number of mines adjacent to the Tile represented by this TileButton
 	 */
 	public TileButton(int row, int col, BlockingQueue<int[]> messageQueue, JFrame frame, int adjMines)
 	{

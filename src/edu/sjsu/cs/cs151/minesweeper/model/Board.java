@@ -213,7 +213,7 @@ public final class Board implements Iterable<Tile>
 			Collections.shuffle(mines);
 		}
 
-		mines = new ArrayList<Integer>(mines.subList(0, NUM_MINES));
+		mines = new ArrayList<>(mines.subList(0, NUM_MINES));
 
 		int tileCounter = 0;
 		for (int i = 0; i < NUM_ROWS; i++)

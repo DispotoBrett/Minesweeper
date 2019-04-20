@@ -20,7 +20,7 @@ public class BoardIterator implements Iterator<Tile>
 	BoardIterator(Board board)
 	{
 		row = 0;
-		col = INIT_COLLUMN_INDEX;
+		col = INIT_COLUMN_INDEX;
 		boardInstance = board;
 	}
 
@@ -78,6 +78,6 @@ public class BoardIterator implements Iterator<Tile>
 
 	private int row;
 	private int col;
-	private int INIT_COLLUMN_INDEX = -1;
+	private int INIT_COLUMN_INDEX = -1;
 	private Board boardInstance;
 }

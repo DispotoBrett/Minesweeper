@@ -3,9 +3,6 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +22,6 @@ public final class TileIcon implements Icon
 		this.flagged = flagged;
 		this.revealed = revealed;
 		this.adjMines = 0;
-		this.showMine = showMine;
 	}
 
 	/**
@@ -40,7 +36,6 @@ public final class TileIcon implements Icon
 		this.flagged = flagged;
 		this.revealed = revealed;
 		this.adjMines = adjMines;
-		this.showMine = showMine;
 	}
 
 	/* Constructs a new TileIcon.
@@ -150,7 +145,7 @@ public final class TileIcon implements Icon
 	 *
 	 * @return boolean indicating if the tile has been flagged
 	 */
-	public boolean isFlagged()
+	public boolean isFlagged()    //FIXME unused?
 	{
 		return flagged;
 	}
@@ -162,9 +157,9 @@ public final class TileIcon implements Icon
 	private static final int FONT_Y = HEIGHT - 5;
 	private static final int MIN_YELLOW = 2;
 	private static final int MIN_RED = 4;
-	private static final int BEVEL_BUFFER = 10;
-	private static final int BEVEL_BUFFER_X = 4;
-	private static final int BEVEL_BUFFER_Y = 5;
+	private static final int BEVEL_BUFFER = 10;        //FIXME unused?
+	private static final int BEVEL_BUFFER_X = 4;    //FIXME unused?
+	private static final int BEVEL_BUFFER_Y = 5;    //FIXME unused?
 	private boolean flagged;
 	private int adjMines;
 	private boolean showMine;

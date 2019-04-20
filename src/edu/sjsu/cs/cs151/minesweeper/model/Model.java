@@ -13,8 +13,6 @@ public class Model
 	public enum Difficulty
 	{EASY, MEDIUM, HARD}
 
-	;
-
 	/**
 	 * Constructs a new Model instance.
 	 */

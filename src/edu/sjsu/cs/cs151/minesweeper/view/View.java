@@ -4,11 +4,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 

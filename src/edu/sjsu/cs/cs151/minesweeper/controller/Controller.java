@@ -1,8 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.controller;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,7 +29,7 @@ public class Controller
 
 	}
 
-	public void mainLoop() throws InvocationTargetException, InterruptedException
+	public void mainLoop() throws InterruptedException
 	{
 		BlockingQueue<int[]> mainQueue = view.getQueue();
 
