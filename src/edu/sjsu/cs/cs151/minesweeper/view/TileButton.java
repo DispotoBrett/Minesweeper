@@ -31,11 +31,15 @@ public class TileButton extends JButton
 	{
 		super(new TileIcon(false, false));
 		revealed = false;
+		theFrame = frame;
+		exploded = false;
 		
 		addMouseListener(new MouseAdapter()
 		{
 			public void mouseReleased(MouseEvent e)
 			{
+			    if(!exploded)
+			    {
 				if (SwingUtilities.isLeftMouseButton(e))
 				{
 					messageQueue.add(new int[]{row, col, View.LEFT_CLICK});
@@ -45,12 +49,13 @@ public class TileButton extends JButton
 					messageQueue.add(new int[]{row, col, View.RIGHT_CLICK});
 				}
 				setBackground(null);
+			    }
 			}
 			
 			public void mousePressed(MouseEvent e)
 			{
-			    if(!revealed && SwingUtilities.isLeftMouseButton(e))
-				setBackground(Color.DARK_GRAY);
+			    if(!exploded && !revealed && SwingUtilities.isLeftMouseButton(e))
+			    setBackground(Color.DARK_GRAY);
 
 			}			
 
@@ -82,18 +87,21 @@ public class TileButton extends JButton
 			}
 			else if (e == EXPLODE)
 			{
+			    exploded = true;
 				SwingUtilities.invokeLater(() -> {
 					setBackground(Color.red);
 					setIcon(new TileIcon(true, false, true));					
 					// TODO: Somehow feed the explosion the Board Panel's width and height, b/c when
 					// menus are added, they will be painted over.
-					Explosion explosion = new Explosion(getX(), getY(), frame.getContentPane().getWidth(),
+					explosion = new Explosion(getX(), getY(), frame.getContentPane().getWidth(),
 							frame.getContentPane().getHeight());
 					frame.setGlassPane(explosion);
 					explosion.setVisible(true);
-					Timer t = new Timer(10, e2 -> {
+					t = new Timer(17, e2 -> {
 						explosion.explode();
 						frame.repaint();
+						if(explosion.isDone())
+						    stopTimer();
 					});
 					t.start();
 				});
@@ -146,5 +154,16 @@ public class TileButton extends JButton
 	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 2, "unflag");
 	private static final ActionEvent EXPLODE = new ActionEvent(new Object(), 3, "explode");
 	public boolean revealed;
+	private static boolean exploded;
+	private static JFrame theFrame;
+	private Explosion explosion;
+	static Timer t;
+	
+	private void stopTimer()
+	{
+	    t.stop();
+	    theFrame.getGlassPane().setVisible(false);
+	    theFrame.repaint();
+	}
 
 }

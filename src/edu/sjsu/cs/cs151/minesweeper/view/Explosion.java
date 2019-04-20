@@ -59,6 +59,11 @@ public class Explosion extends JComponent
 			count++;
 		}
 	}
+	
+	public boolean isDone()
+	{
+	    return done;
+	}
 
 	/**
 	 * Paints the explosion onto the graphics context.
@@ -72,6 +77,14 @@ public class Explosion extends JComponent
 		Ellipse2D.Double explosion = new Ellipse2D.Double(x, y, width, height);
 
 		g2.setColor(new Color(fadeCount, 0, 0));
+		
+		if(climax)
+		{
+		    if(fadeOut > 0)
+			g2.setColor(new Color(0,0,0, --fadeOut));
+		    else
+			g2.setColor(new Color(0,0,0,0));
+		}
 		g2.fill(explosion);
 
 		//"Game over" text
@@ -93,6 +106,15 @@ public class Explosion extends JComponent
 				Color.WHITE.getBlue(),
 				Color.WHITE.getAlpha() - fadeCount
 		));
+		
+		if((climax || g2.getColor().getAlpha() == 255))
+		{
+		    climax = true;
+		    if(fadeOut > 0)
+			g2.setColor(new Color(255,255,255, --fadeOut));
+		    else
+			done = true;
+		}
 
 		//draw string at center of given frame
 		g2.drawString(
@@ -110,4 +132,7 @@ public class Explosion extends JComponent
 	private static final int FONT_SIZE = 32;
 	private static final double DELTA_OFFSET = 0.001;
 	private static final long serialVersionUID = 1L;
+	private boolean done;
+	private boolean climax;
+	int fadeOut = 255;
 }

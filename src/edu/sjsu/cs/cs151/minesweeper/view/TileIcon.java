@@ -76,7 +76,7 @@ public final class TileIcon implements Icon
 		if (revealed && isMine)
 		{	
 			BufferedImage img = null;
-			try {img = ImageIO.read(new File("resources\\mine.png"));}
+			try {img = ImageIO.read(new File("resources/mine.png"));}
 			catch (IOException e) {e.printStackTrace();}
 			g2.drawImage(img, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
 		}
@@ -84,7 +84,7 @@ public final class TileIcon implements Icon
 		else if (flagged)
 		{
 			BufferedImage img = null;
-			try {img = ImageIO.read(new File("resources\\flag.png"));}
+			try {img = ImageIO.read(new File("resources/flag.png"));}
 			catch (IOException e) {e.printStackTrace();}
 			g2.drawImage(img, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
 		}
