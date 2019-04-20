@@ -74,18 +74,30 @@ public final class TileIcon implements Icon
 		g2.fill(rec);
 
 		if (showMine)
-		{	
+		{
 			BufferedImage img = null;
-			try {img = ImageIO.read(new File("resources/mine.png"));}
-			catch (IOException e) {e.printStackTrace();}
+			try
+			{
+				img = ImageIO.read(new File("resources/mine.png"));
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 			g2.drawImage(img, 0, 0, WIDTH, HEIGHT, g2.getColor(), null);
 		}
 
 		else if (flagged)
 		{
 			BufferedImage img = null;
-			try {img = ImageIO.read(new File("resources/flag.png"));}
-			catch (IOException e) {e.printStackTrace();}
+			try
+			{
+				img = ImageIO.read(new File("resources/flag.png"));
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 			g2.drawImage(img, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
 		}
 

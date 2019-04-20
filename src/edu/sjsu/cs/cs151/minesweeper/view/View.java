@@ -30,7 +30,6 @@ public class View
 	public static final int HARD_DIFFICULTY = 6;
 
 
-
 	/**
 	 * Constructor for View
 	 *
@@ -90,7 +89,7 @@ public class View
 	{
 		boardPanel.flag(row, col, flag);
 	}
-	
+
 	/**
 	 * Shows the mine at the specified location
 	 *
@@ -99,7 +98,7 @@ public class View
 	 */
 	public void exposeMine(int row, int col)
 	{
-		boardPanel.exposeMine(row, col);	
+		boardPanel.exposeMine(row, col);
 	}
 
 	/**
@@ -111,26 +110,26 @@ public class View
 	{
 		return messageQueue;
 	}
-	
+
 	public void resetTo(int row, int col, int[][] adjMines)
 	{
 		this.rows = row;
 		columns = col;
 		frame.remove(boardPanel);
-		
+
 		boardPanel = new BoardPanel(rows, columns, messageQueue, frame, adjMines);
 		frame.add(boardPanel);
 		frame.pack();
 	}
-	
+
 	//-------------------------Private Fields/Methods------------------
 	private JFrame frame;
 	private BoardPanel boardPanel;
 	private int rows;
 	private int columns;
 	private BlockingQueue<int[]> messageQueue;
-	
-	
+
+
 	/**
 	 * Creates frame, creates the boardPanel, and fills the boardPanel with buttons
 	 * Created to keep the constructor relatively clear
@@ -142,73 +141,79 @@ public class View
 		frame = new JFrame("Minesweeper");
 
 		frame.setLayout(new BorderLayout());
-				
+
 		boardPanel = new BoardPanel(rows, columns, messageQueue, frame, adjMines);
-		
+
 		frame.add(boardPanel);
-		
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.pack();
 		BufferedImage img = null;
-		try {img = ImageIO.read(new File("resources\\mine.png"));}
-		catch (IOException e) { e.printStackTrace();}
-		
+		try
+		{
+			img = ImageIO.read(new File("resources\\mine.png"));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
 		frame.setIconImage(img);
 		frame.setVisible(true);
 	}
-	
+
 	private void initializeMenu()
 	{
-	    
+
 		JMenuBar menuBar = new JMenuBar();
-		
+
 		JMenu game = new JMenu("Game");
-		
+
 		menuBar.add(game);
-		
+
 		JMenu difficultyMenu = new JMenu("Difficulty");
-		
+
 		ButtonGroup difficulties = new ButtonGroup();
 		JRadioButtonMenuItem easy = new JRadioButtonMenuItem("Easy");
-		easy.addActionListener(e -> messageQueue.add(new int[] {-1, -1, EASY_DIFFICULTY}));
+		easy.addActionListener(e -> messageQueue.add(new int[]{-1, -1, EASY_DIFFICULTY}));
 		easy.setSelected(true);
 		difficulties.add(easy);
 		difficultyMenu.add(easy);
-		
+
 		JRadioButtonMenuItem medium = new JRadioButtonMenuItem("Medium");
-		medium.addActionListener(e -> messageQueue.add(new int[] {-1, -1, MEDIUM_DIFFICULTY}));
+		medium.addActionListener(e -> messageQueue.add(new int[]{-1, -1, MEDIUM_DIFFICULTY}));
 		difficulties.add(medium);
 		difficultyMenu.add(medium);
-		
+
 		JRadioButtonMenuItem hard = new JRadioButtonMenuItem("Hard");
-		hard.addActionListener(e -> messageQueue.add(new int[] {-1, -1, HARD_DIFFICULTY}));
+		hard.addActionListener(e -> messageQueue.add(new int[]{-1, -1, HARD_DIFFICULTY}));
 		difficulties.add(hard);
 		difficultyMenu.add(hard);
-		
-		
+
+
 		game.add(difficultyMenu);
-		
+
 		JMenuItem startNew = new JMenuItem("Start New Game");
-		startNew.addActionListener( e -> messageQueue.add(new int[] {-1, -1, RESET_GAME}));
-		
-		game.add(startNew);	
-		
+		startNew.addActionListener(e -> messageQueue.add(new int[]{-1, -1, RESET_GAME}));
+
+		game.add(startNew);
+
 		game.addSeparator();
-		
+
 		JMenuItem exit = new JMenuItem("Exit");
-		exit.addActionListener( e -> messageQueue.add(new int[] {-1, -1, EXIT}) ); 
+		exit.addActionListener(e -> messageQueue.add(new int[]{-1, -1, EXIT}));
 		game.add(exit);
-		
+
 		JMenu help = new JMenu("Help");
 		JMenuItem about = new JMenuItem("About");
 		JMenuItem howTo = new JMenuItem("How to Play");
-		
+
 		help.add(about);
 		help.add(howTo);
-		
+
 		menuBar.add(help);
-		
+
 		frame.setJMenuBar(menuBar);
 		frame.pack();
 	}

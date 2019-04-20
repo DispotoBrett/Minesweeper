@@ -138,7 +138,7 @@ public class BoardTests
 					System.out.print("O ");
 				}
 			}
-			System.out.println(); 
+			System.out.println();
 		}
 	}
 
@@ -147,21 +147,21 @@ public class BoardTests
 	{
 		Board test = new Board(true);
 		int tileCount = 0;
-		
+
 		for (Tile t : test)
 		{
 			tileCount++;
 		}
 		assertEquals(81, tileCount);
-		
+
 		tileCount = 0;
-		
+
 		BoardIterator iter = test.iterator();
-		while(iter.hasNext())
+		while (iter.hasNext())
 		{
-		    iter.next();
-		    tileCount++;
+			iter.next();
+			tileCount++;
 		}
-		assertEquals(81, tileCount); 
+		assertEquals(81, tileCount);
 	}
 }

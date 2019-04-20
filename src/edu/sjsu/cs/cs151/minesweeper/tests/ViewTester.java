@@ -12,57 +12,64 @@ import edu.sjsu.cs.cs151.minesweeper.view.View;
 
 public class ViewTester
 {
-    static Model model = new Model();
-    static View view;
-    static final int ROW_INDEX = 0;
-    static final int COL_INDEX = 1;
-    static int[] msg;
+	static Model model = new Model();
+	static View view;
+	static final int ROW_INDEX = 0;
+	static final int COL_INDEX = 1;
+	static int[] msg;
 
-    public static void main(String[] args) throws InterruptedException, InvocationTargetException
-    {
-	SwingUtilities
-		.invokeAndWait(() -> view = new View(9, 9, model.getBoard().adjacentMines()));
-
-	while (true)
+	public static void main(String[] args) throws InterruptedException, InvocationTargetException
 	{
-	    if (!view.getQueue().isEmpty())
-	    {
-		msg = view.getQueue().remove();
-		if (msg[2] == View.LEFT_CLICK)
+		SwingUtilities
+				.invokeAndWait(() -> view = new View(9, 9, model.getBoard().adjacentMines()));
+
+		while (true)
 		{
-		    model.revealTile(msg[ROW_INDEX], msg[COL_INDEX]);
+			if (!view.getQueue().isEmpty())
+			{
+				msg = view.getQueue().remove();
+				if (msg[2] == View.LEFT_CLICK)
+				{
+					model.revealTile(msg[ROW_INDEX], msg[COL_INDEX]);
+				}
+				else if (msg[2] == View.RIGHT_CLICK)
+				{
+					model.toggleFlag(msg[ROW_INDEX], msg[COL_INDEX]);
+				}
+				sync();
+			}
 		}
-		else if (msg[2] == View.RIGHT_CLICK)
+	}
+
+	private static void sync()
+	{
+		if (model.gameLost())
 		{
-		    model.toggleFlag(msg[ROW_INDEX], msg[COL_INDEX]);
+			model.toggleFlag(msg[ROW_INDEX], msg[COL_INDEX]);
 		}
-		sync();
-	    }
-	}
-    }
 
-    private static void sync()
-    {
-	if (model.gameLost()) model.toggleFlag(msg[ROW_INDEX], msg[COL_INDEX]);
-	
-	try
-	{
-	    BoardIterator iter = model.boardIterator();
-	    Tile t;
-	    while (iter.hasNext())
-	    {
-		t = iter.next();
-		final boolean isFlagged = t.isFlagged();
-		
-		if (t.isRevealed())
-		    SwingUtilities.invokeAndWait(() -> view.reveal(iter.prevRow(), iter.prevCol()));
-		else
-		    SwingUtilities.invokeAndWait(() -> view.flag(iter.prevRow(), iter.prevCol(), isFlagged));
-	    }
+		try
+		{
+			BoardIterator iter = model.boardIterator();
+			Tile t;
+			while (iter.hasNext())
+			{
+				t = iter.next();
+				final boolean isFlagged = t.isFlagged();
 
+				if (t.isRevealed())
+				{
+					SwingUtilities.invokeAndWait(() -> view.reveal(iter.prevRow(), iter.prevCol()));
+				}
+				else
+				{
+					SwingUtilities.invokeAndWait(() -> view.flag(iter.prevRow(), iter.prevCol(), isFlagged));
+				}
+			}
+
+		}
+		catch (Exception e)
+		{
+		}
 	}
-	catch (Exception e)
-	{
-	}
-    }
 }

@@ -33,31 +33,33 @@ public class TileButton extends JButton
 		revealed = false;
 		theFrame = frame;
 		exploded = false;
-		
+
 		addMouseListener(new MouseAdapter()
 		{
 			public void mouseReleased(MouseEvent e)
 			{
-			    if(!exploded)
-			    {
-				if (SwingUtilities.isLeftMouseButton(e))
+				if (!exploded)
 				{
-					messageQueue.add(new int[]{row, col, View.LEFT_CLICK});
+					if (SwingUtilities.isLeftMouseButton(e))
+					{
+						messageQueue.add(new int[]{row, col, View.LEFT_CLICK});
+					}
+					else if (SwingUtilities.isRightMouseButton(e))
+					{
+						messageQueue.add(new int[]{row, col, View.RIGHT_CLICK});
+					}
+					setBackground(null);
 				}
-				else if (SwingUtilities.isRightMouseButton(e))
-				{
-					messageQueue.add(new int[]{row, col, View.RIGHT_CLICK});
-				}
-				setBackground(null);
-			    }
 			}
-			
+
 			public void mousePressed(MouseEvent e)
 			{
-			    if(!exploded && !revealed && SwingUtilities.isLeftMouseButton(e))
-			    setBackground(Color.DARK_GRAY);
+				if (!exploded && !revealed && SwingUtilities.isLeftMouseButton(e))
+				{
+					setBackground(Color.DARK_GRAY);
+				}
 
-			}			
+			}
 
 			public void mouseEntered(MouseEvent e)
 			{
@@ -73,9 +75,11 @@ public class TileButton extends JButton
 		addActionListener(e -> {
 			if (e == REVEAL)
 			{
-			    if(!revealed)
-				setIcon(new TileIcon(true, false, adjMines));
-			    revealed = true;
+				if (!revealed)
+				{
+					setIcon(new TileIcon(true, false, adjMines));
+				}
+				revealed = true;
 			}
 			else if (e == FLAG)
 			{
@@ -85,16 +89,16 @@ public class TileButton extends JButton
 			{
 				setIcon(new TileIcon(false, false));
 			}
-			else if(e == EXPOSE_MINE)
+			else if (e == EXPOSE_MINE)
 			{
-				setIcon(new TileIcon(false,false,true));
+				setIcon(new TileIcon(false, false, true));
 			}
 			else if (e == EXPLODE)
 			{
-			    exploded = true;
+				exploded = true;
 				SwingUtilities.invokeLater(() -> {
 					setBackground(Color.red);
-					setIcon(new TileIcon(true, false, true));					
+					setIcon(new TileIcon(true, false, true));
 					// TODO: Somehow feed the explosion the Board Panel's width and height, b/c when
 					// menus are added, they will be painted over.
 					explosion = new Explosion(getX(), getY(), frame.getContentPane().getWidth(),
@@ -104,8 +108,10 @@ public class TileButton extends JButton
 					t = new Timer(10, e2 -> {
 						explosion.explode();
 						frame.repaint();
-						if(explosion.isDone())
-						    stopTimer();
+						if (explosion.isDone())
+						{
+							stopTimer();
+						}
 					});
 					t.start();
 				});
@@ -143,19 +149,18 @@ public class TileButton extends JButton
 
 	/**
 	 * Reveals this tile.
-	 *
 	 */
 	public void reveal()
 	{
-	    getActionListeners()[0].actionPerformed(REVEAL);
+		getActionListeners()[0].actionPerformed(REVEAL);
 	}
-	
+
 	/**
 	 * Places a mine icon on top of this tile
 	 */
 	public void exposeMine()
 	{
-	    getActionListeners()[0].actionPerformed(EXPOSE_MINE);
+		getActionListeners()[0].actionPerformed(EXPOSE_MINE);
 	}
 
 	// ----------------Private Methods/Fields----------------------
@@ -171,12 +176,12 @@ public class TileButton extends JButton
 	private static JFrame theFrame;
 	private Explosion explosion;
 	static Timer t;
-	
+
 	private void stopTimer()
 	{
-	    t.stop();
-	    theFrame.getGlassPane().setVisible(false);
-	    theFrame.repaint();
+		t.stop();
+		theFrame.getGlassPane().setVisible(false);
+		theFrame.repaint();
 	}
 
 

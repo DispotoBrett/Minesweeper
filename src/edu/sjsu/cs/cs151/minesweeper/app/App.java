@@ -17,7 +17,7 @@ public class App
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException
 	{
 		Controller control = new Controller();
-		
+
 		control.mainLoop();
 	}
 }

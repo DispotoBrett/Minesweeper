@@ -58,12 +58,18 @@ public class BoardPanel extends JPanel
 	@Override
 	public Dimension getPreferredSize()
 	{
-		if(tileButtons.length == EASY_ROW_SIZE)
+		if (tileButtons.length == EASY_ROW_SIZE)
+		{
 			return EASY_SIZE;
-		if(tileButtons.length == MED_ROW_SIZE)
+		}
+		if (tileButtons.length == MED_ROW_SIZE)
+		{
 			return MEDIUM_SIZE;
+		}
 		else
+		{
 			return HARD_SIZE;
+		}
 	}
 
 	/**
@@ -87,14 +93,14 @@ public class BoardPanel extends JPanel
 	{
 		tileButtons[row][col].flag(flag);
 	}
-	
+
 	/**
 	 * Exposes the mine at the specified location
 	 *
 	 * @param row the row the tile
 	 * @param col the column of the tile
 	 */
-	public void exposeMine(int row, int col) 
+	public void exposeMine(int row, int col)
 	{
 		tileButtons[row][col].exposeMine();
 	}
@@ -104,5 +110,5 @@ public class BoardPanel extends JPanel
 	public static final int MED_ROW_SIZE = 16;
 	public static final Dimension EASY_SIZE = new Dimension(225, 225);
 	public static final Dimension MEDIUM_SIZE = new Dimension(435, 435);
-	public static final Dimension HARD_SIZE = new Dimension(600, 600);	
+	public static final Dimension HARD_SIZE = new Dimension(600, 600);
 }
