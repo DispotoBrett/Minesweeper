@@ -3,6 +3,9 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +25,7 @@ public final class TileIcon implements Icon
 		this.flagged = flagged;
 		this.revealed = revealed;
 		this.adjMines = 0;
+		this.isMine = isMine;
 	}
 
 	/**
@@ -36,6 +40,7 @@ public final class TileIcon implements Icon
 		this.flagged = flagged;
 		this.revealed = revealed;
 		this.adjMines = adjMines;
+		this.isMine = isMine;
 	}
 
 	/* Constructs a new TileIcon.
@@ -69,30 +74,18 @@ public final class TileIcon implements Icon
 		g2.fill(rec);
 
 		if (revealed && isMine)
-		{
+		{	
 			BufferedImage img = null;
-			try
-			{
-				img = ImageIO.read(new File("resources\\mine.png"));
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			try {img = ImageIO.read(new File("resources\\mine.png"));}
+			catch (IOException e) {e.printStackTrace();}
 			g2.drawImage(img, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
 		}
 
 		else if (flagged)
 		{
 			BufferedImage img = null;
-			try
-			{
-				img = ImageIO.read(new File("resources\\flag.png"));
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			try {img = ImageIO.read(new File("resources\\flag.png"));}
+			catch (IOException e) {e.printStackTrace();}
 			g2.drawImage(img, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
 		}
 
