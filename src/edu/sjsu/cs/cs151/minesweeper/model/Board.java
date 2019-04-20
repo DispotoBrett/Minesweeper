@@ -23,19 +23,19 @@ public final class Board implements Iterable<Tile>
 		NUM_ROWS = 9;
 		NUM_COLS = 9;
 		NUM_MINES = 10;
-		
+
 		tiles = new Tile[NUM_ROWS][NUM_COLS];
 		initializeTiles(usePresetSeed);
 		initializeAdjacentMines();
 		numberTilesRevealed = 0;
 	}
-	
+
 	public Board(int row, int col, int numMines)
 	{
 		NUM_ROWS = row;
 		NUM_COLS = col;
 		NUM_MINES = numMines;
-		
+
 		tiles = new Tile[NUM_ROWS][NUM_COLS];
 		initializeTiles(false);
 		initializeAdjacentMines();
@@ -150,37 +150,36 @@ public final class Board implements Iterable<Tile>
 	{
 		return adjMines;
 	}
-	
+
 	/**
 	 * Gets the maximum number of rows in the Board
-	 * 
+	 *
 	 * @return the number of rows in the Board
 	 */
 	public int getRows()
 	{
 		return NUM_ROWS;
 	}
-	
+
 	/**
 	 * Gets the maximum number of columns in the Board
-	 * 
+	 *
 	 * @return the number of columns in the Board
 	 */
 	public int getColumns()
 	{
 		return NUM_COLS;
 	}
-	
+
 	/**
 	 * Gets the maximum number of mines in the Board
-	 * 
+	 *
 	 * @return the number of mines in the Board
 	 */
 	public int getNumMines()
 	{
 		return NUM_MINES;
 	}
-
 
 
 	//-------------------------Private Fields/Methods------------------
@@ -214,7 +213,7 @@ public final class Board implements Iterable<Tile>
 			Collections.shuffle(mines);
 		}
 
-		mines = new ArrayList<Integer>(mines.subList(0, NUM_MINES));
+		mines = new ArrayList<>(mines.subList(0, NUM_MINES));
 
 		int tileCounter = 0;
 		for (int i = 0; i < NUM_ROWS; i++)
