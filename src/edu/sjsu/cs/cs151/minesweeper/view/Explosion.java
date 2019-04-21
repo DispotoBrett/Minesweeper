@@ -34,9 +34,9 @@ public class Explosion extends JComponent
 		width = 0;
 		height = 0;
 		count = 0;
-		fadeCount = RGB_RED_INIT;
 		this.contentPaneWidth = contentPaneWidth;
 		this.contentPaneHeight = contentPaneHeight;
+		fadeOut = 255;
 	}
 
 	/**
@@ -44,11 +44,6 @@ public class Explosion extends JComponent
 	 */
 	public void explode()
 	{
-		if (fadeCount > 0)
-		{
-			fadeCount--;
-		}
-
 		if (width < contentPaneWidth * CONTENT_PANE_OFFSET)
 		{
 			int delta = (int) (DELTA_OFFSET * Math.pow(count, EXPONENT));
@@ -60,9 +55,14 @@ public class Explosion extends JComponent
 		}
 	}
 
+	/**
+	 * Tells whether the explosion is done, must stop
+	 * 	calling explode() at this point.
+	 * @return  whether or not the explosion is done
+	 */
 	public boolean isDone()
 	{
-		return done;
+		return fadeOut <= 1;
 	}
 
 	/**
@@ -75,20 +75,10 @@ public class Explosion extends JComponent
 		//Explosion
 		Graphics2D g2 = (Graphics2D) g;
 		Ellipse2D.Double explosion = new Ellipse2D.Double(x, y, width, height);
-
-		g2.setColor(new Color(fadeCount, 0, 0));
-
-		if (climax)
-		{
-			if (fadeOut > 0)
-			{
-				g2.setColor(new Color(0, 0, 0, --fadeOut));
-			}
-			else
-			{
-				g2.setColor(new Color(0, 0, 0, 0));
-			}
-		}
+		
+		if(!isDone()) fadeOut--;
+		
+		g2.setColor(new Color(0, 0, 0, fadeOut));
 		g2.fill(explosion);
 
 		//"Game over" text
@@ -104,43 +94,22 @@ public class Explosion extends JComponent
 		double descent = bounds.getHeight() - ascent;
 		double extent = bounds.getWidth();
 
-		g2.setColor(new Color(
-				Color.WHITE.getRed(),
-				Color.WHITE.getGreen(),
-				Color.WHITE.getBlue(),
-				Color.WHITE.getAlpha() - fadeCount
-		));
-
-		if ((climax || g2.getColor().getAlpha() == 255))
-		{
-			climax = true;
-			if (fadeOut > 1)
-			{
-				g2.setColor(new Color(255, 255, 255, --fadeOut));
-			}
-			else
-			{
-				done = true;
-			}
-		}
+		g2.setColor(new Color(255, 255, 255, fadeOut));
 
 		//draw string at center of given frame
 		g2.drawString(
 				text,
 				(int) (contentPaneWidth - extent) / 2,
-				(int) (((contentPaneHeight - (ascent + descent)) / 2) + ascent)
+				(int) (((contentPaneHeight - (ascent + descent)) / 2) + ascent) 
 		);
 	}
 
 	//----------------Private Methods/Fields----------------------
-	private int x, y, height, width, fadeCount, count, contentPaneWidth, contentPaneHeight;
-	private static final int RGB_RED_INIT = 255;
+	private int x, y, fadeOut, height, width, count, contentPaneWidth, contentPaneHeight;
 	private static final int CONTENT_PANE_OFFSET = 3;
 	private static final int EXPONENT = 3;
 	private static final int FONT_SIZE = 32;
 	private static final double DELTA_OFFSET = 0.001;
 	private static final long serialVersionUID = 1L;
-	private boolean done;
-	private boolean climax;
-	int fadeOut = 255;
+
 }

@@ -1,6 +1,8 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
 import java.awt.event.*;
+import java.lang.reflect.InvocationTargetException;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.util.concurrent.BlockingQueue;
@@ -96,7 +98,7 @@ public class TileButton extends JButton
 			else if (e == EXPLODE)
 			{
 				exploded = true;
-				SwingUtilities.invokeLater(() -> {
+
 					setBackground(Color.red);
 					setIcon(new TileIcon(true, false, true));
 					// TODO: Somehow feed the explosion the Board Panel's width and height, b/c when
@@ -105,16 +107,16 @@ public class TileButton extends JButton
 							frame.getContentPane().getHeight());
 					frame.setGlassPane(explosion);
 					explosion.setVisible(true);
+				
 					t = new Timer(10, e2 -> {
+
 						explosion.explode();
-						frame.repaint();
+						frame.getGlassPane().repaint();
+						
 						if (explosion.isDone())
-						{
-							stopTimer();
-						}
+							stopTimer();			
 					});
 					t.start();
-				});
 			}
 		});
 
