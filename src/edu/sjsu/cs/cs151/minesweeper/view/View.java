@@ -35,14 +35,23 @@ public class View
 	 * @param cols     the number of columns of tiles that the View will display
 	 * @param adjMines the 2d array that stores the number of adjacent mines for each tile
 	 */
-	public View(int rows, int cols, int[][] adjMines)
+	public View()
+	{
+		frame = new JFrame("Minesweeper");
+		messageQueue = new ArrayBlockingQueue<int[]>(1000); //TODO: reassess
+
+		initializeWelcomeMenu();
+	}
+	
+	public void startGame(int rows, int cols, int[][] adjMines)
 	{
 		this.rows = rows;
 		this.columns = cols;
-		messageQueue = new ArrayBlockingQueue<int[]>(1000); //TODO: reassess
-
+		welcomeMenuHelper.stop();
+		frame.remove(welcome);
 		initializeFrame(adjMines);
-		initializeMenu();
+		initializeMenu();	
+
 	}
 
 	/**
@@ -126,6 +135,8 @@ public class View
 	private int rows;
 	private int columns;
 	private BlockingQueue<int[]> messageQueue;
+	private Timer welcomeMenuHelper;
+	private WelcomePanel welcome;
 
 
 	/**
@@ -136,34 +147,15 @@ public class View
 	 */
 	private void initializeFrame(int[][] adjMines)
 	{
-		frame = new JFrame("Minesweeper");
-
-		frame.setLayout(new BorderLayout());
-
 		boardPanel = new BoardPanel(rows, columns, messageQueue, frame, adjMines);
 
 		frame.add(boardPanel);
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
 		frame.pack();
-		BufferedImage img = null;
-		try
-		{
-			img = ImageIO.read(new File("resources\\mine.png"));
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		frame.setIconImage(img);
-		frame.setVisible(true);
 	}
 
 	private void initializeMenu()
 	{
-
 		JMenuBar menuBar = new JMenuBar();
 
 		JMenu game = new JMenu("Game");
@@ -214,5 +206,31 @@ public class View
 
 		frame.setJMenuBar(menuBar);
 		frame.pack();
+	}
+	
+	private void initializeWelcomeMenu() 
+	{
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		BufferedImage img = null;
+		try
+		{
+			img = ImageIO.read(new File("resources\\mine.png"));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		frame.setIconImage(img);
+		welcome = new WelcomePanel(messageQueue);
+		frame.add(welcome);
+		frame.setResizable(false);
+		frame.pack();
+		welcomeMenuHelper = new Timer(10, e -> {
+			welcome.animate();
+			frame.repaint();
+		});
+		welcomeMenuHelper.start();
 	}
 }

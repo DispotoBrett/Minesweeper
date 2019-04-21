@@ -22,10 +22,12 @@ public class Controller
 {
 	public Controller() throws InvocationTargetException, InterruptedException
 	{
-		model = new Model(difficulty);
+		SwingUtilities.invokeAndWait(() -> view = new View());
+		view.getQueue().take();
+		model = new Model(Model.Difficulty.EASY);
 
 		SwingUtilities.invokeAndWait(()
-				-> view = new View(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines()));
+				-> view.startGame(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines()));
 
 	}
 
