@@ -27,7 +27,6 @@ public class View
 	public static final int MEDIUM_DIFFICULTY = 5;
 	public static final int HARD_DIFFICULTY = 6;
 
-
 	/**
 	 * Constructor for View
 	 */
@@ -40,6 +39,8 @@ public class View
 	}
 
 	/**
+	 * Starts the game.
+	 *
 	 * @param rows     the number of rows of tiles that the View will display
 	 * @param cols     the number of columns of tiles that the View will display
 	 * @param adjMines the 2d array that stores the number of adjacent mines for each tile
@@ -52,7 +53,6 @@ public class View
 		frame.remove(welcome);
 		initializeFrame(adjMines);
 		initializeMenu();
-
 	}
 
 	/**
@@ -182,7 +182,6 @@ public class View
 		difficulties.add(hard);
 		difficultyMenu.add(hard);
 
-
 		game.add(difficultyMenu);
 
 		JMenuItem startNew = new JMenuItem("Start New Game");
@@ -207,6 +206,7 @@ public class View
 
 		frame.setJMenuBar(menuBar);
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 	}
 
 	private void initializeWelcomeMenu()
@@ -216,7 +216,7 @@ public class View
 		BufferedImage img = null;
 		try
 		{
-			img = ImageIO.read(new File("resources\\mine.png"));
+			img = ImageIO.read(new File("resources/mine.png"));
 		}
 		catch (IOException e)
 		{
@@ -228,6 +228,7 @@ public class View
 		frame.add(welcome);
 		frame.setResizable(false);
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 		welcomeMenuHelper = new Timer(10, e -> {
 			welcome.animate();
 			frame.repaint();
