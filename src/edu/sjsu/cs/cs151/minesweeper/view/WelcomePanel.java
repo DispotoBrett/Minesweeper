@@ -51,6 +51,7 @@ public class WelcomePanel extends JPanel
 	private void setUpNorth()
 	{
 		JLabel logo;
+		//avoid trying to create an ImageIcon with a null parameter 
 		try
 		{
 			BufferedImage img = ImageIO.read(new File("resources/logo.png"));
@@ -70,13 +71,15 @@ public class WelcomePanel extends JPanel
 		JPanel difficultyPanel = new JPanel();
 		difficultyPanel.setLayout(new GridLayout(2, 3, 10, 10));
 
+		//using empty JLabels to fill grid cells (any alternative?)
 		difficultyPanel.add(new JLabel());
 
 		JLabel difficultyLabel = new JLabel("Select a difficulty:");
 		difficultyPanel.add(difficultyLabel);
 
 		difficultyPanel.add(new JLabel());
-
+		
+		//add ButtonGroup?
 		JButton easyButton = new JButton("Easy");
 		easyButton.addActionListener(e -> messageQueue.add(new int[]{-1, -1, View.EASY_DIFFICULTY}));
 		difficultyPanel.add(easyButton);

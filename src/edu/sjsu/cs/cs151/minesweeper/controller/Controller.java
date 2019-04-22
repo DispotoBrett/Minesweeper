@@ -23,10 +23,14 @@ public class Controller
 	public Controller() throws InvocationTargetException, InterruptedException
 	{
 		SwingUtilities.invokeAndWait(() -> view = new View());
+		
+		//get the initial difficulty level based on startup screen input
 		int initialDifficulty = view.getQueue().take()[2];
 		if (initialDifficulty == View.EASY_DIFFICULTY)
 		{
 			model = new Model(Model.Difficulty.EASY);
+			
+			//update difficulty used for proper reset functionality 
 			difficulty = Model.Difficulty.EASY;
 		}
 		else if (initialDifficulty == View.MEDIUM_DIFFICULTY)
