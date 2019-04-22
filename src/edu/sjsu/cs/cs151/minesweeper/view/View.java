@@ -30,10 +30,6 @@ public class View
 
 	/**
 	 * Constructor for View
-	 *
-	 * @param rows     the number of rows of tiles that the View will display
-	 * @param cols     the number of columns of tiles that the View will display
-	 * @param adjMines the 2d array that stores the number of adjacent mines for each tile
 	 */
 	public View()
 	{
@@ -43,6 +39,11 @@ public class View
 		initializeWelcomeMenu();
 	}
 
+	/**
+	 * @param rows     the number of rows of tiles that the View will display
+	 * @param cols     the number of columns of tiles that the View will display
+	 * @param adjMines the 2d array that stores the number of adjacent mines for each tile
+	 */
 	public void startGame(int rows, int cols, int[][] adjMines)
 	{
 		this.rows = rows;
