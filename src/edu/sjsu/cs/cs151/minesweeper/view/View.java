@@ -45,14 +45,14 @@ public class View
 	 * @param cols     the number of columns of tiles that the View will display
 	 * @param adjMines the 2d array that stores the number of adjacent mines for each tile
 	 */
-	public void startGame(int rows, int cols, int[][] adjMines)
+	public void startGame(int rows, int cols, int[][] adjMines, int difficulty)
 	{
 		this.rows = rows;
 		this.columns = cols;
 		welcomeMenuHelper.stop();
 		frame.remove(welcome);
 		initializeFrame(adjMines);
-		initializeMenu();
+		initializeMenu(difficulty);
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class View
 		frame.pack();
 	}
 
-	private void initializeMenu()
+	private void initializeMenu(int difficulty)
 	{
 		JMenuBar menuBar = new JMenuBar();
 
@@ -168,7 +168,6 @@ public class View
 		ButtonGroup difficulties = new ButtonGroup();
 		JRadioButtonMenuItem easy = new JRadioButtonMenuItem("Easy");
 		easy.addActionListener(e -> messageQueue.add(new int[]{-1, -1, EASY_DIFFICULTY}));
-		easy.setSelected(true);
 		difficulties.add(easy);
 		difficultyMenu.add(easy);
 
@@ -181,6 +180,17 @@ public class View
 		hard.addActionListener(e -> messageQueue.add(new int[]{-1, -1, HARD_DIFFICULTY}));
 		difficulties.add(hard);
 		difficultyMenu.add(hard);
+		
+		switch(difficulty)
+		{
+		case EASY_DIFFICULTY: easy.setSelected(true); break;
+		
+		case MEDIUM_DIFFICULTY: medium.setSelected(true); break;
+		
+		case HARD_DIFFICULTY: hard.setSelected(true); break;
+		
+		default: easy.setSelected(true); break;
+		}
 
 		game.add(difficultyMenu);
 

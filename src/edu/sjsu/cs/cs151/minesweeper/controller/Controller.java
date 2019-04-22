@@ -46,7 +46,7 @@ public class Controller
 
 
 		SwingUtilities.invokeAndWait(()
-				-> view.startGame(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines()));
+				-> view.startGame(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines(), initialDifficulty));
 
 	}
 
