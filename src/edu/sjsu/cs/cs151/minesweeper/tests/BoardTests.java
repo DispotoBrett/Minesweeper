@@ -33,7 +33,7 @@ public class BoardTests
 	}
 
 	@Test
-	public void flagTest()
+	public void flagTest() throws InterruptedException
 	{
 		Board testBoard = new Board(true);
 
@@ -72,7 +72,7 @@ public class BoardTests
 	}
 
 	@Test
-	public void revealTest()
+	public void revealTest() throws InterruptedException
 	{
 		Board testBoard = new Board(true);
 		// Testing a single reveal
@@ -111,7 +111,7 @@ public class BoardTests
 
 
 	@Test
-	public void visualTest() //Useful for determining the test cases
+	public void visualTest() throws InterruptedException //Useful for determining the test cases
 	{
 		Board test = new Board(true);
 		test.revealTile(0, 8);

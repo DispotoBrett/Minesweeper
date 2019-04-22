@@ -129,6 +129,11 @@ public class View
 		frame.add(boardPanel);
 		frame.pack();
 	}
+	
+	public BoardPanel getBoardPanel()
+	{
+		return boardPanel;
+	}
 
 	//-------------------------Private Fields/Methods------------------
 	private JFrame frame;

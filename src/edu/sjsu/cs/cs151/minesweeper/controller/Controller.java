@@ -113,8 +113,9 @@ public class Controller
 
 	public void updateView() throws InvocationTargetException, InterruptedException
 	{
+		/*
 		BoardIterator it = model.boardIterator();
-
+		
 		while (it.hasNext())
 		{
 			Tile current = it.next();
@@ -128,7 +129,27 @@ public class Controller
 				SwingUtilities.invokeAndWait(() -> view.flag(it.prevRow(), it.prevCol(), current.isFlagged()));
 			}
 		}
-
+		*/
+		
+		BlockingQueue<int[]> changedTiles = model.getChangedTiles();
+		
+		while(!changedTiles.isEmpty())
+		{
+			int[] message = changedTiles.take();
+			
+			if(message[2] == Board.REVEAL)
+			{
+				SwingUtilities.invokeAndWait(() -> view.getBoardPanel().reveal(message[0], message[1]) );
+			}
+			else if(message[2] == Board.FLAG)
+			{
+				SwingUtilities.invokeAndWait(() -> view.getBoardPanel().flag(message[0], message[1], true) );
+			}
+			else if(message[2] == Board.UNFLAG)
+			{
+				SwingUtilities.invokeAndWait(() -> view.getBoardPanel().flag(message[0], message[1], false) );
+			}
+		}
 	}
 
 	public void gameOver() throws InvocationTargetException, InterruptedException
