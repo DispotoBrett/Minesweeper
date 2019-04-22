@@ -20,3 +20,5 @@ MineSweeper.iml
 .idea/codeStyles/codeStyleConfig.xml
 .idea/inspectionProfiles/Project_Default.xml
 .DS_Store
+*.patch
+*.xml
