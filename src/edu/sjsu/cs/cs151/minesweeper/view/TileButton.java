@@ -99,24 +99,26 @@ public class TileButton extends JButton
 			{
 				exploded = true;
 
-					setBackground(Color.red);
-					setIcon(new TileIcon(true, false, true));
-					// TODO: Somehow feed the explosion the Board Panel's width and height, b/c when
-					// menus are added, they will be painted over.
-					explosion = new Explosion(getX(), getY(), frame.getContentPane().getWidth(),
-							frame.getContentPane().getHeight());
-					frame.setGlassPane(explosion);
-					explosion.setVisible(true);
-				
-					t = new Timer(10, e2 -> {
+				setBackground(Color.red);
+				setIcon(new TileIcon(true, false, true));
+				// TODO: Somehow feed the explosion the Board Panel's width and height, b/c when
+				// menus are added, they will be painted over.
+				explosion = new Explosion(getX(), getY(), frame.getContentPane().getWidth(),
+						frame.getContentPane().getHeight());
+				frame.setGlassPane(explosion);
+				explosion.setVisible(true);
 
-						explosion.explode();
-						frame.getGlassPane().repaint();
-						
-						if (explosion.isDone())
-							stopTimer();			
-					});
-					t.start();
+				t = new Timer(10, e2 -> {
+
+					explosion.explode();
+					frame.getGlassPane().repaint();
+
+					if (explosion.isDone())
+					{
+						stopTimer();
+					}
+				});
+				t.start();
 			}
 		});
 

@@ -42,7 +42,7 @@ public class View
 
 		initializeWelcomeMenu();
 	}
-	
+
 	public void startGame(int rows, int cols, int[][] adjMines)
 	{
 		this.rows = rows;
@@ -50,7 +50,7 @@ public class View
 		welcomeMenuHelper.stop();
 		frame.remove(welcome);
 		initializeFrame(adjMines);
-		initializeMenu();	
+		initializeMenu();
 
 	}
 
@@ -207,8 +207,8 @@ public class View
 		frame.setJMenuBar(menuBar);
 		frame.pack();
 	}
-	
-	private void initializeWelcomeMenu() 
+
+	private void initializeWelcomeMenu()
 	{
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

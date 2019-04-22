@@ -57,8 +57,9 @@ public class Explosion extends JComponent
 
 	/**
 	 * Tells whether the explosion is done, must stop
-	 * 	calling explode() at this point.
-	 * @return  whether or not the explosion is done
+	 * calling explode() at this point.
+	 *
+	 * @return whether or not the explosion is done
 	 */
 	public boolean isDone()
 	{
@@ -75,9 +76,12 @@ public class Explosion extends JComponent
 		//Explosion
 		Graphics2D g2 = (Graphics2D) g;
 		Ellipse2D.Double explosion = new Ellipse2D.Double(x, y, width, height);
-		
-		if(!isDone()) fadeOut--;
-		
+
+		if (!isDone())
+		{
+			fadeOut--;
+		}
+
 		g2.setColor(new Color(0, 0, 0, fadeOut));
 		g2.fill(explosion);
 
@@ -100,7 +104,7 @@ public class Explosion extends JComponent
 		g2.drawString(
 				text,
 				(int) (contentPaneWidth - extent) / 2,
-				(int) (((contentPaneHeight - (ascent + descent)) / 2) + ascent) 
+				(int) (((contentPaneHeight - (ascent + descent)) / 2) + ascent)
 		);
 	}
 

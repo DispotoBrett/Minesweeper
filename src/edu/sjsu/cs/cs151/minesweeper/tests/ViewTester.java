@@ -19,7 +19,7 @@ public class ViewTester
 
 	public static void main(String[] args) throws InterruptedException, InvocationTargetException
 	{
-	//	SwingUtilities
+		//	SwingUtilities
 		//		.invokeAndWait(() -> view = new View(9, 9, model.getBoard().adjacentMines()));
 
 		while (true)
