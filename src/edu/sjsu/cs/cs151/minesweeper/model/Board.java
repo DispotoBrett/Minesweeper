@@ -110,11 +110,11 @@ public final class Board implements Iterable<Tile>
 		
 		if(tiles[row][col].isFlagged())
 		{
-			changedTiles.put(new int[] {row, col, UNFLAG});
+			changedTiles.put(new int[] {row, col, FLAG});
 		}
 		else
 		{
-			changedTiles.put(new int[] { row, col, FLAG} );
+			changedTiles.put(new int[] { row, col, UNFLAG} );
 		}
 		
 	}
