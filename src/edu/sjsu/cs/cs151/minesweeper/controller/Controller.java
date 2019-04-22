@@ -23,8 +23,23 @@ public class Controller
 	public Controller() throws InvocationTargetException, InterruptedException
 	{
 		SwingUtilities.invokeAndWait(() -> view = new View());
-		view.getQueue().take();
-		model = new Model(Model.Difficulty.EASY);
+		int initialDifficulty = view.getQueue().take()[2];
+		if (initialDifficulty == View.EASY_DIFFICULTY)
+		{
+			model = new Model(Model.Difficulty.EASY);
+			difficulty = Model.Difficulty.EASY;
+		}
+		else if (initialDifficulty == View.MEDIUM_DIFFICULTY)
+		{
+			model = new Model(Model.Difficulty.MEDIUM);
+			difficulty = Model.Difficulty.MEDIUM;
+		}
+		else
+		{
+			model = new Model(Model.Difficulty.HARD);
+			difficulty = Model.Difficulty.HARD;
+		}
+
 
 		SwingUtilities.invokeAndWait(()
 				-> view.startGame(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines()));

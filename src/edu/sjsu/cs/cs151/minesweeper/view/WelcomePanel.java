@@ -1,38 +1,33 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Queue;
 
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButtonMenuItem;
+/**
+ * WelcomePanel represents a startup screen to welcome the player.
+ *
+ * @author JordanConragan
+ * @author BrettDispoto
+ * @author PatrickSilvestre
+ */
 
 public class WelcomePanel extends JPanel
 {
-
+	/**
+	 * Constructor for WelcomePanel.
+	 *
+	 * @param messageQueue A queue to hold messages (user inputs).
+	 */
 	public WelcomePanel(Queue messageQueue)
 	{
 		setLayout(new BorderLayout());
 		setUpNorth();
 		setUpCenter(messageQueue);
-		setUpEast(messageQueue);
 		setUpSouth();
 	}
 
@@ -55,51 +50,46 @@ public class WelcomePanel extends JPanel
 
 	private void setUpNorth()
 	{
-		BufferedImage img = null;
+		JLabel logo;
 		try
 		{
-			img = ImageIO.read(new File("resources/logo.png"));
+			BufferedImage img = ImageIO.read(new File("resources/logo.png"));
+			logo = new JLabel(new ImageIcon(img));
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
+			logo = new JLabel(new ImageIcon());
 		}
-		JLabel logo = new JLabel(new ImageIcon(img));
+
 		add(logo, BorderLayout.NORTH);
 	}
 
 	private void setUpCenter(Queue messageQueue)
 	{
-		JLabel start = new JLabel();
-		start.setLayout(new BoxLayout(start, BoxLayout.Y_AXIS));
-		start.add(new JLabel("Select a difficulty"));
+		JPanel difficultyPanel = new JPanel();
+		difficultyPanel.setLayout(new GridLayout(2, 3, 10, 10));
 
-		ButtonGroup difficulties = new ButtonGroup();
-		JRadioButtonMenuItem easy = new JRadioButtonMenuItem("Easy");
-		easy.addActionListener(e -> messageQueue.add(new int[]{-1, -1, View.EASY_DIFFICULTY}));
-		easy.setSelected(true);
-		difficulties.add(easy);
-		start.add(easy);
+		difficultyPanel.add(new JLabel());
 
-		JRadioButtonMenuItem medium = new JRadioButtonMenuItem("Medium");
-		medium.addActionListener(e -> messageQueue.add(new int[]{-1, -1, View.MEDIUM_DIFFICULTY}));
-		difficulties.add(medium);
-		start.add(medium);
+		JLabel difficultyLabel = new JLabel("Select a difficulty:");
+		difficultyPanel.add(difficultyLabel);
 
-		JRadioButtonMenuItem hard = new JRadioButtonMenuItem("Hard");
-		hard.addActionListener(e -> messageQueue.add(new int[]{-1, -1, View.HARD_DIFFICULTY}));
-		difficulties.add(hard);
-		start.add(hard);
+		difficultyPanel.add(new JLabel());
 
+		JButton easyButton = new JButton("Easy");
+		easyButton.addActionListener(e -> messageQueue.add(new int[]{-1, -1, View.EASY_DIFFICULTY}));
+		difficultyPanel.add(easyButton);
 
-		add(start, BorderLayout.CENTER);
-	}
+		JButton mediumButton = new JButton("Medium");
+		mediumButton.addActionListener(e -> messageQueue.add(new int[]{-1, -1, View.MEDIUM_DIFFICULTY}));
+		difficultyPanel.add(mediumButton);
 
-	private void setUpEast(Queue messageQueue)
-	{
-		JButton startButton = new JButton("Start");
-		startButton.addActionListener(e -> messageQueue.add(new int[]{-1, -1, -1})); //define new message item
-		add(startButton, BorderLayout.EAST);
+		JButton hardButton = new JButton("Hard");
+		hardButton.addActionListener(e -> messageQueue.add(new int[]{-1, -1, View.HARD_DIFFICULTY}));
+		difficultyPanel.add(hardButton);
+
+		add(difficultyPanel, BorderLayout.CENTER);
 	}
 
 	private void setUpSouth()
