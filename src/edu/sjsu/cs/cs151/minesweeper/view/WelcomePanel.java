@@ -2,6 +2,8 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -79,17 +81,22 @@ public class WelcomePanel extends JPanel
 
 		difficultyPanel.add(new JLabel());
 		
-		//add ButtonGroup?
 		JButton easyButton = new JButton("Easy");
+		easyButton.setBorder(BorderFactory.createLineBorder(Color.black));
+		easyButton.setBackground(Color.white);
 		easyButton.addActionListener(e -> messageQueue.add(new int[]{-1, -1, View.EASY_DIFFICULTY}));
 		difficultyPanel.add(easyButton);
 
 		JButton mediumButton = new JButton("Medium");
 		mediumButton.addActionListener(e -> messageQueue.add(new int[]{-1, -1, View.MEDIUM_DIFFICULTY}));
+		mediumButton.setBorder(BorderFactory.createLineBorder(Color.black));
+		mediumButton.setBackground(Color.white);
 		difficultyPanel.add(mediumButton);
 
 		JButton hardButton = new JButton("Hard");
 		hardButton.addActionListener(e -> messageQueue.add(new int[]{-1, -1, View.HARD_DIFFICULTY}));
+		hardButton.setBorder(BorderFactory.createLineBorder(Color.black));
+		hardButton.setBackground(Color.white);
 		difficultyPanel.add(hardButton);
 
 		add(difficultyPanel, BorderLayout.CENTER);
