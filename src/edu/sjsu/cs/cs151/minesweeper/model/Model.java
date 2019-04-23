@@ -1,7 +1,5 @@
 package edu.sjsu.cs.cs151.minesweeper.model;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 /**
  * The over-arching model class. Manages data, logic, and rules.
@@ -21,7 +19,6 @@ public class Model
 	 */
 	public Model()
 	{
-		changedTiles = new ArrayBlockingQueue<int[]>(1000);
 		gameBoard = new Board(false);
 		numberOfTiles = gameBoard.getRows() * gameBoard.getColumns();
 		gameWon = false;
@@ -32,20 +29,19 @@ public class Model
 
 	public Model(Difficulty d)
 	{
-		changedTiles = new ArrayBlockingQueue<int[]>(1000);
 		
 		switch (d)
 		{
 			case EASY:
-				gameBoard = new Board(9, 9, 9, changedTiles);
+				gameBoard = new Board(9, 9, 9);
 				break;
 
 			case MEDIUM:
-				gameBoard = new Board(16, 16, 40, changedTiles);
+				gameBoard = new Board(16, 16, 40);
 				break;
 
 			case HARD:
-				gameBoard = new Board(24, 24, 99, changedTiles);
+				gameBoard = new Board(24, 24, 99);
 				break;
 
 			default:
@@ -84,7 +80,7 @@ public class Model
 	 * @param col The column of the tile specified.
 	 * @throws InterruptedException 
 	 */
-	public void revealTile(int row, int col) throws InterruptedException
+	public void revealTile(int row, int col)
 	{
 		//lose condition (tile to be revealed is a mine)
 		gameLost = gameBoard.isMine(row, col) && !gameBoard.getTileAt(row, col).isFlagged();
@@ -108,7 +104,7 @@ public class Model
 	 * @param col The column of the tile specified.
 	 * @throws InterruptedException 
 	 */
-	public void toggleFlag(int row, int col) throws InterruptedException
+	public void toggleFlag(int row, int col)
 	{
 		gameBoard.toggleFlag(row, col);
 	}
@@ -133,19 +129,10 @@ public class Model
 		return gameBoard.iterator();
 	}
 	
-	/**
-	 * Gets the BlockingQueue that holds information about each tile that was changed by a call, and how it was changed
-	 * @return the BlockingQueue that holds information about each tile that was changed by a call, and how it was changed
-	 */
-	public BlockingQueue<int[]> getChangedTiles()
-	{
-		return changedTiles;
-	}
 
 	//-------------------------Private Fields/Methods------------------
 	private Board gameBoard;
 	private int numberOfTiles;
-	private BlockingQueue<int[]> changedTiles;
 	private boolean gameWon;
 	private boolean gameLost;
 }

@@ -2,7 +2,6 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.concurrent.BlockingQueue;
 
@@ -31,8 +30,7 @@ public class BoardPanel extends JPanel
 	{
 		super();
 		
-		setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
+		setLayout(new GridLayout(rows, cols));
 		
 		tileButtons = new TileButton[rows][cols];
 		
@@ -41,12 +39,9 @@ public class BoardPanel extends JPanel
 		{
 			for (int j = 0; j < cols; j++)
 			{
-				c.gridx = j;
-				c.gridy = i;
-				
 				TileButton button = new TileButton(i, j, messageQueue, frame, adjMines[i][j]);
 				tileButtons[i][j] = button;
-				add(button, c);
+				add(button);
 			}
 		}
 	}

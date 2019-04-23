@@ -33,7 +33,7 @@ public class BoardTests
 	}
 
 	@Test
-	public void flagTest() throws InterruptedException
+	public void flagTest()
 	{
 		Board testBoard = new Board(true);
 
@@ -72,7 +72,7 @@ public class BoardTests
 	}
 
 	@Test
-	public void revealTest() throws InterruptedException
+	public void revealTest()
 	{
 		Board testBoard = new Board(true);
 		// Testing a single reveal
@@ -107,39 +107,6 @@ public class BoardTests
 		assertFalse(testBoard.getTileAt(1, 4).isRevealed());
 		testBoard.revealTile(1, 4);
 		assertFalse(testBoard.getTileAt(1, 4).isRevealed());
-	}
-
-
-	@Test
-	public void visualTest() throws InterruptedException //Useful for determining the test cases
-	{
-		Board test = new Board(true);
-		test.revealTile(0, 8);
-		for (int i = 0; i < test.getRows(); i++)
-		{
-			for (int j = 0; j < test.getColumns(); j++)
-			{
-				Tile current = test.getTileAt(i, j);
-
-				if (current.isMine())
-				{
-					System.out.print("X ");
-				}
-				else if (current.isFlagged())
-				{
-					System.out.print("F ");
-				}
-				else if (current.isRevealed())
-				{
-					System.out.print(test.adjacentMines(i, j) + " ");
-				}
-				else
-				{
-					System.out.print("O ");
-				}
-			}
-			System.out.println();
-		}
 	}
 
 	@Test

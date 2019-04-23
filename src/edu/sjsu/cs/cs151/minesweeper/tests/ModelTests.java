@@ -18,7 +18,7 @@ public class ModelTests
 	}
 
 	@Test
-	public void winTest() throws InterruptedException
+	public void winTest()
 	{
 		Model game = new Model();
 
@@ -41,7 +41,7 @@ public class ModelTests
 	}
 
 	@Test
-	public void loseTest() throws InterruptedException
+	public void loseTest()
 	{
 		Model game = new Model();
 
@@ -65,7 +65,7 @@ public class ModelTests
 	}
 
 	@Test
-	public void revealTileTest() throws InterruptedException
+	public void revealTileTest()
 	{
 		Model game = new Model();
 
@@ -77,7 +77,7 @@ public class ModelTests
 	}
 
 	@Test
-	public void toggleFlagTest() throws InterruptedException
+	public void toggleFlagTest()
 	{
 		Model game = new Model();
 

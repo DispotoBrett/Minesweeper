@@ -1,7 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.model;
 
 import java.util.*;
-import java.util.concurrent.BlockingQueue;
 
 /**
  * Represents the MineSweeper board, is responsible tile management.
@@ -34,12 +33,11 @@ public final class Board implements Iterable<Tile>
 		numberTilesRevealed = 0;
 	}
 
-	public Board(int row, int col, int numMines, BlockingQueue<int[]> changedTiles)
+	public Board(int row, int col, int numMines)
 	{
 		NUM_ROWS = row;
 		NUM_COLS = col;
 		NUM_MINES = numMines;
-		this.changedTiles = changedTiles;
 		
 		tiles = new Tile[NUM_ROWS][NUM_COLS];
 		initializeTiles(false);
@@ -64,7 +62,7 @@ public final class Board implements Iterable<Tile>
 	 * @param col the column of the tile specified
 	 * @throws InterruptedException 
 	 */
-	public void revealTile(int row, int col) throws InterruptedException
+	public void revealTile(int row, int col)
 	{
 		Tile currentTile = tiles[row][col];
 
@@ -76,7 +74,6 @@ public final class Board implements Iterable<Tile>
 		{
 			currentTile.reveal();
 			numberTilesRevealed++;
-			changedTiles.put(new int[]{row, col, REVEAL});
 		}
 		else // Recursively reveals adjacent tiles if the current has no adjacent mine
 		{
@@ -90,7 +87,6 @@ public final class Board implements Iterable<Tile>
 					if (i >= 0 && j >= 0 && i < NUM_ROWS && j < NUM_COLS) //Only true if i and j are valid indices
 					{
 						revealTile(i, j);
-						changedTiles.put(new int[]{row, col, REVEAL});
 					}
 				}
 			}
@@ -104,19 +100,9 @@ public final class Board implements Iterable<Tile>
 	 * @param col the column of the tile specified
 	 * @throws InterruptedException 
 	 */
-	public void toggleFlag(int row, int col) throws InterruptedException
+	public void toggleFlag(int row, int col)
 	{
 		tiles[row][col].toggleFlag();
-		
-		if(tiles[row][col].isFlagged())
-		{
-			changedTiles.put(new int[] {row, col, FLAG});
-		}
-		else
-		{
-			changedTiles.put(new int[] { row, col, UNFLAG} );
-		}
-		
 	}
 
 	/**
@@ -205,7 +191,6 @@ public final class Board implements Iterable<Tile>
 	private final int NUM_ROWS;
 	private final int NUM_COLS;
 	private final int NUM_MINES;
-	private BlockingQueue<int[]> changedTiles;
 	private Tile[][] tiles;
 	private int[][] adjMines; // Each index in adjMines stores a value that indicates how many mines are adjacent to the same index in tiles
 	private int numberTilesRevealed;
