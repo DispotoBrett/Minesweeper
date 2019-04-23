@@ -7,6 +7,7 @@ import javax.swing.border.BevelBorder;
 import java.util.concurrent.BlockingQueue;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Rectangle;
 
 /**
  * Visual Representation of a tile.
@@ -89,10 +90,12 @@ public class TileButton extends JButton
 			}
 			else if (e == UNFLAG)
 			{
+			    if(!exploded)
 				setIcon(new TileIcon(false, false));
 			}
 			else if (e == EXPOSE_MINE)
 			{
+			    if(!exploded)
 				setIcon(new TileIcon(false, false, true));
 			}
 			else if (e == EXPLODE)
@@ -110,9 +113,14 @@ public class TileButton extends JButton
 
 				t = new Timer(10, e2 -> {
 
-					explosion.explode();
-					frame.getGlassPane().repaint();
+				    	Rectangle bound = explosion.repaintArea();
+					frame.repaint((int)Math.ceil(bound.getX()), 
+						(int) Math.ceil(bound.getY()),
+						(int) Math.ceil(bound.getWidth()), 
+						(int) Math.ceil(bound.getHeight()) );
 
+					explosion.explode();
+				
 					if (explosion.isDone())
 					{
 						stopTimer();
