@@ -5,6 +5,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import edu.sjsu.cs.cs151.minesweeper.model.*;
@@ -50,7 +51,7 @@ public class Controller
 
 	}
 
-	public void mainLoop() throws InterruptedException
+	public void mainLoop() throws InterruptedException, InvocationTargetException
 	{
 		BlockingQueue<int[]> mainQueue = view.getQueue();
 
@@ -70,28 +71,31 @@ public class Controller
 				model.revealTile(message[0], message[1]);
 				gameOver = model.gameLost();
 			}
-
-			else if (message[2] == View.RESET_GAME)
-			{
-			    	gameOver = false;
-				model = new Model(difficulty);
-				view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
-			}
 			else if (message[2] == View.EXIT)
 			{
 				System.exit(0);
 			}
+			else if (message[2] == View.RESET_GAME)
+			{
+			    reset();
+			}
 			else if (message[2] == View.EASY_DIFFICULTY)
 			{
-				difficulty = Model.Difficulty.EASY;
+		    		difficulty = Model.Difficulty.EASY;
+		    		SwingUtilities.invokeAndWait(() -> {if(JOptionPane.YES_OPTION ==View.difficultyChanged()) reset();});
+
 			}
 			else if (message[2] == View.MEDIUM_DIFFICULTY)
 			{
 				difficulty = Model.Difficulty.MEDIUM;
+		    		SwingUtilities.invokeAndWait(() -> {if(JOptionPane.YES_OPTION ==View.difficultyChanged()) reset();});
+
 			}
 			else if (message[2] == View.HARD_DIFFICULTY)
 			{
-				difficulty = Model.Difficulty.HARD;
+		    		difficulty = Model.Difficulty.HARD;
+		    		SwingUtilities.invokeAndWait(() -> {if(JOptionPane.YES_OPTION ==View.difficultyChanged()) reset();});
+	
 			}
 			if (message[0] != -1)
 			{
@@ -117,6 +121,12 @@ public class Controller
 		}
 	}
 
+	public void reset()
+	{
+	    	gameOver = false;
+		model = new Model(difficulty);
+		view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
+	}
 	public void updateView() throws InvocationTargetException, InterruptedException
 	{
 		

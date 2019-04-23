@@ -121,7 +121,7 @@ public class View
 
 	public void resetTo(int row, int col, int[][] adjMines)
 	{
-		this.rows = row;
+		rows = row;
 		columns = col;
 		frame.remove(boardPanel);
 		frame.getGlassPane().setVisible(false);
@@ -130,14 +130,18 @@ public class View
 		frame.add(boardPanel);
 		frame.pack();
 	}
-	
-	public BoardPanel getBoardPanel()
+
+	/**
+	 * Opens a dialog for user to confirm the change in difficulty.
+	 * @return JOptionPane button chosen indicator
+	 */
+	public static int difficultyChanged()
 	{
-		return boardPanel;
+	    return JOptionPane.showConfirmDialog(frame, "Reset the game now?");
 	}
 
 	//-------------------------Private Fields/Methods------------------
-	private JFrame frame;
+	private static JFrame frame;
 	private BoardPanel boardPanel;
 	private int rows;
 	private int columns;
