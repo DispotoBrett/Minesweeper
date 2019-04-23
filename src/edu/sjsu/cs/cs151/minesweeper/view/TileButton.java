@@ -95,7 +95,6 @@ public class TileButton extends JButton
 			}
 			else if (e == EXPOSE_MINE)
 			{
-			    if(!exploded)
 				setIcon(new TileIcon(false, false, true));
 			}
 			else if (e == EXPLODE)
@@ -111,7 +110,7 @@ public class TileButton extends JButton
 				frame.setGlassPane(explosion);
 				explosion.setVisible(true);
 
-				t = new Timer(10, e2 -> {
+				t = new Timer(6, e2 -> {
 
 				    	Rectangle bound = explosion.repaintArea();
 					frame.repaint((int)Math.ceil(bound.getX()), 

@@ -124,7 +124,8 @@ public class View
 		this.rows = row;
 		columns = col;
 		frame.remove(boardPanel);
-
+		frame.getGlassPane().setVisible(false);
+		
 		boardPanel = new BoardPanel(rows, columns, messageQueue, frame, adjMines);
 		frame.add(boardPanel);
 		frame.pack();

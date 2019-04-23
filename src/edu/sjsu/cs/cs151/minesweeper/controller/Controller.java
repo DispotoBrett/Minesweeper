@@ -60,16 +60,20 @@ public class Controller
 
 			if (message[2] == View.RIGHT_CLICK)
 			{
+			    if(!gameOver)
 				model.toggleFlag(message[0], message[1]);
 			}
 
 			else if (message[2] == View.LEFT_CLICK)
 			{
+			    if(!gameOver)
 				model.revealTile(message[0], message[1]);
+				gameOver = model.gameLost();
 			}
 
 			else if (message[2] == View.RESET_GAME)
 			{
+			    	gameOver = false;
 				model = new Model(difficulty);
 				view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
 			}
@@ -98,8 +102,10 @@ public class Controller
 						updateView();
 						if (model.gameLost())
 						{
+							SwingUtilities.invokeAndWait(() -> view.explode(message[0], message[1]));
+							Thread.sleep(2000);
 							gameOver();
-							SwingUtilities.invokeLater(() -> view.explode(message[0], message[1]));
+
 						}
 					}
 					catch (InvocationTargetException | InterruptedException e)
@@ -149,6 +155,7 @@ public class Controller
 	//-------------------------Private Fields/Methods------------------
 	private Model model;
 	private View view;
+	private static boolean gameOver;
 	private Model.Difficulty difficulty = Model.Difficulty.EASY;
 
 }
