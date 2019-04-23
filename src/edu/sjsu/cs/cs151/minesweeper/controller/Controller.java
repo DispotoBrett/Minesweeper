@@ -128,8 +128,8 @@ public class Controller
 			{
 				SwingUtilities.invokeAndWait(() -> view.flag(it.prevRow(), it.prevCol(), current.isFlagged()));
 			}
-		}
-		*/
+		} */
+		
 		
 		BlockingQueue<int[]> changedTiles = model.getChangedTiles();
 		
@@ -149,7 +149,7 @@ public class Controller
 			{
 				SwingUtilities.invokeAndWait(() -> view.getBoardPanel().flag(message[0], message[1], false) );
 			}
-		}
+		} 
 	}
 
 	public void gameOver() throws InvocationTargetException, InterruptedException

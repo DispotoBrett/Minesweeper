@@ -1,6 +1,8 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.concurrent.BlockingQueue;
 
@@ -28,17 +30,23 @@ public class BoardPanel extends JPanel
 	public BoardPanel(int rows, int cols, BlockingQueue<int[]> messageQueue, JFrame frame, int[][] adjMines)
 	{
 		super();
-		setLayout(new GridLayout(rows, cols));
+		
+		setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		
 		tileButtons = new TileButton[rows][cols];
-
+		
 		// Fills the boardPanel with buttons
 		for (int i = 0; i < rows; i++)
 		{
 			for (int j = 0; j < cols; j++)
 			{
+				c.gridx = j;
+				c.gridy = i;
+				
 				TileButton button = new TileButton(i, j, messageQueue, frame, adjMines[i][j]);
 				tileButtons[i][j] = button;
-				add(button);
+				add(button, c);
 			}
 		}
 	}
@@ -108,7 +116,8 @@ public class BoardPanel extends JPanel
 	private TileButton[][] tileButtons;
 	public static final int EASY_ROW_SIZE = 9;
 	public static final int MED_ROW_SIZE = 16;
-	public static final Dimension EASY_SIZE = new Dimension(225, 225);
-	public static final Dimension MEDIUM_SIZE = new Dimension(435, 435);
-	public static final Dimension HARD_SIZE = new Dimension(600, 600);
+	public static final int HARD_ROW_SIZE = 24;
+	public static final Dimension EASY_SIZE = new Dimension(TileIcon.WIDTH * EASY_ROW_SIZE, TileIcon.WIDTH * EASY_ROW_SIZE);
+	public static final Dimension MEDIUM_SIZE = new Dimension(TileIcon.WIDTH * MED_ROW_SIZE, TileIcon.WIDTH * MED_ROW_SIZE);
+	public static final Dimension HARD_SIZE = new Dimension(TileIcon.WIDTH * HARD_ROW_SIZE, TileIcon.WIDTH * HARD_ROW_SIZE);
 }

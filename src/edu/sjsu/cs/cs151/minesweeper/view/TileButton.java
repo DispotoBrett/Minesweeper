@@ -35,10 +35,11 @@ public class TileButton extends JButton
 		revealed = false;
 		theFrame = frame;
 		exploded = false;
+		
 
 		addMouseListener(new MouseAdapter()
 		{
-			public void mouseReleased(MouseEvent e)
+			public void mouseClicked(MouseEvent e)
 			{
 				if (!exploded)
 				{
