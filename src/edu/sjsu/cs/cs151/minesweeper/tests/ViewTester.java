@@ -40,7 +40,7 @@ public class ViewTester
 		}
 	}
 
-	private static void sync() throws InterruptedException
+	private static void sync()
 	{
 		if (model.gameLost())
 		{

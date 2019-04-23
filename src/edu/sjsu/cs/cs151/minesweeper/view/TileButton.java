@@ -1,7 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
 import java.awt.event.*;
-import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -36,10 +35,10 @@ public class TileButton extends JButton
 		theFrame = frame;
 		exploded = false;
 		
-
+		
 		addMouseListener(new MouseAdapter()
 		{
-			public void mouseClicked(MouseEvent e)
+			public void mouseReleased(MouseEvent e)
 			{
 				if (!exploded)
 				{
