@@ -65,10 +65,10 @@ public class Explosion extends JComponent
 	{
 		return fadeOut <= 1;
 	}
-	
+
 	public Rectangle repaintArea()
 	{
-	   return new Rectangle(x, y, width, height);
+		return new Rectangle(x, y, width, height);
 	}
 
 	/**

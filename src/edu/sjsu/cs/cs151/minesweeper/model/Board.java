@@ -12,10 +12,11 @@ import java.util.*;
 public final class Board implements Iterable<Tile>
 {
 	//-------------------------Public Interface-----------------------
-	
+
 	public static final int REVEAL = 0;
 	public static final int FLAG = 1;
 	public static final int UNFLAG = 2;
+
 	/**
 	 * Constructs a new Board instance, with randomized mine placement.
 	 *
@@ -38,7 +39,7 @@ public final class Board implements Iterable<Tile>
 		NUM_ROWS = row;
 		NUM_COLS = col;
 		NUM_MINES = numMines;
-		
+
 		tiles = new Tile[NUM_ROWS][NUM_COLS];
 		initializeTiles(false);
 		initializeAdjacentMines();
@@ -60,7 +61,7 @@ public final class Board implements Iterable<Tile>
 	 *
 	 * @param row the row of the tile specified
 	 * @param col the column of the tile specified
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
 	public void revealTile(int row, int col)
 	{
@@ -98,7 +99,7 @@ public final class Board implements Iterable<Tile>
 	 *
 	 * @param row the row of the tile specified
 	 * @param col the column of the tile specified
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
 	public void toggleFlag(int row, int col)
 	{

@@ -80,7 +80,7 @@ public class WelcomePanel extends JPanel
 		difficultyPanel.add(difficultyLabel);
 
 		difficultyPanel.add(new JLabel());
-		
+
 		JButton easyButton = new JButton("Easy");
 		easyButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		easyButton.setBackground(Color.white);

@@ -35,8 +35,8 @@ public class TileButton extends JButton
 		revealed = false;
 		theFrame = frame;
 		exploded = false;
-		
-		
+
+
 		addMouseListener(new MouseAdapter()
 		{
 			public void mouseReleased(MouseEvent e)
@@ -90,8 +90,10 @@ public class TileButton extends JButton
 			}
 			else if (e == UNFLAG)
 			{
-			    if(!exploded)
-				setIcon(new TileIcon(false, false));
+				if (!exploded)
+				{
+					setIcon(new TileIcon(false, false));
+				}
 			}
 			else if (e == EXPOSE_MINE)
 			{
@@ -112,14 +114,14 @@ public class TileButton extends JButton
 
 				t = new Timer(6, e2 -> {
 
-				    	Rectangle bound = explosion.repaintArea();
-					frame.repaint((int)Math.ceil(bound.getX()), 
-						(int) Math.ceil(bound.getY()),
-						(int) Math.ceil(bound.getWidth()), 
-						(int) Math.ceil(bound.getHeight()) );
+					Rectangle bound = explosion.repaintArea();
+					frame.repaint((int) Math.ceil(bound.getX()),
+							(int) Math.ceil(bound.getY()),
+							(int) Math.ceil(bound.getWidth()),
+							(int) Math.ceil(bound.getHeight()));
 
 					explosion.explode();
-				
+
 					if (explosion.isDone())
 					{
 						stopTimer();

@@ -125,7 +125,7 @@ public class View
 		columns = col;
 		frame.remove(boardPanel);
 		frame.getGlassPane().setVisible(false);
-		
+
 		boardPanel = new BoardPanel(rows, columns, messageQueue, frame, adjMines);
 		frame.add(boardPanel);
 		frame.pack();
@@ -133,11 +133,12 @@ public class View
 
 	/**
 	 * Opens a dialog for user to confirm the change in difficulty.
+	 *
 	 * @return JOptionPane button chosen indicator
 	 */
 	public static int difficultyChanged()
 	{
-	    return JOptionPane.showConfirmDialog(frame, "Reset the game now?");
+		return JOptionPane.showConfirmDialog(frame, "Reset the game now?");
 	}
 
 	//-------------------------Private Fields/Methods------------------
@@ -190,16 +191,24 @@ public class View
 		hard.addActionListener(e -> messageQueue.add(new int[]{-1, -1, HARD_DIFFICULTY}));
 		difficulties.add(hard);
 		difficultyMenu.add(hard);
-		
-		switch(difficulty)
+
+		switch (difficulty)
 		{
-		case EASY_DIFFICULTY: easy.setSelected(true); break;
-		
-		case MEDIUM_DIFFICULTY: medium.setSelected(true); break;
-		
-		case HARD_DIFFICULTY: hard.setSelected(true); break;
-		
-		default: easy.setSelected(true); break;
+			case EASY_DIFFICULTY:
+				easy.setSelected(true);
+				break;
+
+			case MEDIUM_DIFFICULTY:
+				medium.setSelected(true);
+				break;
+
+			case HARD_DIFFICULTY:
+				hard.setSelected(true);
+				break;
+
+			default:
+				easy.setSelected(true);
+				break;
 		}
 
 		game.add(difficultyMenu);

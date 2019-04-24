@@ -152,11 +152,11 @@ public final class TileIcon implements Icon
 
 	//----------------Private Methods/Fields----------------------
 	//private static final int WIDTH = 25, HEIGHT = 25;
-	public static final int WIDTH = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth() / 76.8 );
+	public static final int WIDTH = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth() / 76.8);
 	public static final int HEIGHT = WIDTH;
 	private static final int FONT_SIZE = (int) (HEIGHT * .76);
 	private static final int FONT_X = (int) (HEIGHT * .28);
-	private static final int FONT_Y = HEIGHT - (int) ( HEIGHT * .2 );
+	private static final int FONT_Y = HEIGHT - (int) (HEIGHT * .2);
 	private static final int MIN_YELLOW = 2;
 	private static final int MIN_RED = 4;
 	private static final int BEVEL_BUFFER = 10;        //FIXME unused?

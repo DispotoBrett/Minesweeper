@@ -23,13 +23,11 @@ public class Model
 		numberOfTiles = gameBoard.getRows() * gameBoard.getColumns();
 		gameWon = false;
 		gameLost = false;
-		
-		
 	}
 
 	public Model(Difficulty d)
 	{
-		
+
 		switch (d)
 		{
 			case EASY:
@@ -78,7 +76,7 @@ public class Model
 	 *
 	 * @param row The row of the tile specified.
 	 * @param col The column of the tile specified.
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
 	public void revealTile(int row, int col)
 	{
@@ -102,7 +100,7 @@ public class Model
 	 *
 	 * @param row The row of the tile specified.
 	 * @param col The column of the tile specified.
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
 	public void toggleFlag(int row, int col)
 	{
@@ -128,7 +126,7 @@ public class Model
 	{
 		return gameBoard.iterator();
 	}
-	
+
 
 	//-------------------------Private Fields/Methods------------------
 	private Board gameBoard;

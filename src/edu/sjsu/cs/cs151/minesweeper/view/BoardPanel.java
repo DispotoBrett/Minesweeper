@@ -29,11 +29,11 @@ public class BoardPanel extends JPanel
 	public BoardPanel(int rows, int cols, BlockingQueue<int[]> messageQueue, JFrame frame, int[][] adjMines)
 	{
 		super();
-		
+
 		setLayout(new GridLayout(rows, cols));
-		
+
 		tileButtons = new TileButton[rows][cols];
-		
+
 		// Fills the boardPanel with buttons
 		for (int i = 0; i < rows; i++)
 		{
