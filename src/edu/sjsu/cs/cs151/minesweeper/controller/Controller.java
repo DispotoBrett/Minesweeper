@@ -186,6 +186,6 @@ public class Controller
 	private Model model;
 	private View view;
 	private static boolean gameOver;
-	private Model.Difficulty difficulty = Model.Difficulty.EASY;
+	private Model.Difficulty difficulty;
 
 }

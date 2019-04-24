@@ -1,7 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.util.concurrent.BlockingQueue;
 

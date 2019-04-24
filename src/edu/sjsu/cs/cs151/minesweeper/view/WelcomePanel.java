@@ -2,7 +2,6 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -81,6 +80,7 @@ public class WelcomePanel extends JPanel
 
 		difficultyPanel.add(new JLabel());
 
+		//FIXME unchecked calls to add as a member of a raw type (Queue)
 		JButton easyButton = new JButton("Easy");
 		easyButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		easyButton.setBackground(Color.white);

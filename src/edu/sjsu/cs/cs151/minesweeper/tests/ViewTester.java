@@ -17,7 +17,7 @@ public class ViewTester
 	static final int COL_INDEX = 1;
 	static int[] msg;
 
-	public static void main(String[] args) throws InterruptedException, InvocationTargetException
+	public static void main(String[] args)
 	{
 		//	SwingUtilities
 		//		.invokeAndWait(() -> view = new View(9, 9, model.getBoard().adjacentMines()));

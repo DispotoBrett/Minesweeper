@@ -76,7 +76,6 @@ public class Model
 	 *
 	 * @param row The row of the tile specified.
 	 * @param col The column of the tile specified.
-	 * @throws InterruptedException
 	 */
 	public void revealTile(int row, int col)
 	{
@@ -100,7 +99,6 @@ public class Model
 	 *
 	 * @param row The row of the tile specified.
 	 * @param col The column of the tile specified.
-	 * @throws InterruptedException
 	 */
 	public void toggleFlag(int row, int col)
 	{

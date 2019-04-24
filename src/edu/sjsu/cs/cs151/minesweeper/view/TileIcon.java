@@ -159,9 +159,6 @@ public final class TileIcon implements Icon
 	private static final int FONT_Y = HEIGHT - (int) (HEIGHT * .2);
 	private static final int MIN_YELLOW = 2;
 	private static final int MIN_RED = 4;
-	private static final int BEVEL_BUFFER = 10;        //FIXME unused?
-	private static final int BEVEL_BUFFER_X = 4;    //FIXME unused?
-	private static final int BEVEL_BUFFER_Y = 5;    //FIXME unused?
 	private boolean flagged;
 	private int adjMines;
 	private boolean showMine;

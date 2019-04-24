@@ -61,7 +61,6 @@ public final class Board implements Iterable<Tile>
 	 *
 	 * @param row the row of the tile specified
 	 * @param col the column of the tile specified
-	 * @throws InterruptedException
 	 */
 	public void revealTile(int row, int col)
 	{
@@ -99,7 +98,6 @@ public final class Board implements Iterable<Tile>
 	 *
 	 * @param row the row of the tile specified
 	 * @param col the column of the tile specified
-	 * @throws InterruptedException
 	 */
 	public void toggleFlag(int row, int col)
 	{
