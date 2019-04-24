@@ -42,7 +42,22 @@ public class SingleRandom
 	 */
 	public static SingleRandom getInstance()
 	{
-		//"Supply a static method that returns a reference to the single instance."
+		if(instance == null) 
+			instance = new SingleRandom();
+		return instance;
+	}
+	
+	/**
+	 * Gets an instance of the single random number generator
+	 * 	if a seed has already been set, the parameter will be ignored.
+	 *
+	 * @param the seed to be used if the instance has not been constructed
+	 * @return An instance of the single random number generator.
+	 */
+	public static SingleRandom getInstance(int seed)
+	{
+		if(instance == null) 
+			instance = new SingleRandom(seed);
 		return instance;
 	}
 
@@ -51,8 +66,17 @@ public class SingleRandom
 	 */
 	private SingleRandom()
 	{
-		//"Define a class with a private constructor."
 		generator = new Random();
+	}
+	
+	/**
+	 * Constructs the Random object associated with the SingleRandom class.
+	 * 
+	 * @param the seed to be used
+	 */
+	private SingleRandom(int seed)
+	{
+		generator = new Random(seed);
 	}
 
 	private Random generator;
