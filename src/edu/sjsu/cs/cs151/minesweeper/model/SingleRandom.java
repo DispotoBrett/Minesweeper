@@ -81,5 +81,5 @@ public class SingleRandom
 
 	private Random generator;
 	//"The class constructs a single instance of itself", "global variable"
-	private static SingleRandom instance = new SingleRandom();
+	private static SingleRandom instance;
 }
