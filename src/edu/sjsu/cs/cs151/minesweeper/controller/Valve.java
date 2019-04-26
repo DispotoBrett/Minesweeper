@@ -9,5 +9,5 @@ public interface Valve
 	 * @param message the message that it will act on
 	 * @return MISS if the Valve cannot process the message, EXECUTED if it can, and FINISH if the game is over
 	 */
-	public ValveResponse execture(Message message);
+	public ValveResponse execute(Message message);
 }

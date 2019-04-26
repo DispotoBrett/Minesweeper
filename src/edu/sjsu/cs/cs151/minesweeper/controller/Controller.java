@@ -4,10 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import edu.sjsu.cs.cs151.minesweeper.controller.Valve.ValveResponse;
@@ -29,6 +26,8 @@ public class Controller
 		this.model = model;
 		this.view = view;
 		messages = messageQueue;
+		
+		valves.add(new StartDifficultyValve(view, model));
 	}
 
 	public void mainLoop()
@@ -40,7 +39,7 @@ public class Controller
 		{
 			try 
 			{
-				message = (Message) messages.take();
+				message = messages.take();
 			}
 			catch(InterruptedException e)
 			{
@@ -49,7 +48,7 @@ public class Controller
 			
 			for(Valve valve: valves)
 			{
-				response = valve.execture(message);
+				response = valve.execute(message);
 				
 				if(response != ValveResponse.MISS)
 					break;

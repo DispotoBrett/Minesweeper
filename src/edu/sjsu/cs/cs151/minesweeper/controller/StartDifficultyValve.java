@@ -13,7 +13,7 @@ public class StartDifficultyValve implements Valve
 	}
 	
 	@Override
-	public ValveResponse execture(Message message)
+	public ValveResponse execute(Message message)
 	{
 		if(message.getClass() != StartDifficultyMessage.class)
 				return ValveResponse.MISS;

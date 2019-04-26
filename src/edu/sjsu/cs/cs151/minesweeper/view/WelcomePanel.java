@@ -2,12 +2,13 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
+import edu.sjsu.cs.cs151.minesweeper.controller.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * WelcomePanel represents a startup screen to welcome the player.
@@ -24,7 +25,7 @@ public class WelcomePanel extends JPanel
 	 *
 	 * @param messageQueue A queue to hold messages (user inputs).
 	 */
-	public WelcomePanel(Queue messageQueue)
+	public WelcomePanel(BlockingQueue<Message> messageQueue)
 	{
 		setLayout(new BorderLayout());
 		setUpNorth();
@@ -47,6 +48,8 @@ public class WelcomePanel extends JPanel
 		}
 	}
 
+	
+	//-------------------------Private Fields/Methods------------------
 	private MineAnimation animation;
 
 	private void setUpNorth()
@@ -67,7 +70,7 @@ public class WelcomePanel extends JPanel
 		add(logo, BorderLayout.NORTH);
 	}
 
-	private void setUpCenter(Queue messageQueue)
+	private void setUpCenter(BlockingQueue<Message> messageQueue)
 	{
 		JPanel difficultyPanel = new JPanel();
 		difficultyPanel.setLayout(new GridLayout(2, 3, 10, 10));
@@ -84,17 +87,17 @@ public class WelcomePanel extends JPanel
 		JButton easyButton = new JButton("Easy");
 		easyButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		easyButton.setBackground(Color.white);
-		easyButton.addActionListener(e -> messageQueue.add(new int[]{-1, -1, View.EASY_DIFFICULTY}));
+		easyButton.addActionListener(e -> messageQueue.add(new StartDifficultyMessage(View.EASY_DIFFICULTY)));
 		difficultyPanel.add(easyButton);
 
 		JButton mediumButton = new JButton("Medium");
-		mediumButton.addActionListener(e -> messageQueue.add(new int[]{-1, -1, View.MEDIUM_DIFFICULTY}));
+		mediumButton.addActionListener(e -> messageQueue.add(new StartDifficultyMessage(View.MEDIUM_DIFFICULTY)));
 		mediumButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		mediumButton.setBackground(Color.white);
 		difficultyPanel.add(mediumButton);
 
 		JButton hardButton = new JButton("Hard");
-		hardButton.addActionListener(e -> messageQueue.add(new int[]{-1, -1, View.HARD_DIFFICULTY}));
+		hardButton.addActionListener(e -> messageQueue.add(new StartDifficultyMessage(View.HARD_DIFFICULTY)));
 		hardButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		hardButton.setBackground(Color.white);
 		difficultyPanel.add(hardButton);
