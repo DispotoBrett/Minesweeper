@@ -57,8 +57,10 @@ public class Controller
 
 		while (true)
 		{
+		    
 			int[] message = mainQueue.take();
-
+			if(!model.gameLost())
+			{
 			if (message[2] == View.RIGHT_CLICK)
 			{
 				if (!gameOver)
@@ -67,6 +69,7 @@ public class Controller
 				}
 			}
 
+			
 			else if (message[2] == View.LEFT_CLICK)
 			{
 				if (!gameOver)
@@ -74,6 +77,7 @@ public class Controller
 					model.revealTile(message[0], message[1]);
 				}
 				gameOver = model.gameLost();
+			}
 			}
 			else if (message[2] == View.EXIT)
 			{
@@ -116,6 +120,7 @@ public class Controller
 				});
 
 			}
+			
 			if (message[0] != -1)
 			{
 				ExecutorService service = Executors.newCachedThreadPool();
@@ -123,19 +128,20 @@ public class Controller
 					try
 					{
 						updateView();
-						if (model.gameLost())
-						{
-							SwingUtilities.invokeAndWait(() -> view.explode(message[0], message[1]));
-							Thread.sleep(2000);
-							gameOver();
-
-						}
 					}
 					catch (InvocationTargetException | InterruptedException e)
 					{
 						e.printStackTrace();
 					}
 				});
+				service.shutdown();
+				if (model.gameLost())
+				{
+					SwingUtilities.invokeAndWait(() -> view.explode(message[0], message[1]));
+					Thread.sleep(3000);
+					gameOver();
+				}
+
 			}
 		}
 	}

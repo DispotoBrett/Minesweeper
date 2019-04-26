@@ -33,7 +33,7 @@ public class View
 	public View()
 	{
 		frame = new JFrame("Minesweeper");
-		messageQueue = new ArrayBlockingQueue<int[]>(1000); //TODO: reassess
+		messageQueue = new ArrayBlockingQueue<int[]>(100); //TODO: reassess
 
 		initializeWelcomeMenu();
 	}

@@ -48,8 +48,8 @@ public final class TileIcon implements Icon
 	{
 		this.flagged = flagged;
 		this.revealed = revealed;
-		this.adjMines = 0;
 		this.showMine = showMine;
+		this.adjMines = 0;
 	}
 
 
@@ -70,10 +70,11 @@ public final class TileIcon implements Icon
 
 		if (showMine)
 		{
+		    	if(revealed) g2.setColor(Color.RED);
 			BufferedImage img = null;
 			try
 			{
-				img = ImageIO.read(new File("resources/mine.png"));
+			    img = ImageIO.read(new File("resources/mine.png"));
 			}
 			catch (IOException e)
 			{

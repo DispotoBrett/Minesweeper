@@ -63,16 +63,6 @@ public class TileButton extends JButton
 				}
 
 			}
-
-			public void mouseEntered(MouseEvent e)
-			{
-				//setBackground(Color.yellow);
-			}
-
-			public void mouseExited(MouseEvent e)
-			{
-				setBackground(null);
-			}
 		});
 
 		addActionListener(e -> {
@@ -112,7 +102,7 @@ public class TileButton extends JButton
 				frame.setGlassPane(explosion);
 				explosion.setVisible(true);
 
-				t = new Timer(6, e2 -> {
+				t = new Timer(12, e2 -> {
 
 					Rectangle bound = explosion.repaintArea();
 					frame.repaint((int) Math.ceil(bound.getX()),
@@ -157,6 +147,7 @@ public class TileButton extends JButton
 	 */
 	public void explode()
 	{
+	    if(!exploded)
 		getActionListeners()[0].actionPerformed(EXPLODE);
 	}
 
@@ -182,7 +173,7 @@ public class TileButton extends JButton
 	private static final ActionEvent FLAG = new ActionEvent(new Object(), 1, "flag");
 	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 2, "unflag");
 	private static final ActionEvent EXPLODE = new ActionEvent(new Object(), 3, "explode");
-	private static final ActionEvent EXPOSE_MINE = new ActionEvent(new Object(), 3, "explode");
+	private static final ActionEvent EXPOSE_MINE = new ActionEvent(new Object(), 4, "explode");
 
 	public boolean revealed;
 	private static boolean exploded;
