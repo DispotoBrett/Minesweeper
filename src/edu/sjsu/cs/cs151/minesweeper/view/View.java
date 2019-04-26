@@ -3,7 +3,7 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-
+import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -58,9 +58,11 @@ public class View
 	/**
 	 * Updates View subsequent to changes in Model.
 	 */
-	public void change()
+	public void gameWon()
 	{
-		//TODO
+		boardPanel.gameWon();
+		JOptionPane.showMessageDialog(frame,
+		        null, "Winner!", 0);
 	}
 
 	/**
@@ -242,17 +244,17 @@ public class View
 	{
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		BufferedImage img = null;
+		BufferedImage iconImg = null;
 		try
 		{
-			img = ImageIO.read(new File("resources/mine.png"));
+		    iconImg = ImageIO.read(new File("resources/mine.png"));
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
 
-		frame.setIconImage(img);
+		frame.setIconImage(iconImg);
 		welcome = new WelcomePanel(messageQueue);
 		frame.add(welcome);
 		frame.setResizable(false);

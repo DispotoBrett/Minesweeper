@@ -1,5 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.concurrent.BlockingQueue;
@@ -105,6 +106,15 @@ public class BoardPanel extends JPanel
 	public void exposeMine(int row, int col)
 	{
 		tileButtons[row][col].exposeMine();
+	}
+	
+	public void gameWon()
+	{
+	    for(int i = 0; i < tileButtons.length; i++)
+	    {
+		for(int j = 0; j < tileButtons[0].length; j++)
+		    tileButtons[i][j].setBackground(new Color(255,215,0));
+	    }
 	}
 
 	private TileButton[][] tileButtons;

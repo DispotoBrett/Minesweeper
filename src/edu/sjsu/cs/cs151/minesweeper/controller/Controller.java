@@ -54,31 +54,31 @@ public class Controller
 	public void mainLoop() throws InterruptedException, InvocationTargetException
 	{
 		BlockingQueue<int[]> mainQueue = view.getQueue();
-
+		gameOver = false;
 		while (true)
 		{
 		    
 			int[] message = mainQueue.take();
-			if(!model.gameLost())
-			{
-			if (message[2] == View.RIGHT_CLICK)
-			{
-				if (!gameOver)
-				{
-					model.toggleFlag(message[0], message[1]);
-				}
-			}
-
 			
-			else if (message[2] == View.LEFT_CLICK)
-			{
-				if (!gameOver)
+				if (message[2] == View.RIGHT_CLICK)
 				{
-					model.revealTile(message[0], message[1]);
+					if (!gameOver)
+					{
+						model.toggleFlag(message[0], message[1]);
+					}
 				}
-				gameOver = model.gameLost();
-			}
-			}
+
+				
+				else if (message[2] == View.LEFT_CLICK)
+				{
+					if (!gameOver)
+					{
+						model.revealTile(message[0], message[1]);
+					}
+					gameOver = model.gameLost();
+				}   
+			
+			
 			else if (message[2] == View.EXIT)
 			{
 				System.exit(0);
@@ -141,6 +141,11 @@ public class Controller
 					Thread.sleep(3000);
 					gameOver();
 				}
+				if(model.gameWon() && !gameOver)
+				{
+				    gameOver = true;
+				    view.gameWon();
+				}
 
 			}
 		}
@@ -175,6 +180,7 @@ public class Controller
 
 	public void gameOver() throws InvocationTargetException, InterruptedException
 	{
+	    	gameOver = true;
 		BoardIterator it = model.boardIterator();
 
 		while (it.hasNext())
