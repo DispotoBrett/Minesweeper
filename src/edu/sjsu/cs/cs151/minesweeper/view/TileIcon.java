@@ -70,6 +70,7 @@ public final class TileIcon implements Icon
 
 		if (showMine)
 		{
+			if(revealed) g2.setColor(Color.RED);
 			BufferedImage img = null;
 			try
 			{

@@ -87,7 +87,7 @@ public class Explosion extends JComponent
 			fadeOut--;
 		}
 
-		g2.setColor(new Color(0, 0, 0, fadeOut));
+		g2.setColor(new Color(100, 0, 0, fadeOut));
 		g2.fill(explosion);
 
 		//"Game over" text
@@ -103,7 +103,7 @@ public class Explosion extends JComponent
 		double descent = bounds.getHeight() - ascent;
 		double extent = bounds.getWidth();
 
-		g2.setColor(new Color(255, 255, 255, fadeOut));
+		g2.setColor(new Color(0, 0, 0, fadeOut));
 
 		//draw string at center of given frame
 		g2.drawString(

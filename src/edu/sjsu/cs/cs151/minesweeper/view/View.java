@@ -57,11 +57,12 @@ public class View
 	}
 
 	/**
-	 * Updates View subsequent to changes in Model.
+	 * Puts on a display when the game has been won
 	 */
-	public void change()
+	public void gameWon()
 	{
-		//TODO
+		boardPanel.gameWon();
+		JOptionPane.showMessageDialog(frame, null, "Winner!", 0);
 	}
 
 	/**
