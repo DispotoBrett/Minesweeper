@@ -4,6 +4,9 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+
+import edu.sjsu.cs.cs151.minesweeper.controller.*;
+
 import java.util.concurrent.BlockingQueue;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,7 +32,7 @@ public class TileButton extends JButton
 	 * @param frame        the frame to be painted on (for explosions)
 	 * @param adjMines     the number of mines adjacent to the Tile represented by this TileButton
 	 */
-	public TileButton(int row, int col, BlockingQueue<int[]> messageQueue, JFrame frame, int adjMines)
+	public TileButton(int row, int col, BlockingQueue<Message> messageQueue, JFrame frame, int adjMines)
 	{
 		super(new TileIcon(false, false));
 		revealed = false;
@@ -45,11 +48,11 @@ public class TileButton extends JButton
 				{
 					if (SwingUtilities.isLeftMouseButton(e))
 					{
-						messageQueue.add(new int[]{row, col, View.LEFT_CLICK});
+						messageQueue.add(new LeftClickMessage(row, col));
 					}
 					else if (SwingUtilities.isRightMouseButton(e))
 					{
-						messageQueue.add(new int[]{row, col, View.RIGHT_CLICK});
+						messageQueue.add(new RightClickMessage(row, col));
 					}
 					setBackground(null);
 				}

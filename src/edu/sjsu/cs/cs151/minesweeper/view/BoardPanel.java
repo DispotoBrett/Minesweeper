@@ -7,6 +7,8 @@ import java.util.concurrent.BlockingQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import edu.sjsu.cs.cs151.minesweeper.controller.Message;
+
 /**
  * BoardPanel visually represents a Minesweeper board.
  *
@@ -25,7 +27,7 @@ public class BoardPanel extends JPanel
 	 * @param frame        the frame to be painted on (for explosions, which need glassPane)
 	 * @param adjMines     the 2d array that stores the number of adjacent mines for each tile
 	 */
-	public BoardPanel(int rows, int cols, BlockingQueue<int[]> messageQueue, JFrame frame, int[][] adjMines)
+	public BoardPanel(int rows, int cols, BlockingQueue<Message> messageQueue, JFrame frame, int[][] adjMines)
 	{
 		super();
 

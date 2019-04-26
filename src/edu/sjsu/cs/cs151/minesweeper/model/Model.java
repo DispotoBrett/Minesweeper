@@ -13,21 +13,31 @@ public class Model
 	//-------------------------Public Interface-----------------------
 	public enum Difficulty
 	{EASY, MEDIUM, HARD}
-
+	
+	
+	public Model()
+	{
+		gameWon = false;
+		gameLost = false;
+		numberOfTiles = 0;
+		gameBoard = new Board(0, 0, 0);
+	}
+	
 	/**
 	 * Constructs a new Model instance.
 	 */
-	public Model()
+	public Model(boolean seeded)
 	{
-		gameBoard = new Board(false);
+		gameBoard = new Board(seeded);
 		numberOfTiles = gameBoard.getRows() * gameBoard.getColumns();
 		gameWon = false;
 		gameLost = false;
 	}
 
-	public Model(Difficulty d)
+	public void setDifficulty(Difficulty d)
 	{
-
+		currentDifficulty = d;
+		
 		switch (d)
 		{
 			case EASY:
@@ -44,8 +54,9 @@ public class Model
 
 			default:
 				gameBoard = new Board(false);
-
+				currentDifficulty = Difficulty.EASY;
 		}
+		
 		numberOfTiles = gameBoard.getRows() * gameBoard.getColumns();
 		gameWon = false;
 		gameLost = false;
@@ -69,6 +80,21 @@ public class Model
 	public boolean gameLost()
 	{
 		return gameLost;
+	}
+	
+	/**
+	 * Resets the Model
+	 */
+	public void reset()
+	{
+		gameWon = false;
+		gameLost = false;
+		
+		int rows = gameBoard.getRows();
+		int cols = gameBoard.getColumns();
+		int mines = gameBoard.getNumMines();
+		
+		gameBoard = new Board(rows, cols, mines);
 	}
 
 	/**
@@ -129,6 +155,7 @@ public class Model
 	//-------------------------Private Fields/Methods------------------
 	private Board gameBoard;
 	private int numberOfTiles;
+	private Difficulty currentDifficulty;
 	private boolean gameWon;
 	private boolean gameLost;
 }

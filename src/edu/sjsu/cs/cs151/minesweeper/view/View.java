@@ -3,6 +3,7 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import edu.sjsu.cs.cs151.minesweeper.controller.*;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -30,10 +31,10 @@ public class View
 	/**
 	 * Constructor for View
 	 */
-	public View()
+	public View(BlockingQueue<Message> messages)
 	{
 		frame = new JFrame("Minesweeper");
-		messageQueue = new ArrayBlockingQueue<int[]>(1000); //TODO: reassess
+		messageQueue = messages; //TODO: reassess
 
 		initializeWelcomeMenu();
 	}
@@ -114,7 +115,7 @@ public class View
 	 *
 	 * @return the message queue
 	 */
-	public BlockingQueue<int[]> getQueue()
+	public BlockingQueue<Message> getQueue()
 	{
 		return messageQueue;
 	}
@@ -146,7 +147,7 @@ public class View
 	private BoardPanel boardPanel;
 	private int rows;
 	private int columns;
-	private BlockingQueue<int[]> messageQueue;
+	private BlockingQueue<Message> messageQueue;
 	private Timer welcomeMenuHelper;
 	private WelcomePanel welcome;
 
@@ -178,17 +179,44 @@ public class View
 
 		ButtonGroup difficulties = new ButtonGroup();
 		JRadioButtonMenuItem easy = new JRadioButtonMenuItem("Easy");
-		easy.addActionListener(e -> messageQueue.add(new int[]{-1, -1, EASY_DIFFICULTY}));
+		easy.addActionListener(e -> {
+			try
+			{
+				messageQueue.put(new DifficultyMessage(EASY_DIFFICULTY));
+			} catch (InterruptedException e2)
+			{
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+		});
 		difficulties.add(easy);
 		difficultyMenu.add(easy);
 
 		JRadioButtonMenuItem medium = new JRadioButtonMenuItem("Medium");
-		medium.addActionListener(e -> messageQueue.add(new int[]{-1, -1, MEDIUM_DIFFICULTY}));
+		medium.addActionListener(e -> {
+			try
+			{
+				messageQueue.put(new DifficultyMessage(MEDIUM_DIFFICULTY));
+			} catch (InterruptedException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		difficulties.add(medium);
 		difficultyMenu.add(medium);
 
 		JRadioButtonMenuItem hard = new JRadioButtonMenuItem("Hard");
-		hard.addActionListener(e -> messageQueue.add(new int[]{-1, -1, HARD_DIFFICULTY}));
+		hard.addActionListener(e -> {
+			try
+			{
+				messageQueue.put(new DifficultyMessage(MEDIUM_DIFFICULTY));
+			} catch (InterruptedException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		difficulties.add(hard);
 		difficultyMenu.add(hard);
 
@@ -214,14 +242,14 @@ public class View
 		game.add(difficultyMenu);
 
 		JMenuItem startNew = new JMenuItem("Start New Game");
-		startNew.addActionListener(e -> messageQueue.add(new int[]{-1, -1, RESET_GAME}));
+		startNew.addActionListener(e -> messageQueue.add( new ResetMessage()));
 
 		game.add(startNew);
 
 		game.addSeparator();
 
 		JMenuItem exit = new JMenuItem("Exit");
-		exit.addActionListener(e -> messageQueue.add(new int[]{-1, -1, EXIT}));
+		exit.addActionListener(e -> messageQueue.add(new ExitMessage()));
 		game.add(exit);
 
 		JMenu help = new JMenu("Help");

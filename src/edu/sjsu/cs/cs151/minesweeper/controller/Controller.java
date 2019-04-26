@@ -1,5 +1,7 @@
 package edu.sjsu.cs.cs151.minesweeper.controller;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -8,6 +10,7 @@ import java.util.concurrent.Executors;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import edu.sjsu.cs.cs151.minesweeper.controller.Valve.ValveResponse;
 import edu.sjsu.cs.cs151.minesweeper.model.*;
 import edu.sjsu.cs.cs151.minesweeper.view.View;
 
@@ -21,121 +24,35 @@ import edu.sjsu.cs.cs151.minesweeper.view.View;
 
 public class Controller
 {
-	public Controller() throws InvocationTargetException, InterruptedException
+	public Controller(Model model, View view, BlockingQueue<Message> messageQueue) throws InvocationTargetException, InterruptedException
 	{
-		SwingUtilities.invokeAndWait(() -> view = new View());
-
-		//get the initial difficulty level based on startup screen input
-		int initialDifficulty = view.getQueue().take()[2];
-		if (initialDifficulty == View.EASY_DIFFICULTY)
-		{
-			model = new Model(Model.Difficulty.EASY);
-
-			//update difficulty used for proper reset functionality 
-			difficulty = Model.Difficulty.EASY;
-		}
-		else if (initialDifficulty == View.MEDIUM_DIFFICULTY)
-		{
-			model = new Model(Model.Difficulty.MEDIUM);
-			difficulty = Model.Difficulty.MEDIUM;
-		}
-		else
-		{
-			model = new Model(Model.Difficulty.HARD);
-			difficulty = Model.Difficulty.HARD;
-		}
-
-
-		SwingUtilities.invokeAndWait(()
-				-> view.startGame(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines(), initialDifficulty));
-
+		this.model = model;
+		this.view = view;
+		messages = messageQueue;
 	}
 
-	public void mainLoop() throws InterruptedException, InvocationTargetException
+	public void mainLoop()
 	{
-		BlockingQueue<int[]> mainQueue = view.getQueue();
+		ValveResponse response = ValveResponse.EXECUTED;
+		Message message = null;
 
-		while (true)
+		while (response != ValveResponse.FINISH)
 		{
-			int[] message = mainQueue.take();
-
-			if (message[2] == View.RIGHT_CLICK)
+			try 
 			{
-				if (!gameOver)
-				{
-					model.toggleFlag(message[0], message[1]);
-				}
+				message = (Message) messages.take();
 			}
-
-			else if (message[2] == View.LEFT_CLICK)
+			catch(InterruptedException e)
 			{
-				if (!gameOver)
-				{
-					model.revealTile(message[0], message[1]);
-				}
-				gameOver = model.gameLost();
+				e.printStackTrace();
 			}
-			else if (message[2] == View.EXIT)
+			
+			for(Valve valve: valves)
 			{
-				System.exit(0);
-			}
-			else if (message[2] == View.RESET_GAME)
-			{
-				reset();
-			}
-			else if (message[2] == View.EASY_DIFFICULTY)
-			{
-				difficulty = Model.Difficulty.EASY;
-				SwingUtilities.invokeAndWait(() -> {
-					if (JOptionPane.YES_OPTION == View.difficultyChanged())
-					{
-						reset();
-					}
-				});
-
-			}
-			else if (message[2] == View.MEDIUM_DIFFICULTY)
-			{
-				difficulty = Model.Difficulty.MEDIUM;
-				SwingUtilities.invokeAndWait(() -> {
-					if (JOptionPane.YES_OPTION == View.difficultyChanged())
-					{
-						reset();
-					}
-				});
-
-			}
-			else if (message[2] == View.HARD_DIFFICULTY)
-			{
-				difficulty = Model.Difficulty.HARD;
-				SwingUtilities.invokeAndWait(() -> {
-					if (JOptionPane.YES_OPTION == View.difficultyChanged())
-					{
-						reset();
-					}
-				});
-
-			}
-			if (message[0] != -1)
-			{
-				ExecutorService service = Executors.newCachedThreadPool();
-				service.execute(() -> {
-					try
-					{
-						updateView();
-						if (model.gameLost())
-						{
-							SwingUtilities.invokeAndWait(() -> view.explode(message[0], message[1]));
-							Thread.sleep(2000);
-							gameOver();
-
-						}
-					}
-					catch (InvocationTargetException | InterruptedException e)
-					{
-						e.printStackTrace();
-					}
-				});
+				response = valve.execture(message);
+				
+				if(response != ValveResponse.MISS)
+					break;
 			}
 		}
 	}
@@ -143,7 +60,7 @@ public class Controller
 	public void reset()
 	{
 		gameOver = false;
-		model = new Model(difficulty);
+		model.reset();
 		view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
 	}
 
@@ -185,6 +102,8 @@ public class Controller
 	//-------------------------Private Fields/Methods------------------
 	private Model model;
 	private View view;
+	private BlockingQueue<Message> messages;
+	private List<Valve> valves = new LinkedList<Valve>();
 	private static boolean gameOver;
 	private Model.Difficulty difficulty;
 
