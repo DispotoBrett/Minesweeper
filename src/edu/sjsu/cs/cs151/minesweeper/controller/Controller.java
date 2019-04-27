@@ -27,7 +27,7 @@ public class Controller
 		this.view = view;
 		messages = messageQueue;
 		
-		valves.add(new StartDifficultyValve(view, model));
+		initValves();
 	}
 
 	public void mainLoop()
@@ -105,5 +105,60 @@ public class Controller
 	private List<Valve> valves = new LinkedList<Valve>();
 	private static boolean gameOver;
 	private Model.Difficulty difficulty;
+	
+	private void initValves()
+	{
+		// Adds listening for right clicks
+		valves.add( message -> { if(message.getClass() != RightClickMessage.class) return ValveResponse.MISS;
+			RightClickMessage msg = (RightClickMessage) message;
+			if(!gameOver)
+				model.toggleFlag(msg.getRow(), msg.getColumn());
+			
+			try { updateView(); } 
+			catch (InvocationTargetException | InterruptedException e) { e.printStackTrace(); }
+			return ValveResponse.EXECUTED; }  );
+		
+		// Adds listening for left clicks
+		valves.add( message -> { if(message.getClass() != LeftClickMessage.class) return ValveResponse.MISS;
+			LeftClickMessage msg = (LeftClickMessage) message;
+			if(!gameOver)
+				model.revealTile(msg.getRow(), msg.getColumn());
+			
+			try { updateView(); } 
+			catch (InvocationTargetException | InterruptedException e) { e.printStackTrace(); }
+			return ValveResponse.EXECUTED; }  );
+		
+		// Looks for beginning difficulty
+		valves.add(new DifficultyValve());
+	}
+	
+	//-------------------------Private Classes------------------
+	
+	private class DifficultyValve implements Valve
+	{
+		public ValveResponse execute(Message message)
+		{
+			if(message.getClass() != StartDifficultyMessage.class)
+					return ValveResponse.MISS;
+			
+			StartDifficultyMessage msg = (StartDifficultyMessage) message;
+			
+			switch(msg.getDifficulty())
+			{
+			case View.EASY_DIFFICULTY: model.setDifficulty(Model.Difficulty.EASY); break;
+			
+			case View.MEDIUM_DIFFICULTY: model.setDifficulty(Model.Difficulty.MEDIUM); break;
+			
+			case View.HARD_DIFFICULTY: model.setDifficulty(Model.Difficulty.HARD); break;
+			
+			default: model.setDifficulty(Model.Difficulty.EASY);
+			}
+			
+			Board gameBoard = model.getBoard();
+			view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(), msg.getDifficulty());
+			
+			return ValveResponse.EXECUTED;
+		}
+	}
 
 }
