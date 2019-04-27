@@ -43,14 +43,20 @@ public class TileButton extends JButton
 			{
 				if (!exploded)
 				{
-					if (SwingUtilities.isLeftMouseButton(e))
+					try
 					{
-						messageQueue.add(new int[]{row, col, View.LEFT_CLICK});
+						if (SwingUtilities.isLeftMouseButton(e))
+						{
+								messageQueue.put(new int[]{row, col, View.LEFT_CLICK});
+		
+						}
+						else if (SwingUtilities.isRightMouseButton(e))
+						{
+							messageQueue.put(new int[]{row, col, View.RIGHT_CLICK});
+						}
 					}
-					else if (SwingUtilities.isRightMouseButton(e))
-					{
-						messageQueue.add(new int[]{row, col, View.RIGHT_CLICK});
-					}
+					
+					catch(InterruptedException e1) {}
 					setBackground(null);
 				}
 			}
