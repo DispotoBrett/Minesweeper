@@ -87,17 +87,41 @@ public class WelcomePanel extends JPanel
 		JButton easyButton = new JButton("Easy");
 		easyButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		easyButton.setBackground(Color.white);
-		easyButton.addActionListener(e -> messageQueue.add(new StartDifficultyMessage(View.EASY_DIFFICULTY)));
+		easyButton.addActionListener(e -> {
+			try
+			{
+				messageQueue.put(new StartDifficultyMessage(View.EASY_DIFFICULTY));
+			} catch (InterruptedException e1)
+			{
+				e1.printStackTrace();
+			}
+		});
 		difficultyPanel.add(easyButton);
 
 		JButton mediumButton = new JButton("Medium");
-		mediumButton.addActionListener(e -> messageQueue.add(new StartDifficultyMessage(View.MEDIUM_DIFFICULTY)));
+		mediumButton.addActionListener(e -> {
+			try
+			{
+				messageQueue.put(new StartDifficultyMessage(View.MEDIUM_DIFFICULTY));
+			} catch (InterruptedException e1)
+			{
+				e1.printStackTrace();
+			}
+		});
 		mediumButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		mediumButton.setBackground(Color.white);
 		difficultyPanel.add(mediumButton);
 
 		JButton hardButton = new JButton("Hard");
-		hardButton.addActionListener(e -> messageQueue.add(new StartDifficultyMessage(View.HARD_DIFFICULTY)));
+		hardButton.addActionListener(e -> {
+			try
+			{
+				messageQueue.put(new StartDifficultyMessage(View.HARD_DIFFICULTY));
+			} catch (InterruptedException e1)
+			{
+				e1.printStackTrace();
+			}
+		});
 		hardButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		hardButton.setBackground(Color.white);
 		difficultyPanel.add(hardButton);
