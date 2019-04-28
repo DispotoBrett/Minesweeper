@@ -5,9 +5,12 @@ import javax.swing.*;
 
 import edu.sjsu.cs.cs151.minesweeper.controller.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -151,6 +154,7 @@ public class View
 	private BlockingQueue<Message> messageQueue;
 	private Timer welcomeMenuHelper;
 	private WelcomePanel welcome;
+	private ButtonGroup difficulties;
 
 
 	/**
@@ -178,49 +182,26 @@ public class View
 
 		JMenu difficultyMenu = new JMenu("Difficulty");
 
-		ButtonGroup difficulties = new ButtonGroup();
+		difficulties = new ButtonGroup();
 		JRadioButtonMenuItem easy = new JRadioButtonMenuItem("Easy");
-		easy.addActionListener(e -> {
-			try
-			{
-				messageQueue.put(new DifficultyMessage(EASY_DIFFICULTY));
-			} catch (InterruptedException e2)
-			{
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-		});
+		easy.addActionListener(new ChangeDifficultyAction(EASY_DIFFICULTY));
 		difficulties.add(easy);
 		difficultyMenu.add(easy);
 
+		
 		JRadioButtonMenuItem medium = new JRadioButtonMenuItem("Medium");
-		medium.addActionListener(e -> {
-			try
-			{
-				messageQueue.put(new DifficultyMessage(MEDIUM_DIFFICULTY));
-			} catch (InterruptedException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
+		medium.addActionListener( new ChangeDifficultyAction(MEDIUM_DIFFICULTY));
 		difficulties.add(medium);
 		difficultyMenu.add(medium);
 
+		
 		JRadioButtonMenuItem hard = new JRadioButtonMenuItem("Hard");
-		hard.addActionListener(e -> {
-			try
-			{
-				messageQueue.put(new DifficultyMessage(MEDIUM_DIFFICULTY));
-			} catch (InterruptedException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
+		hard.addActionListener( new ChangeDifficultyAction(HARD_DIFFICULTY));
+		
 		difficulties.add(hard);
 		difficultyMenu.add(hard);
 
+		
 		switch (difficulty)
 		{
 			case EASY_DIFFICULTY:
@@ -243,14 +224,28 @@ public class View
 		game.add(difficultyMenu);
 
 		JMenuItem startNew = new JMenuItem("Start New Game");
-		startNew.addActionListener(e -> messageQueue.add( new ResetMessage()));
+		startNew.addActionListener(e -> {
+			try
+			{
+				messageQueue.put( new ResetMessage());
+			} catch (InterruptedException e2) {
+				e2.printStackTrace();
+			}
+		});
 
 		game.add(startNew);
 
 		game.addSeparator();
 
 		JMenuItem exit = new JMenuItem("Exit");
-		exit.addActionListener(e -> messageQueue.add(new ExitMessage()));
+		exit.addActionListener(e -> {
+			try
+			{
+				messageQueue.put(new ExitMessage());
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		});
 		game.add(exit);
 
 		JMenu help = new JMenu("Help");
@@ -293,4 +288,51 @@ public class View
 		});
 		welcomeMenuHelper.start();
 	}
+	
+	//-------------------------Private Classes------------------
+	private class ChangeDifficultyAction implements ActionListener
+	{
+		public ChangeDifficultyAction(int difficulty)
+		{
+			this.difficulty = difficulty;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			// Credit goes to StackOverflow user Aly and their answer to the question
+			// https://stackoverflow.com/questions/2435397/calling-invokeandwait-from-the-edt
+			Thread t = new Thread(new Runnable() {
+			
+				public void run() 
+				{
+					try
+					{
+						
+						SwingUtilities.invokeAndWait(() -> {
+							if (JOptionPane.YES_OPTION == View.difficultyChanged())
+							{
+								try
+								{
+									messageQueue.put(new DifficultyMessage(difficulty));
+								} 
+								catch (InterruptedException e1) 
+								{ 
+									e1.printStackTrace(); 
+								}
+							}
+						});
+					} 
+					catch (InvocationTargetException | InterruptedException e1) 
+					{ 
+						e1.printStackTrace(); 
+					} 
+				} });
+			
+			t.start();
+		}
+		
+		private int difficulty;
+	}
+	
 }

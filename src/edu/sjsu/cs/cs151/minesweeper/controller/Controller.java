@@ -116,20 +116,22 @@ public class Controller
 			
 			try { updateView(); } 
 			catch (InvocationTargetException | InterruptedException e) { e.printStackTrace(); }
-			return ValveResponse.EXECUTED; }  );
+			return ValveResponse.EXECUTED; }  
+		);
 		
 		// Adds listening for left clicks
-		valves.add( message -> { if(message.getClass() != LeftClickMessage.class) return ValveResponse.MISS;
-			LeftClickMessage msg = (LeftClickMessage) message;
-			if(!gameOver)
-				model.revealTile(msg.getRow(), msg.getColumn());
-			
-			try { updateView(); } 
-			catch (InvocationTargetException | InterruptedException e) { e.printStackTrace(); }
-			return ValveResponse.EXECUTED; }  );
+		valves.add(new LeftClickValve() );
 		
 		// Looks for beginning difficulty
-		valves.add(new DifficultyValve());
+		valves.add(new DifficultyValve() );
+		
+		// Adds reset functionality
+		valves.add( message -> { if(message.getClass() != ResetMessage.class) return ValveResponse.MISS;
+			
+			reset();
+			
+			return ValveResponse.EXECUTED;
+		});
 	}
 	
 	//-------------------------Private Classes------------------
@@ -138,10 +140,10 @@ public class Controller
 	{
 		public ValveResponse execute(Message message)
 		{
-			if(message.getClass() != StartDifficultyMessage.class)
+			if(message.getClass() != DifficultyMessage.class)
 					return ValveResponse.MISS;
 			
-			StartDifficultyMessage msg = (StartDifficultyMessage) message;
+			DifficultyMessage msg = (DifficultyMessage) message;
 			
 			switch(msg.getDifficulty())
 			{
@@ -159,6 +161,41 @@ public class Controller
 			
 			return ValveResponse.EXECUTED;
 		}
+
+	
+	}
+	
+	private class LeftClickValve implements Valve
+	{
+		public ValveResponse execute(Message message)
+		{
+			if(message.getClass() != LeftClickMessage.class) 
+				return ValveResponse.MISS;
+			
+			LeftClickMessage msg = (LeftClickMessage) message;
+			
+			if(!gameOver)
+				model.revealTile(msg.getRow(), msg.getColumn());
+			
+			gameOver = model.gameLost();
+			
+			try { updateView(); } 
+			catch (InvocationTargetException | InterruptedException e) { e.printStackTrace(); }
+			
+			if(gameOver)
+			{
+				try
+				{
+					SwingUtilities.invokeAndWait( () -> view.explode(msg.getRow(), msg.getColumn()));
+					Thread.sleep(3000);
+					gameOver();
+					
+				} catch (InvocationTargetException | InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			return ValveResponse.EXECUTED; }
 	}
 
 }

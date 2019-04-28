@@ -26,7 +26,7 @@ public class ViewTester
 		{
 			if (!view.getQueue().isEmpty())
 			{
-				msg = view.getQueue().remove();
+				//msg = view.getQueue().remove();
 				if (msg[2] == View.LEFT_CLICK)
 				{
 					model.revealTile(msg[ROW_INDEX], msg[COL_INDEX]);

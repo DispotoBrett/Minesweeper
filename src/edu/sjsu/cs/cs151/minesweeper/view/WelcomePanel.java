@@ -90,7 +90,7 @@ public class WelcomePanel extends JPanel
 		easyButton.addActionListener(e -> {
 			try
 			{
-				messageQueue.put(new StartDifficultyMessage(View.EASY_DIFFICULTY));
+				messageQueue.put(new DifficultyMessage(View.EASY_DIFFICULTY));
 			} catch (InterruptedException e1)
 			{
 				e1.printStackTrace();
@@ -102,7 +102,7 @@ public class WelcomePanel extends JPanel
 		mediumButton.addActionListener(e -> {
 			try
 			{
-				messageQueue.put(new StartDifficultyMessage(View.MEDIUM_DIFFICULTY));
+				messageQueue.put(new DifficultyMessage(View.MEDIUM_DIFFICULTY));
 			} catch (InterruptedException e1)
 			{
 				e1.printStackTrace();
@@ -116,7 +116,7 @@ public class WelcomePanel extends JPanel
 		hardButton.addActionListener(e -> {
 			try
 			{
-				messageQueue.put(new StartDifficultyMessage(View.HARD_DIFFICULTY));
+				messageQueue.put(new DifficultyMessage(View.HARD_DIFFICULTY));
 			} catch (InterruptedException e1)
 			{
 				e1.printStackTrace();
