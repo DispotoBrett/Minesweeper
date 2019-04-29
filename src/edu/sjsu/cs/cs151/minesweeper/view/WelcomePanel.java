@@ -33,6 +33,7 @@ public class WelcomePanel extends JPanel
 		setUpNorth();
 		setUpCenter(messageQueue);
 		setUpSouth();
+		setBackground(Color.LIGHT_GRAY);
 	}
 
 	@Override
@@ -88,7 +89,7 @@ public class WelcomePanel extends JPanel
 		//FIXME unchecked calls to add as a member of a raw type (Queue)
 		JButton easyButton = new JButton("Easy");
 		easyButton.setBorder(BorderFactory.createLineBorder(Color.black));
-		easyButton.setBackground(Color.white);
+		easyButton.setBackground(Color.YELLOW);
 		easyButton.addActionListener(e -> {
 			try
 			{
@@ -111,7 +112,7 @@ public class WelcomePanel extends JPanel
 			}
 		});
 		mediumButton.setBorder(BorderFactory.createLineBorder(Color.black));
-		mediumButton.setBackground(Color.white);
+		mediumButton.setBackground(Color.cyan);
 		difficultyPanel.add(mediumButton);
 
 		JButton hardButton = new JButton("Hard");
@@ -125,10 +126,11 @@ public class WelcomePanel extends JPanel
 			}
 		});
 		hardButton.setBorder(BorderFactory.createLineBorder(Color.black));
-		hardButton.setBackground(Color.white);
+		hardButton.setBackground(Color.RED);
 		difficultyPanel.add(hardButton);
 
 		add(difficultyPanel, BorderLayout.CENTER);
+		difficultyPanel.setBackground(Color.LIGHT_GRAY);
 	}
 
 	private void setUpSouth()

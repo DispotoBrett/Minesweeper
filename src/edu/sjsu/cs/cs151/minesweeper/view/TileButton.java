@@ -180,7 +180,7 @@ public class TileButton extends JButton
 	{
 		getActionListeners()[0].actionPerformed(EXPOSE_MINE);
 	}
-
+	
 	// ----------------Private Methods/Fields----------------------
 
 	private static final ActionEvent REVEAL = new ActionEvent(new Object(), 0, "reveal");
@@ -188,6 +188,7 @@ public class TileButton extends JButton
 	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 2, "unflag");
 	private static final ActionEvent EXPLODE = new ActionEvent(new Object(), 3, "explode");
 	private static final ActionEvent EXPOSE_MINE = new ActionEvent(new Object(), 4, "explode");
+
 
 	public boolean revealed;
 	private static boolean exploded;

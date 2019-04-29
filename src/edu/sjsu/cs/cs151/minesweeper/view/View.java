@@ -6,6 +6,10 @@ import javax.swing.*;
 import edu.sjsu.cs.cs151.minesweeper.controller.*;
 import edu.sjsu.cs.cs151.minesweeper.model.Model.Difficulty;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -68,7 +72,46 @@ public class View
 	public void gameWon()
 	{
 		boardPanel.gameWon();
-		JOptionPane.showMessageDialog(frame, null, "Winner!", 0);
+		JLabel label = new JLabel()
+			{
+		    		@Override
+		    		public void paint(Graphics g)
+		    		{
+		    		    if(winnerImage == null)
+		    		    {
+		    			try
+					{
+					    winnerImage = ImageIO.read(new File("resources/winner.png"));
+					}
+					catch (IOException e)
+					{
+					    e.printStackTrace();
+					}
+		    		    }
+		    		    Graphics2D g2 = (Graphics2D) g;
+		    		    g2.drawImage(winnerImage, x, IMAGE_Y, IMAGE_WIDTH, IMAGE_HEIGHT, null, null);
+		    		}
+		    		
+		    		@Override
+		    		public void updateUI()
+		    		{
+		    		    if(x < frame.getWidth())
+		    			x++;
+		    		    else
+		    			x = - frame.getWidth() / 3;
+		    		}
+		    		private int x = 0;
+		    		private final int IMAGE_WIDTH =  frame.getWidth() / 3;
+		    		private final int IMAGE_HEIGHT =  frame.getWidth() / 3;
+		    		private final int IMAGE_Y = boardPanel.getY() + frame.getHeight() / 4;
+		    		private BufferedImage winnerImage = null;
+		    		
+			};
+			
+		welcomeMenuHelper = new Timer(10, e -> {label.updateUI(); frame.repaint();});
+		welcomeMenuHelper.start();
+		frame.setGlassPane(label);
+		frame.getGlassPane().setVisible(true);
 	}
 
 	/**
@@ -129,6 +172,8 @@ public class View
 
 	public void resetTo(int row, int col, int[][] adjMines)
 	{
+	    	if(welcomeMenuHelper != null && welcomeMenuHelper.isRunning())
+	    	    welcomeMenuHelper.stop();
 		rows = row;
 		columns = col;
 		frame.remove(boardPanel);

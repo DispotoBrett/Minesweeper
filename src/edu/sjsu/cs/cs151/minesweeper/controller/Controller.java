@@ -68,7 +68,7 @@ public class Controller
 	{
 
 		BoardIterator it = model.boardIterator();
-
+		
 		while (it.hasNext())
 		{
 			Tile current = it.next();
@@ -161,9 +161,7 @@ public class Controller
 			}
 			else if(msg.shouldBeChangedNow())
 			{
-			    model.setDifficulty(difficulty);
-			    Board gameBoard = model.getBoard();
-			    view.resetTo(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines());	
+			    reset();
 			}
 
 			
@@ -187,23 +185,33 @@ public class Controller
 			if(!gameOver)
 				model.revealTile(msg.getRow(), msg.getColumn());
 			
-			gameOver = model.gameLost();
-			
+			if(!gameOver)
 			try { updateView(); } 
 			catch (InvocationTargetException | InterruptedException e) { e.printStackTrace(); }
 			
-			if(gameOver)
+			if(!gameOver)
 			{
-				try
-				{
-					SwingUtilities.invokeAndWait( () -> view.explode(msg.getRow(), msg.getColumn()));
-					Thread.sleep(3500);
-					gameOver();
-					
-				} catch (InvocationTargetException | InterruptedException e)
-				{
-					e.printStackTrace();
-				}
+        			gameOver = model.gameLost() || model.gameWon();
+        			if(gameOver)
+        			{
+        				try
+        				{
+        				    if(model.gameWon())
+        				    {
+        					view.gameWon();
+        				    }
+        				    else
+        				    {
+        					SwingUtilities.invokeAndWait( () -> view.explode(msg.getRow(), msg.getColumn()));
+        					Thread.sleep(3500);
+        					gameOver();
+        				    }
+        					
+        				} catch (InvocationTargetException | InterruptedException e)
+        				{
+        					e.printStackTrace();
+        				}
+        			}
 			}
 			return ValveResponse.EXECUTED; }
 	}
