@@ -314,7 +314,7 @@ public class View
 							{
 								try
 								{
-									messageQueue.put(new DifficultyMessage(difficulty));
+									messageQueue.put(new DifficultyMessage(difficulty, true));
 								} 
 								catch (InterruptedException e1) 
 								{ 

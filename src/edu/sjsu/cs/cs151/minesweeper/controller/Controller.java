@@ -157,7 +157,12 @@ public class Controller
 			}
 			
 			Board gameBoard = model.getBoard();
-			view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(), msg.getDifficulty());
+			
+			if(msg.isGameAlreadyRunning())
+				view.resetTo(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines());
+			
+			else
+				view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(), msg.getDifficulty());
 			
 			return ValveResponse.EXECUTED;
 		}
