@@ -127,10 +127,14 @@ public class Controller
 		
 		// Adds reset functionality
 		valves.add( message -> { if(message.getClass() != ResetMessage.class) return ValveResponse.MISS;
-			
 			reset();
-			
 			return ValveResponse.EXECUTED;
+		});
+		
+		// Adds exit functionality
+		valves.add( message -> { if(message.getClass() != ExitMessage.class) return ValveResponse.MISS;
+		System.out.println("Exiting Minesweeper");
+			return ValveResponse.FINISH;
 		});
 	}
 	

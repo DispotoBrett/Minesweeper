@@ -30,5 +30,9 @@ public class App
 		Controller control = new Controller(model , view, queue);
 
 		control.mainLoop();
+		
+		view.dispose();
+		
+		queue.clear();
 	}
 }

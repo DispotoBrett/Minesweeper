@@ -7,6 +7,8 @@ import edu.sjsu.cs.cs151.minesweeper.controller.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -135,6 +137,14 @@ public class View
 		frame.add(boardPanel);
 		frame.pack();
 	}
+	
+	/**
+	 * Disposes the View, its subcomponents, and all of its owned children.
+	 */
+	public void dispose()
+	{
+		frame.dispose();
+	}
 
 	/**
 	 * Opens a dialog for user to confirm the change in difficulty.
@@ -169,6 +179,18 @@ public class View
 
 		frame.add(boardPanel);
 
+		frame.addWindowListener( new WindowAdapter()
+				{
+					public void WindowClosed(WindowEvent e)
+					{
+						try
+						{
+							messageQueue.put( new ExitMessage());
+						} catch (InterruptedException e2) {
+							e2.printStackTrace();
+						}
+					}
+				});
 		frame.pack();
 	}
 
@@ -300,36 +322,17 @@ public class View
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			// Credit goes to StackOverflow user Aly and their answer to the question
-			// https://stackoverflow.com/questions/2435397/calling-invokeandwait-from-the-edt
-			Thread t = new Thread(new Runnable() {
-			
-				public void run() 
+			if (JOptionPane.YES_OPTION == View.difficultyChanged())
+			{
+				try
 				{
-					try
-					{
-						
-						SwingUtilities.invokeAndWait(() -> {
-							if (JOptionPane.YES_OPTION == View.difficultyChanged())
-							{
-								try
-								{
-									messageQueue.put(new DifficultyMessage(difficulty, true));
-								} 
-								catch (InterruptedException e1) 
-								{ 
-									e1.printStackTrace(); 
-								}
-							}
-						});
-					} 
-					catch (InvocationTargetException | InterruptedException e1) 
-					{ 
-						e1.printStackTrace(); 
-					} 
-				} });
-			
-			t.start();
+					messageQueue.put(new DifficultyMessage(difficulty, true));
+				} 
+				catch (InterruptedException e1) 
+				{ 
+					e1.printStackTrace(); 
+				}
+			}
 		}
 		
 		private int difficulty;
