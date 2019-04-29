@@ -186,6 +186,7 @@ public class View
 		boardPanel = new BoardPanel(rows, columns, messageQueue, frame, adjMines);
 		frame.add(boardPanel);
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 	}
 
 	/**

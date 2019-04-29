@@ -43,11 +43,11 @@ public class Model
 			break;
 
 		case MEDIUM:
-			gameBoard = new Board(16, 16, 30);
+			gameBoard = new Board(12, 12, 20);
 			break;
 
 		case HARD:
-			gameBoard = new Board(24, 24, 99);
+			gameBoard = new Board(16, 16, 40);
 			break;
 
 		default:

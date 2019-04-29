@@ -132,8 +132,8 @@ public class BoardPanel extends JPanel
 
 	private TileButton[][] tileButtons;
 	public static final int EASY_ROW_SIZE = 9;
-	public static final int MED_ROW_SIZE = 16;
-	public static final int HARD_ROW_SIZE = 24;
+	public static final int MED_ROW_SIZE = 12;
+	public static final int HARD_ROW_SIZE = 16;
 	public static final Dimension EASY_SIZE = new Dimension(TileIcon.WIDTH * EASY_ROW_SIZE,
 		  TileIcon.WIDTH * EASY_ROW_SIZE);
 	public static final Dimension MEDIUM_SIZE = new Dimension(TileIcon.WIDTH * MED_ROW_SIZE,
