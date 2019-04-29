@@ -77,11 +77,6 @@ public class TileButton extends JButton
 					setBackground(Color.DARK_GRAY);
 				}
 			}
-			
-			public void mouseEntered(MouseEvent e)
-			{
-			    System.out.println("nothing");
-			}
 		});
 
 		addActionListener(e -> {
