@@ -135,7 +135,6 @@ public class Controller
 		
 		// Adds exit functionality
 		valves.add( message -> { if(message.getClass() != ExitMessage.class) return ValveResponse.MISS;
-		System.out.println("Exiting Minesweeper");
 			return ValveResponse.FINISH;
 		});
 	}
