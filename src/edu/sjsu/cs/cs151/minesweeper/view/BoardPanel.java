@@ -111,7 +111,7 @@ public class BoardPanel extends JPanel
 
 	public void gameWon()
 	{
-		for (int i = 0; i < tileButtons.length; i++) //FIXME replace with foreach loop?
+		for (int i = 0; i < tileButtons.length; i++)
 		{
 			for (int j = 0; j < tileButtons[0].length; j++)
 			{

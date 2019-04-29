@@ -8,9 +8,13 @@ import edu.sjsu.cs.cs151.minesweeper.model.Model.Difficulty;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -64,8 +68,7 @@ public class View
 	public void gameWon()
 	{
 		boardPanel.gameWon();
-		JOptionPane.showMessageDialog(frame, null, "Winner!",
-			  0); //FIXME Should be one of: JOptionPane.INFORMATION_MESSAGE, JOptionPane.WARNING_MESSAGE, JOptionPane.ERROR_MESSAGE, ...
+		JOptionPane.showMessageDialog(frame, null, "Winner!", 0);
 	}
 
 	/**

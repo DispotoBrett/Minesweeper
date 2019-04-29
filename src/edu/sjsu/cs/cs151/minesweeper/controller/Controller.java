@@ -22,6 +22,7 @@ import edu.sjsu.cs.cs151.minesweeper.view.View;
 public class Controller
 {
 	public Controller(Model model, View view, BlockingQueue<Message> messageQueue)
+		  throws InvocationTargetException, InterruptedException
 	{
 		this.model = model;
 		this.view = view;
@@ -105,7 +106,7 @@ public class Controller
 	private Model model;
 	private View view;
 	private BlockingQueue<Message> messages;
-	private List<Valve> valves = new LinkedList<>();
+	private List<Valve> valves = new LinkedList<Valve>();
 	private static boolean gameOver;
 	private boolean passedMenu;
 	private Model.Difficulty difficulty;

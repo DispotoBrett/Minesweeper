@@ -1,5 +1,7 @@
 package edu.sjsu.cs.cs151.minesweeper.tests;
 
+import java.lang.reflect.InvocationTargetException;
+
 import javax.swing.SwingUtilities;
 
 import edu.sjsu.cs.cs151.minesweeper.model.BoardIterator;

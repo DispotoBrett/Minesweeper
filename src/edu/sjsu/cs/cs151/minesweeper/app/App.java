@@ -1,13 +1,14 @@
 package edu.sjsu.cs.cs151.minesweeper.app;
 
-import edu.sjsu.cs.cs151.minesweeper.controller.Controller;
-import edu.sjsu.cs.cs151.minesweeper.controller.Message;
-import edu.sjsu.cs.cs151.minesweeper.model.Model;
 import edu.sjsu.cs.cs151.minesweeper.view.View;
+import edu.sjsu.cs.cs151.minesweeper.model.Model;
+import edu.sjsu.cs.cs151.minesweeper.controller.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+
+import edu.sjsu.cs.cs151.minesweeper.controller.Controller;
 
 /**
  * The main class, which initializes all other classes.
@@ -19,7 +20,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class App
 {
-	private static BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
+	private static BlockingQueue<Message> queue = new LinkedBlockingQueue<Message>();
 	private static View view;
 	private static Model model;
 
