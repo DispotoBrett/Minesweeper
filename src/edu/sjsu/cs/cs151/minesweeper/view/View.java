@@ -179,18 +179,6 @@ public class View
 
 		frame.add(boardPanel);
 
-		frame.addWindowListener( new WindowAdapter()
-				{
-					public void WindowClosed(WindowEvent e)
-					{
-						try
-						{
-							messageQueue.put( new ExitMessage());
-						} catch (InterruptedException e2) {
-							e2.printStackTrace();
-						}
-					}
-				});
 		frame.pack();
 	}
 
