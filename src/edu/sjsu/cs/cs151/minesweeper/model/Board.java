@@ -66,8 +66,7 @@ public final class Board implements Iterable<Tile>
 	{
 		Tile currentTile = tiles[row][col];
 
-		// Tile can neither be a mine, flagged, or revealed
-		if (currentTile.isMine() || currentTile.isFlagged() || currentTile.isRevealed())
+		if (currentTile.isMine() || currentTile.isFlagged() || currentTile.isRevealed()) // Tile can neither be a mine, flagged, or revealed
 		{
 			return;
 		}
@@ -185,6 +184,7 @@ public final class Board implements Iterable<Tile>
 	{
 		return NUM_MINES;
 	}
+
 
 	//-------------------------Private Fields/Methods------------------
 	private final int NUM_ROWS;

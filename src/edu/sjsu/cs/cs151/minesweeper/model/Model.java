@@ -1,5 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.model;
 
+
 /**
  * The over-arching model class. Manages data, logic, and rules.
  *
@@ -12,7 +13,8 @@ public class Model
 	//-------------------------Public Interface-----------------------
 	public enum Difficulty
 	{EASY, MEDIUM, HARD}
-
+	
+	
 	public Model()
 	{
 		gameWon = false;
@@ -20,7 +22,7 @@ public class Model
 		numberOfTiles = 0;
 		gameBoard = new Board(0, 0, 0);
 	}
-
+	
 	/**
 	 * Constructs a new Model instance.
 	 */
@@ -35,26 +37,26 @@ public class Model
 	public void setDifficulty(Difficulty d)
 	{
 		currentDifficulty = d;
-
+		
 		switch (d)
 		{
-		case EASY:
-			gameBoard = new Board(9, 9, 9);
-			break;
+			case EASY:
+				gameBoard = new Board(9, 9, 9);
+				break;
 
-		case MEDIUM:
-			gameBoard = new Board(16, 16, 40);
-			break;
+			case MEDIUM:
+				gameBoard = new Board(16, 16, 40);
+				break;
 
-		case HARD:
-			gameBoard = new Board(24, 24, 99);
-			break;
+			case HARD:
+				gameBoard = new Board(24, 24, 99);
+				break;
 
-		default:
-			gameBoard = new Board(false);
-			currentDifficulty = Difficulty.EASY;
+			default:
+				gameBoard = new Board(false);
+				currentDifficulty = Difficulty.EASY;
 		}
-
+		
 		numberOfTiles = gameBoard.getRows() * gameBoard.getColumns();
 		gameWon = false;
 		gameLost = false;
@@ -79,7 +81,7 @@ public class Model
 	{
 		return gameLost;
 	}
-
+	
 	/**
 	 * Resets the Model
 	 */
@@ -87,11 +89,11 @@ public class Model
 	{
 		gameWon = false;
 		gameLost = false;
-
+		
 		int rows = gameBoard.getRows();
 		int cols = gameBoard.getColumns();
 		int mines = gameBoard.getNumMines();
-
+		
 		gameBoard = new Board(rows, cols, mines);
 	}
 
@@ -148,6 +150,7 @@ public class Model
 	{
 		return gameBoard.iterator();
 	}
+
 
 	//-------------------------Private Fields/Methods------------------
 	private Board gameBoard;

@@ -52,6 +52,7 @@ public final class TileIcon implements Icon
 		this.showMine = showMine;
 	}
 
+
 	/**
 	 * Paints the Icon.
 	 *
@@ -69,10 +70,7 @@ public final class TileIcon implements Icon
 
 		if (showMine)
 		{
-			if (revealed)
-			{
-				g2.setColor(Color.RED);
-			}
+			if(revealed) g2.setColor(Color.RED);
 			BufferedImage img = null;
 			try
 			{
@@ -155,8 +153,7 @@ public final class TileIcon implements Icon
 
 	//----------------Private Methods/Fields----------------------
 	//private static final int WIDTH = 25, HEIGHT = 25;
-	public static final int WIDTH = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
-		  .getDisplayMode().getWidth() / 76.8);
+	public static final int WIDTH = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth() / 76.8);
 	public static final int HEIGHT = WIDTH;
 	private static final int FONT_SIZE = (int) (HEIGHT * .76);
 	private static final int FONT_X = (int) (HEIGHT * .28);

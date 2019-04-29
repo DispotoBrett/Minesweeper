@@ -2,7 +2,6 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import edu.sjsu.cs.cs151.minesweeper.controller.*;
 import edu.sjsu.cs.cs151.minesweeper.model.Model.Difficulty;
 
@@ -51,6 +50,7 @@ public class WelcomePanel extends JPanel
 		}
 	}
 
+	
 	//-------------------------Private Fields/Methods------------------
 	private MineAnimation animation;
 
@@ -93,8 +93,7 @@ public class WelcomePanel extends JPanel
 			try
 			{
 				messageQueue.put(new DifficultyMessage(Difficulty.EASY, true));
-			}
-			catch (InterruptedException e1)
+			} catch (InterruptedException e1)
 			{
 				e1.printStackTrace();
 			}
@@ -106,8 +105,7 @@ public class WelcomePanel extends JPanel
 			try
 			{
 				messageQueue.put(new DifficultyMessage(Difficulty.MEDIUM, true));
-			}
-			catch (InterruptedException e1)
+			} catch (InterruptedException e1)
 			{
 				e1.printStackTrace();
 			}
@@ -121,8 +119,7 @@ public class WelcomePanel extends JPanel
 			try
 			{
 				messageQueue.put(new DifficultyMessage(Difficulty.HARD, true));
-			}
-			catch (InterruptedException e1)
+			} catch (InterruptedException e1)
 			{
 				e1.printStackTrace();
 			}
