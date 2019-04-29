@@ -232,6 +232,7 @@ public class Controller
 					{
 						if (model.gameWon())
 						{
+							Thread.sleep(500);
 							view.gameWon();
 						}
 						else
