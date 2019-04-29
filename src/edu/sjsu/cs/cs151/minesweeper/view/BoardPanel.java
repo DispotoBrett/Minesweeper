@@ -1,14 +1,10 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.util.concurrent.BlockingQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import edu.sjsu.cs.cs151.minesweeper.controller.Message;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * BoardPanel visually represents a Minesweeper board.
@@ -58,7 +54,6 @@ public class BoardPanel extends JPanel
 	{
 		tileButtons[row][col].reveal();
 	}
-
 
 	@Override
 	public Dimension getPreferredSize()
@@ -112,34 +107,37 @@ public class BoardPanel extends JPanel
 
 	public void gameWon()
 	{
-	    for(int i = 0; i < tileButtons.length; i++)
-	    {
-		for(int j = 0; j < tileButtons[0].length; j++)
+		for (int i = 0; i < tileButtons.length; i++)
 		{
-		    switch( (j + i) % 3)
-		    {
-		    	case 0:
-		    	    tileButtons[i][j].setBackground(Color.yellow);
-		    	    break;
-		
-		    	case 1:
-		    	    
-		    	    tileButtons[i][j].setBackground(Color.cyan);
-		    	    break;
-		    	
-		    	case 2:
-		    	    tileButtons[i][j].setBackground(Color.red);    
-		    	    break;
-		    }
+			for (int j = 0; j < tileButtons[0].length; j++)
+			{
+				switch ((j + i) % 3)
+				{
+				case 0:
+					tileButtons[i][j].setBackground(Color.yellow);
+					break;
+
+				case 1:
+
+					tileButtons[i][j].setBackground(Color.cyan);
+					break;
+
+				case 2:
+					tileButtons[i][j].setBackground(Color.red);
+					break;
+				}
+			}
 		}
-	    }
 	}
-	
+
 	private TileButton[][] tileButtons;
 	public static final int EASY_ROW_SIZE = 9;
 	public static final int MED_ROW_SIZE = 16;
 	public static final int HARD_ROW_SIZE = 24;
-	public static final Dimension EASY_SIZE = new Dimension(TileIcon.WIDTH * EASY_ROW_SIZE, TileIcon.WIDTH * EASY_ROW_SIZE);
-	public static final Dimension MEDIUM_SIZE = new Dimension(TileIcon.WIDTH * MED_ROW_SIZE, TileIcon.WIDTH * MED_ROW_SIZE);
-	public static final Dimension HARD_SIZE = new Dimension(TileIcon.WIDTH * HARD_ROW_SIZE, TileIcon.WIDTH * HARD_ROW_SIZE);
+	public static final Dimension EASY_SIZE = new Dimension(TileIcon.WIDTH * EASY_ROW_SIZE,
+		  TileIcon.WIDTH * EASY_ROW_SIZE);
+	public static final Dimension MEDIUM_SIZE = new Dimension(TileIcon.WIDTH * MED_ROW_SIZE,
+		  TileIcon.WIDTH * MED_ROW_SIZE);
+	public static final Dimension HARD_SIZE = new Dimension(TileIcon.WIDTH * HARD_ROW_SIZE,
+		  TileIcon.WIDTH * HARD_ROW_SIZE);
 }

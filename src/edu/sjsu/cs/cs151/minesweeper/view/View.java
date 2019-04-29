@@ -1,24 +1,19 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import edu.sjsu.cs.cs151.minesweeper.controller.*;
+import edu.sjsu.cs.cs151.minesweeper.controller.DifficultyMessage;
+import edu.sjsu.cs.cs151.minesweeper.controller.ExitMessage;
+import edu.sjsu.cs.cs151.minesweeper.controller.Message;
+import edu.sjsu.cs.cs151.minesweeper.controller.ResetMessage;
 import edu.sjsu.cs.cs151.minesweeper.model.Model.Difficulty;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -73,42 +68,50 @@ public class View
 	{
 		boardPanel.gameWon();
 		JLabel label = new JLabel()
+		{
+			@Override
+			public void paint(Graphics g)
 			{
-		    		@Override
-		    		public void paint(Graphics g)
-		    		{
-		    		    if(winnerImage == null)
-		    		    {
-		    			try
+				if (winnerImage == null)
+				{
+					try
 					{
-					    winnerImage = ImageIO.read(new File("resources/winner.png"));
+						winnerImage = ImageIO.read(new File("resources/winner.png"));
 					}
 					catch (IOException e)
 					{
-					    e.printStackTrace();
+						e.printStackTrace();
 					}
-		    		    }
-		    		    Graphics2D g2 = (Graphics2D) g;
-		    		    g2.drawImage(winnerImage, x, IMAGE_Y, IMAGE_WIDTH, IMAGE_HEIGHT, null, null);
-		    		}
-		    		
-		    		@Override
-		    		public void updateUI()
-		    		{
-		    		    if(x < frame.getWidth())
-		    			x++;
-		    		    else
-		    			x = - frame.getWidth() / 3;
-		    		}
-		    		private int x = 0;
-		    		private final int IMAGE_WIDTH =  frame.getWidth() / 3;
-		    		private final int IMAGE_HEIGHT =  frame.getWidth() / 3;
-		    		private final int IMAGE_Y = boardPanel.getY() + frame.getHeight() / 4;
-		    		private BufferedImage winnerImage = null;
-		    		
-			};
-			
-		welcomeMenuHelper = new Timer(10, e -> {label.updateUI(); frame.repaint();});
+				}
+				Graphics2D g2 = (Graphics2D) g;
+				g2.drawImage(winnerImage, x, IMAGE_Y, IMAGE_WIDTH, IMAGE_HEIGHT, null, null);
+			}
+
+			@Override
+			public void updateUI()
+			{
+				if (x < frame.getWidth())
+				{
+					x++;
+				}
+				else
+				{
+					x = -frame.getWidth() / 3;
+				}
+			}
+
+			private int x = 0;
+			private final int IMAGE_WIDTH = frame.getWidth() / 3;
+			private final int IMAGE_HEIGHT = frame.getWidth() / 3;
+			private final int IMAGE_Y = boardPanel.getY() + frame.getHeight() / 4;
+			private BufferedImage winnerImage = null;
+
+		};
+
+		welcomeMenuHelper = new Timer(10, e -> {
+			label.updateUI();
+			frame.repaint();
+		});
 		welcomeMenuHelper.start();
 		frame.setGlassPane(label);
 		frame.getGlassPane().setVisible(true);
@@ -136,7 +139,6 @@ public class View
 
 		boardPanel.explode(row, col);
 	}
-
 
 	/**
 	 * Flags the tiles at the specified location
@@ -172,8 +174,10 @@ public class View
 
 	public void resetTo(int row, int col, int[][] adjMines)
 	{
-	    	if(welcomeMenuHelper != null && welcomeMenuHelper.isRunning())
-	    	    welcomeMenuHelper.stop();
+		if (welcomeMenuHelper != null && welcomeMenuHelper.isRunning())
+		{
+			welcomeMenuHelper.stop();
+		}
 		rows = row;
 		columns = col;
 		frame.remove(boardPanel);
@@ -183,7 +187,7 @@ public class View
 		frame.add(boardPanel);
 		frame.pack();
 	}
-	
+
 	/**
 	 * Disposes the View, its subcomponents, and all of its owned children.
 	 */
@@ -211,7 +215,6 @@ public class View
 	private Timer welcomeMenuHelper;
 	private WelcomePanel welcome;
 	private ButtonGroup difficulties;
-
 
 	/**
 	 * Creates frame, creates the boardPanel, and fills the boardPanel with buttons
@@ -244,37 +247,34 @@ public class View
 		difficulties.add(easy);
 		difficultyMenu.add(easy);
 
-		
 		JRadioButtonMenuItem medium = new JRadioButtonMenuItem("Medium");
-		medium.addActionListener( new ChangeDifficultyAction(Difficulty.MEDIUM));
+		medium.addActionListener(new ChangeDifficultyAction(Difficulty.MEDIUM));
 		difficulties.add(medium);
 		difficultyMenu.add(medium);
 
-		
 		JRadioButtonMenuItem hard = new JRadioButtonMenuItem("Hard");
-		hard.addActionListener( new ChangeDifficultyAction(Difficulty.HARD));
-		
+		hard.addActionListener(new ChangeDifficultyAction(Difficulty.HARD));
+
 		difficulties.add(hard);
 		difficultyMenu.add(hard);
 
-		
 		switch (difficulty)
 		{
-			case EASY:
-				easy.setSelected(true);
-				break;
+		case EASY:
+			easy.setSelected(true);
+			break;
 
-			case MEDIUM:
-				medium.setSelected(true);
-				break;
+		case MEDIUM:
+			medium.setSelected(true);
+			break;
 
-			case HARD:
-				hard.setSelected(true);
-				break;
+		case HARD:
+			hard.setSelected(true);
+			break;
 
-			default:
-				easy.setSelected(true);
-				break;
+		default:
+			easy.setSelected(true);
+			break;
 		}
 
 		game.add(difficultyMenu);
@@ -283,8 +283,10 @@ public class View
 		startNew.addActionListener(e -> {
 			try
 			{
-				messageQueue.put( new ResetMessage());
-			} catch (InterruptedException e2) {
+				messageQueue.put(new ResetMessage());
+			}
+			catch (InterruptedException e2)
+			{
 				e2.printStackTrace();
 			}
 		});
@@ -298,7 +300,9 @@ public class View
 			try
 			{
 				messageQueue.put(new ExitMessage());
-			} catch (InterruptedException e1) {
+			}
+			catch (InterruptedException e1)
+			{
 				e1.printStackTrace();
 			}
 		});
@@ -344,7 +348,7 @@ public class View
 		});
 		welcomeMenuHelper.start();
 	}
-	
+
 	//-------------------------Private Classes------------------
 	private class ChangeDifficultyAction implements ActionListener
 	{
@@ -361,26 +365,26 @@ public class View
 				try
 				{
 					messageQueue.put(new DifficultyMessage(difficulty, true));
-				} 
-				catch (InterruptedException e1) 
-				{ 
-					e1.printStackTrace(); 
+				}
+				catch (InterruptedException e1)
+				{
+					e1.printStackTrace();
 				}
 			}
 			else
 			{
 				try
 				{
-				    	messageQueue.put(new DifficultyMessage(difficulty, false));
-				} 
-				catch (InterruptedException e1) 
-				{ 
-					e1.printStackTrace(); 
+					messageQueue.put(new DifficultyMessage(difficulty, false));
+				}
+				catch (InterruptedException e1)
+				{
+					e1.printStackTrace();
 				}
 			}
 		}
-		
+
 		private Difficulty difficulty;
 	}
-	
+
 }

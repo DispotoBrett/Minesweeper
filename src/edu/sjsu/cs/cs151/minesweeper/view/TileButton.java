@@ -1,16 +1,16 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
-import java.awt.event.*;
+import edu.sjsu.cs.cs151.minesweeper.controller.LeftClickMessage;
+import edu.sjsu.cs.cs151.minesweeper.controller.Message;
+import edu.sjsu.cs.cs151.minesweeper.controller.RightClickMessage;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-
-import edu.sjsu.cs.cs151.minesweeper.controller.*;
-
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.concurrent.BlockingQueue;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Rectangle;
 
 /**
  * Visual Representation of a tile.
@@ -39,7 +39,6 @@ public class TileButton extends JButton
 		theFrame = frame;
 		exploded = false;
 
-
 		addMouseListener(new MouseAdapter()
 		{
 			public void mouseReleased(MouseEvent e)
@@ -51,7 +50,8 @@ public class TileButton extends JButton
 						try
 						{
 							messageQueue.put(new LeftClickMessage(row, col));
-						} catch (InterruptedException e1)
+						}
+						catch (InterruptedException e1)
 						{
 							e1.printStackTrace();
 						}
@@ -61,7 +61,8 @@ public class TileButton extends JButton
 						try
 						{
 							messageQueue.put(new RightClickMessage(row, col));
-						} catch (InterruptedException e1)
+						}
+						catch (InterruptedException e1)
 						{
 							e1.printStackTrace();
 						}
@@ -112,17 +113,15 @@ public class TileButton extends JButton
 				// TODO: Somehow feed the explosion the Board Panel's width and height, b/c when
 				// menus are added, they will be painted over.
 				explosion = new Explosion(getX(), getY(), frame.getContentPane().getWidth(),
-						frame.getContentPane().getHeight());
+					  frame.getContentPane().getHeight());
 				frame.setGlassPane(explosion);
 				explosion.setVisible(true);
 
 				t = new Timer(12, e2 -> {
 
 					Rectangle bound = explosion.repaintArea();
-					frame.repaint((int) Math.ceil(bound.getX()),
-							(int) Math.ceil(bound.getY()),
-							(int) Math.ceil(bound.getWidth()),
-							(int) Math.ceil(bound.getHeight()));
+					frame.repaint((int) Math.ceil(bound.getX()), (int) Math.ceil(bound.getY()),
+						  (int) Math.ceil(bound.getWidth()), (int) Math.ceil(bound.getHeight()));
 
 					explosion.explode();
 
@@ -161,8 +160,10 @@ public class TileButton extends JButton
 	 */
 	public void explode()
 	{
-		if(!exploded)
+		if (!exploded)
+		{
 			getActionListeners()[0].actionPerformed(EXPLODE);
+		}
 	}
 
 	/**
@@ -180,7 +181,7 @@ public class TileButton extends JButton
 	{
 		getActionListeners()[0].actionPerformed(EXPOSE_MINE);
 	}
-	
+
 	// ----------------Private Methods/Fields----------------------
 
 	private static final ActionEvent REVEAL = new ActionEvent(new Object(), 0, "reveal");
@@ -188,7 +189,6 @@ public class TileButton extends JButton
 	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 2, "unflag");
 	private static final ActionEvent EXPLODE = new ActionEvent(new Object(), 3, "explode");
 	private static final ActionEvent EXPOSE_MINE = new ActionEvent(new Object(), 4, "explode");
-
 
 	public boolean revealed;
 	private static boolean exploded;
@@ -202,6 +202,5 @@ public class TileButton extends JButton
 		theFrame.getGlassPane().setVisible(false);
 		theFrame.repaint();
 	}
-
 
 }

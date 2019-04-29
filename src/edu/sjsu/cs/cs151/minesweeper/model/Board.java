@@ -1,6 +1,8 @@
 package edu.sjsu.cs.cs151.minesweeper.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * Represents the MineSweeper board, is responsible tile management.
@@ -66,7 +68,8 @@ public final class Board implements Iterable<Tile>
 	{
 		Tile currentTile = tiles[row][col];
 
-		if (currentTile.isMine() || currentTile.isFlagged() || currentTile.isRevealed()) // Tile can neither be a mine, flagged, or revealed
+		if (currentTile.isMine() || currentTile.isFlagged() || currentTile
+			  .isRevealed()) // Tile can neither be a mine, flagged, or revealed
 		{
 			return;
 		}
@@ -184,7 +187,6 @@ public final class Board implements Iterable<Tile>
 	{
 		return NUM_MINES;
 	}
-
 
 	//-------------------------Private Fields/Methods------------------
 	private final int NUM_ROWS;

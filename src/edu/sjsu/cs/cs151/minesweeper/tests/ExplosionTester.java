@@ -1,8 +1,8 @@
 package edu.sjsu.cs.cs151.minesweeper.tests;
 
-import javax.swing.*;
-
 import edu.sjsu.cs.cs151.minesweeper.view.Explosion;
+
+import javax.swing.*;
 
 public class ExplosionTester
 {
@@ -29,8 +29,7 @@ public class ExplosionTester
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
-		Timer t = new Timer(DELAY, event ->
-		{
+		Timer t = new Timer(DELAY, event -> {
 			explosion.explode();
 			frame.repaint();
 		});
