@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import edu.sjsu.cs.cs151.minesweeper.controller.*;
+import edu.sjsu.cs.cs151.minesweeper.model.Model.Difficulty;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,7 +50,7 @@ public class View
 	 * @param cols     the number of columns of tiles that the View will display
 	 * @param adjMines the 2d array that stores the number of adjacent mines for each tile
 	 */
-	public void startGame(int rows, int cols, int[][] adjMines, int difficulty)
+	public void startGame(int rows, int cols, int[][] adjMines, Difficulty difficulty)
 	{
 		this.rows = rows;
 		this.columns = cols;
@@ -172,7 +173,7 @@ public class View
 		frame.pack();
 	}
 
-	private void initializeMenu(int difficulty)
+	private void initializeMenu(Difficulty difficulty)
 	{
 		JMenuBar menuBar = new JMenuBar();
 
@@ -184,19 +185,19 @@ public class View
 
 		difficulties = new ButtonGroup();
 		JRadioButtonMenuItem easy = new JRadioButtonMenuItem("Easy");
-		easy.addActionListener(new ChangeDifficultyAction(EASY_DIFFICULTY));
+		easy.addActionListener(new ChangeDifficultyAction(Difficulty.EASY));
 		difficulties.add(easy);
 		difficultyMenu.add(easy);
 
 		
 		JRadioButtonMenuItem medium = new JRadioButtonMenuItem("Medium");
-		medium.addActionListener( new ChangeDifficultyAction(MEDIUM_DIFFICULTY));
+		medium.addActionListener( new ChangeDifficultyAction(Difficulty.MEDIUM));
 		difficulties.add(medium);
 		difficultyMenu.add(medium);
 
 		
 		JRadioButtonMenuItem hard = new JRadioButtonMenuItem("Hard");
-		hard.addActionListener( new ChangeDifficultyAction(HARD_DIFFICULTY));
+		hard.addActionListener( new ChangeDifficultyAction(Difficulty.HARD));
 		
 		difficulties.add(hard);
 		difficultyMenu.add(hard);
@@ -204,15 +205,15 @@ public class View
 		
 		switch (difficulty)
 		{
-			case EASY_DIFFICULTY:
+			case EASY:
 				easy.setSelected(true);
 				break;
 
-			case MEDIUM_DIFFICULTY:
+			case MEDIUM:
 				medium.setSelected(true);
 				break;
 
-			case HARD_DIFFICULTY:
+			case HARD:
 				hard.setSelected(true);
 				break;
 
@@ -292,7 +293,7 @@ public class View
 	//-------------------------Private Classes------------------
 	private class ChangeDifficultyAction implements ActionListener
 	{
-		public ChangeDifficultyAction(int difficulty)
+		public ChangeDifficultyAction(Difficulty difficulty)
 		{
 			this.difficulty = difficulty;
 		}
@@ -300,39 +301,31 @@ public class View
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			// Credit goes to StackOverflow user Aly and their answer to the question
-			// https://stackoverflow.com/questions/2435397/calling-invokeandwait-from-the-edt
-			Thread t = new Thread(new Runnable() {
-			
-				public void run() 
+			if (JOptionPane.YES_OPTION == View.difficultyChanged())
+			{
+				try
 				{
-					try
-					{
-						
-						SwingUtilities.invokeAndWait(() -> {
-							if (JOptionPane.YES_OPTION == View.difficultyChanged())
-							{
-								try
-								{
-									messageQueue.put(new DifficultyMessage(difficulty, true));
-								} 
-								catch (InterruptedException e1) 
-								{ 
-									e1.printStackTrace(); 
-								}
-							}
-						});
-					} 
-					catch (InvocationTargetException | InterruptedException e1) 
-					{ 
-						e1.printStackTrace(); 
-					} 
-				} });
-			
-			t.start();
-		}
+					messageQueue.put(new DifficultyMessage(difficulty, true));
+				} 
+				catch (InterruptedException e1) 
+				{ 
+					e1.printStackTrace(); 
+				}
+			}
+			else
+			{
+				try
+				{
+				    	messageQueue.put(new DifficultyMessage(difficulty, false));
+				} 
+				catch (InterruptedException e1) 
+				{ 
+					e1.printStackTrace(); 
+				}
+			}
+		} 
 		
-		private int difficulty;
+		private Difficulty difficulty;
 	}
 	
 }

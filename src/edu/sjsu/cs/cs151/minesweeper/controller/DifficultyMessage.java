@@ -1,23 +1,24 @@
 package edu.sjsu.cs.cs151.minesweeper.controller;
+import edu.sjsu.cs.cs151.minesweeper.model.Model.Difficulty;
 
 public class DifficultyMessage extends Message
 {
-	public DifficultyMessage(int difficulty, boolean gameAlreadyRunning)
+	public DifficultyMessage(Difficulty difficulty, boolean changeNow)
 	{
 		this.difficulty = difficulty;
-		alreadyRunning = gameAlreadyRunning;
+		this.changeNow = changeNow;
 	}
 	
-	public int getDifficulty()
+	public Difficulty getDifficulty()
 	{
 		return difficulty;
 	}
 	
-	public boolean isGameAlreadyRunning()
+	public boolean shouldBeChangedNow()
 	{
-		return alreadyRunning;
+		return changeNow;
 	}
 	
-	private int difficulty;
-	private boolean alreadyRunning;
+	private Difficulty difficulty;
+	private boolean changeNow;
 }
