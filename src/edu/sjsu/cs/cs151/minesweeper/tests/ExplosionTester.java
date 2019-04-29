@@ -29,8 +29,7 @@ public class ExplosionTester
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
-		Timer t = new Timer(DELAY, event ->
-		{
+		Timer t = new Timer(DELAY, event -> {
 			explosion.explode();
 			frame.repaint();
 		});

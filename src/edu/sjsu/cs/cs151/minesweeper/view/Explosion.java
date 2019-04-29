@@ -106,11 +106,8 @@ public class Explosion extends JComponent
 		g2.setColor(new Color(0, 0, 0, fadeOut));
 
 		//draw string at center of given frame
-		g2.drawString(
-				text,
-				(int) (contentPaneWidth - extent) / 2,
-				(int) (((contentPaneHeight - (ascent + descent)) / 2) + ascent)
-		);
+		g2.drawString(text, (int) (contentPaneWidth - extent) / 2,
+			  (int) (((contentPaneHeight - (ascent + descent)) / 2) + ascent));
 	}
 
 	//----------------Private Methods/Fields----------------------

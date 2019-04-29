@@ -39,7 +39,6 @@ public class TileButton extends JButton
 		theFrame = frame;
 		exploded = false;
 
-
 		addMouseListener(new MouseAdapter()
 		{
 			public void mouseReleased(MouseEvent e)
@@ -51,7 +50,8 @@ public class TileButton extends JButton
 						try
 						{
 							messageQueue.put(new LeftClickMessage(row, col));
-						} catch (InterruptedException e1)
+						}
+						catch (InterruptedException e1)
 						{
 							e1.printStackTrace();
 						}
@@ -61,7 +61,8 @@ public class TileButton extends JButton
 						try
 						{
 							messageQueue.put(new RightClickMessage(row, col));
-						} catch (InterruptedException e1)
+						}
+						catch (InterruptedException e1)
 						{
 							e1.printStackTrace();
 						}
@@ -112,17 +113,15 @@ public class TileButton extends JButton
 				// TODO: Somehow feed the explosion the Board Panel's width and height, b/c when
 				// menus are added, they will be painted over.
 				explosion = new Explosion(getX(), getY(), frame.getContentPane().getWidth(),
-						frame.getContentPane().getHeight());
+					  frame.getContentPane().getHeight());
 				frame.setGlassPane(explosion);
 				explosion.setVisible(true);
 
 				t = new Timer(12, e2 -> {
 
 					Rectangle bound = explosion.repaintArea();
-					frame.repaint((int) Math.ceil(bound.getX()),
-							(int) Math.ceil(bound.getY()),
-							(int) Math.ceil(bound.getWidth()),
-							(int) Math.ceil(bound.getHeight()));
+					frame.repaint((int) Math.ceil(bound.getX()), (int) Math.ceil(bound.getY()),
+						  (int) Math.ceil(bound.getWidth()), (int) Math.ceil(bound.getHeight()));
 
 					explosion.explode();
 
@@ -161,8 +160,10 @@ public class TileButton extends JButton
 	 */
 	public void explode()
 	{
-		if(!exploded)
+		if (!exploded)
+		{
 			getActionListeners()[0].actionPerformed(EXPLODE);
+		}
 	}
 
 	/**
@@ -201,6 +202,5 @@ public class TileButton extends JButton
 		theFrame.getGlassPane().setVisible(false);
 		theFrame.repaint();
 	}
-
 
 }

@@ -21,13 +21,14 @@ import edu.sjsu.cs.cs151.minesweeper.view.View;
 
 public class Controller
 {
-	public Controller(Model model, View view, BlockingQueue<Message> messageQueue) throws InvocationTargetException, InterruptedException
+	public Controller(Model model, View view, BlockingQueue<Message> messageQueue)
+		  throws InvocationTargetException, InterruptedException
 	{
 		this.model = model;
 		this.view = view;
 		messages = messageQueue;
 		passedMenu = false;
-		
+
 		initValves();
 	}
 
@@ -38,21 +39,23 @@ public class Controller
 
 		while (response != ValveResponse.FINISH)
 		{
-			try 
+			try
 			{
 				message = messages.take();
 			}
-			catch(InterruptedException e)
+			catch (InterruptedException e)
 			{
 				e.printStackTrace();
 			}
-			
-			for(Valve valve: valves)
+
+			for (Valve valve : valves)
 			{
 				response = valve.execute(message);
-				
-				if(response != ValveResponse.MISS)
+
+				if (response != ValveResponse.MISS)
+				{
 					break;
+				}
 			}
 		}
 	}
@@ -107,105 +110,135 @@ public class Controller
 	private static boolean gameOver;
 	private boolean passedMenu;
 	private Model.Difficulty difficulty;
-	
+
 	private void initValves()
 	{
 		// Adds listening for right clicks
-		valves.add( message -> { if(message.getClass() != RightClickMessage.class) return ValveResponse.MISS;
+		valves.add(message -> {
+			if (message.getClass() != RightClickMessage.class)
+			{
+				return ValveResponse.MISS;
+			}
 			RightClickMessage msg = (RightClickMessage) message;
-			if(!gameOver)
+			if (!gameOver)
+			{
 				model.toggleFlag(msg.getRow(), msg.getColumn());
-			
-			try { updateView(); } 
-			catch (InvocationTargetException | InterruptedException e) { e.printStackTrace(); }
-			return ValveResponse.EXECUTED; }  
-		);
-		
+			}
+
+			try
+			{
+				updateView();
+			}
+			catch (InvocationTargetException | InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			return ValveResponse.EXECUTED;
+		});
+
 		// Adds listening for left clicks
-		valves.add(new LeftClickValve() );
-		
+		valves.add(new LeftClickValve());
+
 		// Looks for beginning difficulty
-		valves.add(new DifficultyValve() );
-		
+		valves.add(new DifficultyValve());
+
 		// Adds reset functionality
-		valves.add( message -> { if(message.getClass() != ResetMessage.class) return ValveResponse.MISS;
+		valves.add(message -> {
+			if (message.getClass() != ResetMessage.class)
+			{
+				return ValveResponse.MISS;
+			}
 			reset();
 			return ValveResponse.EXECUTED;
 		});
-		
+
 		// Adds exit functionality
-		valves.add( message -> { if(message.getClass() != ExitMessage.class) return ValveResponse.MISS;
+		valves.add(message -> {
+			if (message.getClass() != ExitMessage.class)
+			{
+				return ValveResponse.MISS;
+			}
 			return ValveResponse.FINISH;
 		});
 	}
-	
+
 	//-------------------------Private Classes------------------
-	
+
 	private class DifficultyValve implements Valve
 	{
 		public ValveResponse execute(Message message)
 		{
-			if(message.getClass() != DifficultyMessage.class)
-					return ValveResponse.MISS;
-			
+			if (message.getClass() != DifficultyMessage.class)
+			{
+				return ValveResponse.MISS;
+			}
+
 			DifficultyMessage msg = (DifficultyMessage) message;
-			
+
 			difficulty = msg.getDifficulty();
 
-			if(!passedMenu)
+			if (!passedMenu)
 			{
-			    passedMenu = true;
-			    model.setDifficulty(difficulty);
-			    Board gameBoard = model.getBoard();
-			    view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(), difficulty);	
+				passedMenu = true;
+				model.setDifficulty(difficulty);
+				Board gameBoard = model.getBoard();
+				view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(), difficulty);
 			}
-			else if(msg.shouldBeChangedNow())
+			else if (msg.shouldBeChangedNow())
 			{
-			    model.setDifficulty(difficulty);
-			    Board gameBoard = model.getBoard();
-			    view.resetTo(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines());	
+				model.setDifficulty(difficulty);
+				Board gameBoard = model.getBoard();
+				view.resetTo(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines());
 			}
 
-			
-
-			
 			return ValveResponse.EXECUTED;
 		}
 
-	
 	}
-	
+
 	private class LeftClickValve implements Valve
 	{
 		public ValveResponse execute(Message message)
 		{
-			if(message.getClass() != LeftClickMessage.class) 
+			if (message.getClass() != LeftClickMessage.class)
+			{
 				return ValveResponse.MISS;
-			
+			}
+
 			LeftClickMessage msg = (LeftClickMessage) message;
-			
-			if(!gameOver)
+
+			if (!gameOver)
+			{
 				model.revealTile(msg.getRow(), msg.getColumn());
-			
+			}
+
 			gameOver = model.gameLost();
-			
-			try { updateView(); } 
-			catch (InvocationTargetException | InterruptedException e) { e.printStackTrace(); }
-			
-			if(gameOver)
+
+			try
+			{
+				updateView();
+			}
+			catch (InvocationTargetException | InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+
+			if (gameOver)
 			{
 				try
 				{
-					SwingUtilities.invokeAndWait( () -> view.explode(msg.getRow(), msg.getColumn()));
+					SwingUtilities.invokeAndWait(() -> view.explode(msg.getRow(), msg.getColumn()));
 					Thread.sleep(3500);
 					gameOver();
-					
-				} catch (InvocationTargetException | InterruptedException e)
+
+				}
+				catch (InvocationTargetException | InterruptedException e)
 				{
 					e.printStackTrace();
 				}
 			}
-			return ValveResponse.EXECUTED; }
+			return ValveResponse.EXECUTED;
+		}
 	}
 
 }

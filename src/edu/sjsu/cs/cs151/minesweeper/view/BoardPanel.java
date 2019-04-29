@@ -59,7 +59,6 @@ public class BoardPanel extends JPanel
 		tileButtons[row][col].reveal();
 	}
 
-
 	@Override
 	public Dimension getPreferredSize()
 	{
@@ -112,18 +111,23 @@ public class BoardPanel extends JPanel
 
 	public void gameWon()
 	{
-	    for(int i = 0; i < tileButtons.length; i++)
-	    {
-		for(int j = 0; j < tileButtons[0].length; j++)
-		    tileButtons[i][j].setBackground(new Color(255,215,0));
-	    }
+		for (int i = 0; i < tileButtons.length; i++)
+		{
+			for (int j = 0; j < tileButtons[0].length; j++)
+			{
+				tileButtons[i][j].setBackground(new Color(255, 215, 0));
+			}
+		}
 	}
-	
+
 	private TileButton[][] tileButtons;
 	public static final int EASY_ROW_SIZE = 9;
 	public static final int MED_ROW_SIZE = 16;
 	public static final int HARD_ROW_SIZE = 24;
-	public static final Dimension EASY_SIZE = new Dimension(TileIcon.WIDTH * EASY_ROW_SIZE, TileIcon.WIDTH * EASY_ROW_SIZE);
-	public static final Dimension MEDIUM_SIZE = new Dimension(TileIcon.WIDTH * MED_ROW_SIZE, TileIcon.WIDTH * MED_ROW_SIZE);
-	public static final Dimension HARD_SIZE = new Dimension(TileIcon.WIDTH * HARD_ROW_SIZE, TileIcon.WIDTH * HARD_ROW_SIZE);
+	public static final Dimension EASY_SIZE = new Dimension(TileIcon.WIDTH * EASY_ROW_SIZE,
+		  TileIcon.WIDTH * EASY_ROW_SIZE);
+	public static final Dimension MEDIUM_SIZE = new Dimension(TileIcon.WIDTH * MED_ROW_SIZE,
+		  TileIcon.WIDTH * MED_ROW_SIZE);
+	public static final Dimension HARD_SIZE = new Dimension(TileIcon.WIDTH * HARD_ROW_SIZE,
+		  TileIcon.WIDTH * HARD_ROW_SIZE);
 }

@@ -94,7 +94,6 @@ public class View
 		boardPanel.explode(row, col);
 	}
 
-
 	/**
 	 * Flags the tiles at the specified location
 	 *
@@ -138,7 +137,7 @@ public class View
 		frame.add(boardPanel);
 		frame.pack();
 	}
-	
+
 	/**
 	 * Disposes the View, its subcomponents, and all of its owned children.
 	 */
@@ -166,7 +165,6 @@ public class View
 	private Timer welcomeMenuHelper;
 	private WelcomePanel welcome;
 	private ButtonGroup difficulties;
-
 
 	/**
 	 * Creates frame, creates the boardPanel, and fills the boardPanel with buttons
@@ -199,37 +197,34 @@ public class View
 		difficulties.add(easy);
 		difficultyMenu.add(easy);
 
-		
 		JRadioButtonMenuItem medium = new JRadioButtonMenuItem("Medium");
-		medium.addActionListener( new ChangeDifficultyAction(Difficulty.MEDIUM));
+		medium.addActionListener(new ChangeDifficultyAction(Difficulty.MEDIUM));
 		difficulties.add(medium);
 		difficultyMenu.add(medium);
 
-		
 		JRadioButtonMenuItem hard = new JRadioButtonMenuItem("Hard");
-		hard.addActionListener( new ChangeDifficultyAction(Difficulty.HARD));
-		
+		hard.addActionListener(new ChangeDifficultyAction(Difficulty.HARD));
+
 		difficulties.add(hard);
 		difficultyMenu.add(hard);
 
-		
 		switch (difficulty)
 		{
-			case EASY:
-				easy.setSelected(true);
-				break;
+		case EASY:
+			easy.setSelected(true);
+			break;
 
-			case MEDIUM:
-				medium.setSelected(true);
-				break;
+		case MEDIUM:
+			medium.setSelected(true);
+			break;
 
-			case HARD:
-				hard.setSelected(true);
-				break;
+		case HARD:
+			hard.setSelected(true);
+			break;
 
-			default:
-				easy.setSelected(true);
-				break;
+		default:
+			easy.setSelected(true);
+			break;
 		}
 
 		game.add(difficultyMenu);
@@ -238,8 +233,10 @@ public class View
 		startNew.addActionListener(e -> {
 			try
 			{
-				messageQueue.put( new ResetMessage());
-			} catch (InterruptedException e2) {
+				messageQueue.put(new ResetMessage());
+			}
+			catch (InterruptedException e2)
+			{
 				e2.printStackTrace();
 			}
 		});
@@ -253,7 +250,9 @@ public class View
 			try
 			{
 				messageQueue.put(new ExitMessage());
-			} catch (InterruptedException e1) {
+			}
+			catch (InterruptedException e1)
+			{
 				e1.printStackTrace();
 			}
 		});
@@ -299,7 +298,7 @@ public class View
 		});
 		welcomeMenuHelper.start();
 	}
-	
+
 	//-------------------------Private Classes------------------
 	private class ChangeDifficultyAction implements ActionListener
 	{
@@ -316,26 +315,26 @@ public class View
 				try
 				{
 					messageQueue.put(new DifficultyMessage(difficulty, true));
-				} 
-				catch (InterruptedException e1) 
-				{ 
-					e1.printStackTrace(); 
+				}
+				catch (InterruptedException e1)
+				{
+					e1.printStackTrace();
 				}
 			}
 			else
 			{
 				try
 				{
-				    	messageQueue.put(new DifficultyMessage(difficulty, false));
-				} 
-				catch (InterruptedException e1) 
-				{ 
-					e1.printStackTrace(); 
+					messageQueue.put(new DifficultyMessage(difficulty, false));
+				}
+				catch (InterruptedException e1)
+				{
+					e1.printStackTrace();
 				}
 			}
 		}
-		
+
 		private Difficulty difficulty;
 	}
-	
+
 }
