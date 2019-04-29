@@ -26,6 +26,7 @@ public class Controller
 		this.model = model;
 		this.view = view;
 		messages = messageQueue;
+		passedMenu = false;
 		
 		initValves();
 	}
@@ -59,7 +60,7 @@ public class Controller
 	public void reset()
 	{
 		gameOver = false;
-		model.reset();
+		model.setDifficulty(difficulty);
 		view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
 	}
 
@@ -104,6 +105,7 @@ public class Controller
 	private BlockingQueue<Message> messages;
 	private List<Valve> valves = new LinkedList<Valve>();
 	private static boolean gameOver;
+	private boolean passedMenu;
 	private Model.Difficulty difficulty;
 	
 	private void initValves()
@@ -149,24 +151,24 @@ public class Controller
 			
 			DifficultyMessage msg = (DifficultyMessage) message;
 			
-			switch(msg.getDifficulty())
+			difficulty = msg.getDifficulty();
+
+			if(!passedMenu)
 			{
-			case View.EASY_DIFFICULTY: model.setDifficulty(Model.Difficulty.EASY); break;
-			
-			case View.MEDIUM_DIFFICULTY: model.setDifficulty(Model.Difficulty.MEDIUM); break;
-			
-			case View.HARD_DIFFICULTY: model.setDifficulty(Model.Difficulty.HARD); break;
-			
-			default: model.setDifficulty(Model.Difficulty.EASY);
+			    passedMenu = true;
+			    model.setDifficulty(difficulty);
+			    Board gameBoard = model.getBoard();
+			    view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(), difficulty);	
 			}
+			else if(msg.shouldBeChangedNow())
+			{
+			    model.setDifficulty(difficulty);
+			    Board gameBoard = model.getBoard();
+			    view.resetTo(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines());	
+			}
+
 			
-			Board gameBoard = model.getBoard();
-			
-			if(msg.isGameAlreadyRunning())
-				view.resetTo(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines());
-			
-			else
-				view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(), msg.getDifficulty());
+
 			
 			return ValveResponse.EXECUTED;
 		}
@@ -196,7 +198,7 @@ public class Controller
 				try
 				{
 					SwingUtilities.invokeAndWait( () -> view.explode(msg.getRow(), msg.getColumn()));
-					Thread.sleep(3000);
+					Thread.sleep(3500);
 					gameOver();
 					
 				} catch (InvocationTargetException | InterruptedException e)

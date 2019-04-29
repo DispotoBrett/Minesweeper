@@ -76,7 +76,6 @@ public class TileButton extends JButton
 				{
 					setBackground(Color.DARK_GRAY);
 				}
-
 			}
 		});
 

@@ -3,6 +3,8 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import edu.sjsu.cs.cs151.minesweeper.controller.*;
+import edu.sjsu.cs.cs151.minesweeper.model.Model.Difficulty;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -90,7 +92,7 @@ public class WelcomePanel extends JPanel
 		easyButton.addActionListener(e -> {
 			try
 			{
-				messageQueue.put(new DifficultyMessage(View.EASY_DIFFICULTY, false));
+				messageQueue.put(new DifficultyMessage(Difficulty.EASY, true));
 			} catch (InterruptedException e1)
 			{
 				e1.printStackTrace();
@@ -102,7 +104,7 @@ public class WelcomePanel extends JPanel
 		mediumButton.addActionListener(e -> {
 			try
 			{
-				messageQueue.put(new DifficultyMessage(View.MEDIUM_DIFFICULTY, false));
+				messageQueue.put(new DifficultyMessage(Difficulty.MEDIUM, true));
 			} catch (InterruptedException e1)
 			{
 				e1.printStackTrace();
@@ -116,7 +118,7 @@ public class WelcomePanel extends JPanel
 		hardButton.addActionListener(e -> {
 			try
 			{
-				messageQueue.put(new DifficultyMessage(View.HARD_DIFFICULTY, false));
+				messageQueue.put(new DifficultyMessage(Difficulty.HARD, true));
 			} catch (InterruptedException e1)
 			{
 				e1.printStackTrace();
