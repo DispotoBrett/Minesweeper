@@ -90,6 +90,7 @@ public class WelcomePanel extends JPanel
 		JButton easyButton = new JButton("Easy");
 		easyButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		easyButton.setBackground(Color.YELLOW);
+		easyButton.setOpaque(true);
 		easyButton.addActionListener(e -> {
 			try
 			{
@@ -113,6 +114,7 @@ public class WelcomePanel extends JPanel
 		});
 		mediumButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		mediumButton.setBackground(Color.cyan);
+		mediumButton.setOpaque(true);
 		difficultyPanel.add(mediumButton);
 
 		JButton hardButton = new JButton("Hard");
@@ -127,6 +129,7 @@ public class WelcomePanel extends JPanel
 		});
 		hardButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		hardButton.setBackground(Color.RED);
+		hardButton.setOpaque(true);
 		difficultyPanel.add(hardButton);
 
 		add(difficultyPanel, BorderLayout.CENTER);
