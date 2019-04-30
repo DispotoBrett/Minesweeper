@@ -67,7 +67,8 @@ public class TileButton extends JButton
 							e1.printStackTrace();
 						}
 					}
-					setBackground(null);
+					if(getBackground() == Color.DARK_GRAY)
+					    setBackground(null);
 				}
 			}
 

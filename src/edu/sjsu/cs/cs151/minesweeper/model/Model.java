@@ -47,7 +47,7 @@ public class Model
 			break;
 
 		case HARD:
-			gameBoard = new Board(16, 16, 40);
+			gameBoard = new Board(16, 16, 1);
 			break;
 
 		default:

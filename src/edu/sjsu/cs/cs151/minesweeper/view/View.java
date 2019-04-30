@@ -55,7 +55,7 @@ public class View
 	{
 		this.rows = rows;
 		this.columns = cols;
-		welcomeMenuHelper.stop();
+		animationTimer.stop();
 		frame.remove(welcome);
 		initializeFrame(adjMines);
 		initializeMenu(difficulty);
@@ -67,53 +67,13 @@ public class View
 	public void gameWon()
 	{
 		boardPanel.gameWon();
-		JLabel label = new JLabel()
-		{
-			@Override
-			public void paint(Graphics g)
-			{
-				if (winnerImage == null)
-				{
-					try
-					{
-						winnerImage = ImageIO.read(new File("resources/winner.png"));
-					}
-					catch (IOException e)
-					{
-						e.printStackTrace();
-					}
-				}
-				Graphics2D g2 = (Graphics2D) g;
-				g2.drawImage(winnerImage, x, IMAGE_Y, IMAGE_WIDTH, IMAGE_HEIGHT, null, null);
-			}
-
-			@Override
-			public void updateUI()
-			{
-				if (x < frame.getWidth())
-				{
-					x++;
-				}
-				else
-				{
-					x = -frame.getWidth() / 3;
-				}
-			}
-
-			private int x = 0;
-			private final int IMAGE_WIDTH = frame.getWidth() / 3;
-			private final int IMAGE_HEIGHT = frame.getWidth() / 3;
-			private final int IMAGE_Y = boardPanel.getY() + frame.getHeight() / 4;
-			private BufferedImage winnerImage = null;
-
-		};
-
-		welcomeMenuHelper = new Timer(10, e -> {
-			label.updateUI();
+		GameWonAnimation winAnimation = new GameWonAnimation();
+		animationTimer = new Timer(10, e -> {
+			winAnimation.move();
 			frame.repaint();
 		});
-		welcomeMenuHelper.start();
-		frame.setGlassPane(label);
+		animationTimer.start();
+		frame.setGlassPane(winAnimation);
 		frame.getGlassPane().setVisible(true);
 	}
 
@@ -174,19 +134,19 @@ public class View
 
 	public void resetTo(int row, int col, int[][] adjMines)
 	{
-		if (welcomeMenuHelper != null && welcomeMenuHelper.isRunning())
+		if (animationTimer != null && animationTimer.isRunning())
 		{
-			welcomeMenuHelper.stop();
+			animationTimer.stop();
 		}
 		rows = row;
 		columns = col;
 		frame.remove(boardPanel);
 		frame.getGlassPane().setVisible(false);
-
 		boardPanel = new BoardPanel(rows, columns, messageQueue, frame, adjMines);
 		frame.add(boardPanel);
 		frame.pack();
-		frame.setLocationRelativeTo(null);
+		frame.revalidate();
+		frame.repaint();
 	}
 
 	/**
@@ -213,7 +173,7 @@ public class View
 	private int rows;
 	private int columns;
 	private BlockingQueue<Message> messageQueue;
-	private Timer welcomeMenuHelper;
+	private Timer animationTimer;
 	private WelcomePanel welcome;
 	private ButtonGroup difficulties;
 
@@ -343,11 +303,11 @@ public class View
 		frame.setResizable(false);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		welcomeMenuHelper = new Timer(10, e -> {
+		animationTimer = new Timer(10, e -> {
 			welcome.animate();
 			frame.repaint();
 		});
-		welcomeMenuHelper.start();
+		animationTimer.start();
 	}
 
 	//-------------------------Private Classes------------------
@@ -386,6 +346,46 @@ public class View
 		}
 
 		private Difficulty difficulty;
+	}
+	
+	private class GameWonAnimation extends JLabel
+	{
+			@Override
+			public void paint(Graphics g)
+			{
+				if (winnerImage == null)
+				{
+					try
+					{
+						winnerImage = ImageIO.read(new File("resources/winner.png"));
+					}
+					catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+				}
+				Graphics2D g2 = (Graphics2D) g;
+				g2.drawImage(winnerImage, x, IMAGE_Y, IMAGE_WIDTH, IMAGE_HEIGHT, null, null);
+			}
+
+			public void move()
+			{
+				if (x < frame.getWidth())
+				{
+					x++;
+				}
+				else
+				{
+					x = - IMAGE_WIDTH;
+				}
+			}
+
+			private int x = 0;
+			private final int IMAGE_WIDTH = frame.getWidth() / 3;
+			private final int IMAGE_HEIGHT = frame.getWidth() / 3;
+			private final int IMAGE_Y = boardPanel.getY() + frame.getHeight() / 4;
+			private BufferedImage winnerImage = null;
+
 	}
 
 }

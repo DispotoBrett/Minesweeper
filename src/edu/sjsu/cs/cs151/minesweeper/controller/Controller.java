@@ -62,7 +62,7 @@ public class Controller
 	}
 
 	public void reset()
-	{
+	{ 
 		gameOver = false;
 		model.setDifficulty(difficulty);
 		view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
