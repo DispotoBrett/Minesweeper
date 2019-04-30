@@ -22,6 +22,17 @@ public final class TileIcon implements Icon
 		this.flagged = flagged;
 		this.revealed = revealed;
 		this.adjMines = 0;
+		
+		try
+		{
+			if(flagIcon == null)
+				flagIcon = ImageIO.read(new File("resources/flag.png"));
+			if(mineIcon == null)
+				mineIcon = ImageIO.read(new File("resources/mine.png"));
+		} catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -73,29 +84,11 @@ public final class TileIcon implements Icon
             {
                 g2.setColor(Color.RED);
             }
-			BufferedImage img = null;
-			try
-			{
-				img = ImageIO.read(new File("resources/mine.png"));
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-			g2.drawImage(img, 0, 0, WIDTH, HEIGHT, g2.getColor(), null);
+			g2.drawImage(mineIcon, 0, 0, WIDTH, HEIGHT, g2.getColor(), null);
 		}
 		else if (flagged)
 		{
-			BufferedImage img = null;
-			try
-			{
-				img = ImageIO.read(new File("resources/flag.png"));
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-			g2.drawImage(img, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
+			g2.drawImage(mineIcon, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
 		}
 		else if (adjMines != 0)
 		{
@@ -161,6 +154,9 @@ public final class TileIcon implements Icon
 	private static final int FONT_Y = HEIGHT - (int) (HEIGHT * .2);
 	private static final int MIN_YELLOW = 2;
 	private static final int MIN_RED = 4;
+	private static BufferedImage flagIcon = null;
+	private static BufferedImage mineIcon = null;
+	
 	private boolean flagged;
 	private int adjMines;
 	private boolean showMine;
