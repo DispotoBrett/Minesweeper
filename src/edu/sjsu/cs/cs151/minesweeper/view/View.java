@@ -68,10 +68,12 @@ public class View
 	{
 		boardPanel.gameWon();
 		GameWonAnimation winAnimation = new GameWonAnimation();
+		
 		animationTimer = new Timer(10, e -> {
 			winAnimation.move();
 			frame.repaint();
 		});
+		
 		animationTimer.start();
 		frame.setGlassPane(winAnimation);
 		frame.getGlassPane().setVisible(true);
@@ -135,9 +137,7 @@ public class View
 	public void resetTo(int row, int col, int[][] adjMines)
 	{
 		if (animationTimer != null && animationTimer.isRunning())
-		{
 			animationTimer.stop();
-		}
 		rows = row;
 		columns = col;
 		frame.remove(boardPanel);
