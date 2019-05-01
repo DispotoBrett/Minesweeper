@@ -68,12 +68,12 @@ public class View
 	{
 		boardPanel.gameWon();
 		GameWonAnimation winAnimation = new GameWonAnimation();
-		
+
 		animationTimer = new Timer(10, e -> {
 			winAnimation.move();
 			frame.repaint();
 		});
-		
+
 		animationTimer.start();
 		frame.setGlassPane(winAnimation);
 		frame.getGlassPane().setVisible(true);
@@ -137,7 +137,9 @@ public class View
 	public void resetTo(int row, int col, int[][] adjMines)
 	{
 		if (animationTimer != null && animationTimer.isRunning())
+		{
 			animationTimer.stop();
+		}
 		rows = row;
 		columns = col;
 		frame.remove(boardPanel);
@@ -347,44 +349,44 @@ public class View
 
 		private Difficulty difficulty;
 	}
-	
+
 	private class GameWonAnimation extends JLabel
 	{
-			@Override
-			public void paint(Graphics g)
+		@Override
+		public void paint(Graphics g)
+		{
+			if (winnerImage == null)
 			{
-				if (winnerImage == null)
+				try
 				{
-					try
-					{
-						winnerImage = ImageIO.read(new File("resources/winner.png"));
-					}
-					catch (IOException e)
-					{
-						e.printStackTrace();
-					}
+					winnerImage = ImageIO.read(new File("resources/winner.png"));
 				}
-				Graphics2D g2 = (Graphics2D) g;
-				g2.drawImage(winnerImage, x, IMAGE_Y, IMAGE_WIDTH, IMAGE_HEIGHT, null, null);
-			}
-
-			public void move()
-			{
-				if (x < frame.getWidth())
+				catch (IOException e)
 				{
-					x++;
-				}
-				else
-				{
-					x = - IMAGE_WIDTH;
+					e.printStackTrace();
 				}
 			}
+			Graphics2D g2 = (Graphics2D) g;
+			g2.drawImage(winnerImage, x, IMAGE_Y, IMAGE_WIDTH, IMAGE_HEIGHT, null, null);
+		}
 
-			private int x = 0;
-			private final int IMAGE_WIDTH = frame.getWidth() / 3;
-			private final int IMAGE_HEIGHT = frame.getWidth() / 3;
-			private final int IMAGE_Y = boardPanel.getY() + frame.getHeight() / 4;
-			private BufferedImage winnerImage = null;
+		public void move()
+		{
+			if (x < frame.getWidth())
+			{
+				x++;
+			}
+			else
+			{
+				x = -IMAGE_WIDTH;
+			}
+		}
+
+		private int x = 0;
+		private final int IMAGE_WIDTH = frame.getWidth() / 3;
+		private final int IMAGE_HEIGHT = frame.getWidth() / 3;
+		private final int IMAGE_Y = boardPanel.getY() + frame.getHeight() / 4;
+		private BufferedImage winnerImage = null;
 
 	}
 

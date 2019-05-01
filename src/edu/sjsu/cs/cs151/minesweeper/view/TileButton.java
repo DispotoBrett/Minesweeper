@@ -49,8 +49,10 @@ public class TileButton extends JButton
 					{
 						try
 						{
-							if(!exploded)
+							if (!exploded)
+							{
 								messageQueue.put(new LeftClickMessage(row, col));
+							}
 						}
 						catch (InterruptedException e1)
 						{
@@ -61,16 +63,20 @@ public class TileButton extends JButton
 					{
 						try
 						{
-							if(!exploded)
+							if (!exploded)
+							{
 								messageQueue.put(new RightClickMessage(row, col));
+							}
 						}
 						catch (InterruptedException e1)
 						{
 							e1.printStackTrace();
 						}
 					}
-					if(getBackground() == Color.DARK_GRAY)
-					    setBackground(null);
+					if (getBackground() == Color.DARK_GRAY)
+					{
+						setBackground(null);
+					}
 				}
 			}
 
@@ -99,7 +105,9 @@ public class TileButton extends JButton
 			else if (e == UNFLAG)
 			{
 				if (!exploded)
+				{
 					setIcon(UNREVEALED_ICON);
+				}
 			}
 			else if (e == EXPOSE_MINE)
 			{

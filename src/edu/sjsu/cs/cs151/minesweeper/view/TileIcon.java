@@ -14,23 +14,28 @@ public final class TileIcon implements Icon
 	{
 		revealed, unrevealed, flagged, mineShowing
 	}
-	
+
 	public TileIcon(TileState state)
 	{
 		try
 		{
-			if(flagIcon == null)
+			if (flagIcon == null)
+			{
 				flagIcon = ImageIO.read(new File("resources/flag.png"));
-			if(mineIcon == null)
+			}
+			if (mineIcon == null)
+			{
 				mineIcon = ImageIO.read(new File("resources/mine.png"));
-		} catch(IOException e)
+			}
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
 		adjMines = 0;
 		this.state = state;
 	}
-	
+
 	public TileIcon(TileState state, int adjMines)
 	{
 		this(state);
