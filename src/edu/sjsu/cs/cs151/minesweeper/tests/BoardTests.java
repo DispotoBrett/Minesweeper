@@ -12,7 +12,7 @@ public class BoardTests
 	@Test
 	public void constructorTest()
 	{
-		Board testBoard = new Board(false);
+		Board testBoard = new Board(9, 9, 9, true);
 
 		int numberOfMines = 0;
 		int numberOfTiles = 0;
@@ -35,7 +35,7 @@ public class BoardTests
 	@Test
 	public void flagTest()
 	{
-		Board testBoard = new Board(true);
+		Board testBoard = new Board(9, 9, 9, true);
 
 		assertFalse(testBoard.getTileAt(0, 0).isMine());
 
@@ -59,7 +59,7 @@ public class BoardTests
 	@Test
 	public void adjacentMinesTest()
 	{
-		Board testBoard = new Board(true);
+		Board testBoard = new Board(9, 9, 9, true);
 
 		int noMines = testBoard.adjacentMines(0, 0);
 		assertEquals(0, noMines);
@@ -74,7 +74,7 @@ public class BoardTests
 	@Test
 	public void revealTest()
 	{
-		Board testBoard = new Board(true);
+		Board testBoard = new Board(9, 9, 9, true);
 		// Testing a single reveal
 		assertFalse(testBoard.getTileAt(0, 4).isRevealed());
 		testBoard.revealTile(0, 4);
@@ -112,7 +112,7 @@ public class BoardTests
 	@Test
 	public void iteratorTest()
 	{
-		Board test = new Board(true);
+		Board test = new Board(9, 9, 9, true);
 		int tileCount = 0;
 
 		for (Tile t : test)

@@ -20,30 +20,21 @@ public final class Board implements Iterable<Tile>
 	public static final int UNFLAG = 2;
 
 	/**
-	 * Constructs a new Board instance, with randomized mine placement.
+	 * Constructs a Board with or without randomized mine placement.
 	 *
-	 * @param usePresetSeed determines whether mine placement is predetermined or randomized
+	 * @param numberOfRows    The number of rows in the Board.
+	 * @param numberOfColumns The number of columns in the Board.
+	 * @param numberOfMines   The number of mines in the Board.
+	 * @param usePresetSeed   True if mine placement is to be predetermined, false otherwise.
 	 */
-	public Board(boolean usePresetSeed)
+	public Board(int numberOfRows, int numberOfColumns, int numberOfMines, boolean usePresetSeed)
 	{
-		NUM_ROWS = 9;
-		NUM_COLS = 9;
-		NUM_MINES = 10;
+		NUM_ROWS = numberOfRows;
+		NUM_COLS = numberOfColumns;
+		NUM_MINES = numberOfMines;
 
 		tiles = new Tile[NUM_ROWS][NUM_COLS];
 		initializeTiles(usePresetSeed);
-		initializeAdjacentMines();
-		numberTilesRevealed = 0;
-	}
-
-	public Board(int row, int col, int numMines)
-	{
-		NUM_ROWS = row;
-		NUM_COLS = col;
-		NUM_MINES = numMines;
-
-		tiles = new Tile[NUM_ROWS][NUM_COLS];
-		initializeTiles(false);
 		initializeAdjacentMines();
 		numberTilesRevealed = 0;
 	}
@@ -192,6 +183,7 @@ public final class Board implements Iterable<Tile>
 	private final int NUM_ROWS;
 	private final int NUM_COLS;
 	private final int NUM_MINES;
+	private final int DEFAULT_SEED = 0;
 	private Tile[][] tiles;
 	private int[][] adjMines; // Each index in adjMines stores a value that indicates how many mines are adjacent to the same index in tiles
 	private int numberTilesRevealed;
@@ -199,7 +191,7 @@ public final class Board implements Iterable<Tile>
 	/**
 	 * Initializes all tiles, randomly choosing which have underlying mines.
 	 *
-	 * @postcondition This board will now have a new set of tiles, some of which are mines.
+	 * @param usePresetSeed True if mine placement is to be predetermined, false otherwise
 	 */
 	private void initializeTiles(boolean usePresetSeed)
 	{
@@ -212,11 +204,12 @@ public final class Board implements Iterable<Tile>
 
 		if (usePresetSeed)
 		{
-			Collections.shuffle(mines, new Random(0));
+			Collections.shuffle(mines, new Random(DEFAULT_SEED));
 		}
 		else
 		{
-			Collections.shuffle(mines);
+			SingleRandom randomNumberGenerator = SingleRandom.getInstance();
+			Collections.shuffle(mines, new Random(randomNumberGenerator.nextInt()));
 		}
 
 		mines = new ArrayList<>(mines.subList(0, NUM_MINES));

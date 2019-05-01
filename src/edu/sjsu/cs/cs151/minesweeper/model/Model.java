@@ -13,25 +13,23 @@ public class Model
 	public enum Difficulty
 	{EASY, MEDIUM, HARD}
 
-	public Model()
-	{
-		gameWon = false;
-		gameLost = false;
-		numberOfTiles = 0;
-		gameBoard = new Board(0, 0, 0);
-	}
-
 	/**
-	 * Constructs a new Model instance.
+	 * @param usePresetSeed True if mine placement is to be predetermined, false otherwise.
 	 */
-	public Model(boolean seeded)
+	public Model(Boolean usePresetSeed)
 	{
-		gameBoard = new Board(seeded);
+		this.usePresetSeed = usePresetSeed;
+		gameBoard = new Board(0, 0, 0, this.usePresetSeed);
 		numberOfTiles = gameBoard.getRows() * gameBoard.getColumns();
 		gameWon = false;
 		gameLost = false;
 	}
 
+	/**
+	 * Sets the difficulty level of the Model.
+	 *
+	 * @param d The difficulty level to set Model to.
+	 */
 	public void setDifficulty(Difficulty d)
 	{
 		currentDifficulty = d;
@@ -39,19 +37,19 @@ public class Model
 		switch (d)
 		{
 		case EASY:
-			gameBoard = new Board(9, 9, 9);
+			gameBoard = new Board(9, 9, 9, usePresetSeed);
 			break;
 
 		case MEDIUM:
-			gameBoard = new Board(12, 12, 20);
+			gameBoard = new Board(12, 12, 20, usePresetSeed);
 			break;
 
 		case HARD:
-			gameBoard = new Board(16, 16, 40);
+			gameBoard = new Board(16, 16, 40, usePresetSeed);
 			break;
 
 		default:
-			gameBoard = new Board(false);
+			gameBoard = new Board(9, 9, 9, usePresetSeed);
 			currentDifficulty = Difficulty.EASY;
 		}
 
@@ -92,7 +90,7 @@ public class Model
 		int cols = gameBoard.getColumns();
 		int mines = gameBoard.getNumMines();
 
-		gameBoard = new Board(rows, cols, mines);
+		gameBoard = new Board(rows, cols, mines, usePresetSeed);
 	}
 
 	/**
@@ -151,8 +149,9 @@ public class Model
 
 	//-------------------------Private Fields/Methods------------------
 	private Board gameBoard;
+	private boolean usePresetSeed;
 	private int numberOfTiles;
-	private Difficulty currentDifficulty;
 	private boolean gameWon;
 	private boolean gameLost;
+	private Difficulty currentDifficulty;
 }

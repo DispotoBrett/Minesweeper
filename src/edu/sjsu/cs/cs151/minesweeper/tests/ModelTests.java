@@ -11,7 +11,7 @@ public class ModelTests
 	@Test
 	public void newGameTest()
 	{
-		Model model = new Model();
+		Model model = new Model(true);
 
 		assertFalse(model.gameWon());
 		assertFalse(model.gameLost());
@@ -20,7 +20,7 @@ public class ModelTests
 	@Test
 	public void winTest()
 	{
-		Model model = new Model();
+		Model model = new Model(true);
 		model.setDifficulty(Model.Difficulty.EASY);
 
 		assertFalse(model.gameWon());
@@ -44,7 +44,7 @@ public class ModelTests
 	@Test
 	public void loseTest()
 	{
-		Model model = new Model();
+		Model model = new Model(true);
 		model.setDifficulty(Model.Difficulty.EASY);
 
 		assertFalse(model.gameWon());
@@ -69,7 +69,7 @@ public class ModelTests
 	@Test
 	public void revealTileTest()
 	{
-		Model model = new Model();
+		Model model = new Model(true);
 		model.setDifficulty(Model.Difficulty.EASY);
 
 		assertFalse(model.getBoard().getTileAt(0, 0).isRevealed());
@@ -82,7 +82,7 @@ public class ModelTests
 	@Test
 	public void toggleFlagTest()
 	{
-		Model model = new Model();
+		Model model = new Model(true);
 		model.setDifficulty(Model.Difficulty.EASY);
 
 		assertFalse(model.getBoard().getTileAt(0, 0).isFlagged());

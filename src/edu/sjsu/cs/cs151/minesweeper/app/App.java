@@ -26,7 +26,7 @@ public class App
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException
 	{
 		view = new View(queue);
-		model = new Model();
+		model = new Model(false);
 		Controller control = new Controller(model, view, queue);
 
 		control.mainLoop();

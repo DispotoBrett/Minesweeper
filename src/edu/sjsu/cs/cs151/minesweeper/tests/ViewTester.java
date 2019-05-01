@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class ViewTester
 {
-	static Model model = new Model();
+	static Model model = new Model(true);
 	static View view;
 	static final int ROW_INDEX = 0;
 	static final int COL_INDEX = 1;
