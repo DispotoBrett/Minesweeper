@@ -11,80 +11,84 @@ public class ModelTests
 	@Test
 	public void newGameTest()
 	{
-		Model game = new Model();
+		Model model = new Model();
 
-		assertFalse(game.gameWon());
-		assertFalse(game.gameLost());
+		assertFalse(model.gameWon());
+		assertFalse(model.gameLost());
 	}
 
 	@Test
 	public void winTest()
 	{
-		Model game = new Model();
+		Model model = new Model();
+		model.setDifficulty(Model.Difficulty.EASY);
 
-		assertFalse(game.gameWon());
-		assertFalse(game.gameLost());
+		assertFalse(model.gameWon());
+		assertFalse(model.gameLost());
 
 		for (int i = 0; i < 9; i++)
 		{
 			for (int j = 0; j < 9; j++)
 			{
-				if (!game.getBoard().isMine(i, j))
+				if (!model.getBoard().isMine(i, j))
 				{
-					game.revealTile(i, j);
+					model.revealTile(i, j);
 				}
 			}
 		}
 
-		assertTrue(game.gameWon());
-		assertFalse(game.gameLost());
+		assertTrue(model.gameWon());
+		assertFalse(model.gameLost());
 	}
 
 	@Test
 	public void loseTest()
 	{
-		Model game = new Model();
+		Model model = new Model();
+		model.setDifficulty(Model.Difficulty.EASY);
 
-		assertFalse(game.gameWon());
-		assertFalse(game.gameLost());
+		assertFalse(model.gameWon());
+		assertFalse(model.gameLost());
 
 		for (int i = 0; i < 9; i++)
 		{
 			for (int j = 0; j < 9; j++)
 			{
-				if (game.getBoard().isMine(i, j))
+				if (model.getBoard().isMine(i, j))
 				{
-					game.revealTile(i, j);
+					model.revealTile(i, j);
 					break;
 				}
 			}
 		}
 
-		assertFalse(game.gameWon());
-		assertTrue(game.gameLost());
+		assertFalse(model.gameWon());
+		assertTrue(model.gameLost());
 	}
 
 	@Test
 	public void revealTileTest()
 	{
-		Model game = new Model();
+		Model model = new Model();
+		model.setDifficulty(Model.Difficulty.EASY);
 
-		assertFalse(game.getBoard().getTileAt(0, 0).isRevealed());
+		assertFalse(model.getBoard().getTileAt(0, 0).isRevealed());
 
-		game.revealTile(0, 0);
+		model.revealTile(0, 0);
 
-		assertTrue(game.getBoard().getTileAt(0, 0).isRevealed());
+		assertTrue(model.getBoard().getTileAt(0, 0).isRevealed());
 	}
 
 	@Test
 	public void toggleFlagTest()
 	{
-		Model game = new Model();
+		Model model = new Model();
+		model.setDifficulty(Model.Difficulty.EASY);
 
-		assertFalse(game.getBoard().getTileAt(0, 0).isFlagged());
+		assertFalse(model.getBoard().getTileAt(0, 0).isFlagged());
 
-		game.toggleFlag(0, 0);
+		model.toggleFlag(0, 0);
 
-		assertTrue(game.getBoard().getTileAt(0, 0).isFlagged());
+		assertTrue(model.getBoard().getTileAt(0, 0).isFlagged());
 	}
 }
