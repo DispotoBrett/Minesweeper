@@ -34,7 +34,7 @@ public class TileButton extends JButton
 	 */
 	public TileButton(int row, int col, BlockingQueue<Message> messageQueue, JFrame frame, int adjMines)
 	{
-		super(new TileIcon(false, false));
+		super(UNREVEALED_ICON);
 		revealed = false;
 		theFrame = frame;
 		exploded = false;
@@ -49,7 +49,8 @@ public class TileButton extends JButton
 					{
 						try
 						{
-							messageQueue.put(new LeftClickMessage(row, col));
+							if(!exploded)
+								messageQueue.put(new LeftClickMessage(row, col));
 						}
 						catch (InterruptedException e1)
 						{
@@ -60,7 +61,8 @@ public class TileButton extends JButton
 					{
 						try
 						{
-							messageQueue.put(new RightClickMessage(row, col));
+							if(!exploded)
+								messageQueue.put(new RightClickMessage(row, col));
 						}
 						catch (InterruptedException e1)
 						{
@@ -86,31 +88,29 @@ public class TileButton extends JButton
 			{
 				if (!revealed)
 				{
-					setIcon(new TileIcon(true, false, adjMines));
+					setIcon(new TileIcon(TileIcon.TileState.revealed, adjMines));
 				}
 				revealed = true;
 			}
 			else if (e == FLAG)
 			{
-				setIcon(new TileIcon(false, true));
+				setIcon(FLAGGED_ICON);
 			}
 			else if (e == UNFLAG)
 			{
 				if (!exploded)
-				{
-					setIcon(new TileIcon(false, false));
-				}
+					setIcon(UNREVEALED_ICON);
 			}
 			else if (e == EXPOSE_MINE)
 			{
-				setIcon(new TileIcon(false, false, true));
+				setIcon(SHOW_MINE_ICON);
 			}
 			else if (e == EXPLODE)
 			{
 				exploded = true;
 
 				setBackground(Color.red);
-				setIcon(new TileIcon(true, false, true));
+				setIcon(SHOW_MINE_ICON);
 				// TODO: Somehow feed the explosion the Board Panel's width and height, b/c when
 				// menus are added, they will be painted over.
 				explosion = new Explosion(getX(), getY(), frame.getContentPane().getWidth(),
@@ -190,7 +190,9 @@ public class TileButton extends JButton
 	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 2, "unflag");
 	private static final ActionEvent EXPLODE = new ActionEvent(new Object(), 3, "explode");
 	private static final ActionEvent EXPOSE_MINE = new ActionEvent(new Object(), 4, "explode");
-
+	private static final TileIcon UNREVEALED_ICON = new TileIcon(TileIcon.TileState.unrevealed);
+	private static final TileIcon FLAGGED_ICON = new TileIcon(TileIcon.TileState.flagged);
+	private static final TileIcon SHOW_MINE_ICON = new TileIcon(TileIcon.TileState.mineShowing);
 	public boolean revealed;
 	private static boolean exploded;
 	private static JFrame theFrame;
@@ -200,7 +202,7 @@ public class TileButton extends JButton
 	private void stopTimer()
 	{
 		t.stop();
-		theFrame.getGlassPane().setVisible(false);
+		theFrame.getGlassPane().setEnabled(false);
 		theFrame.repaint();
 	}
 

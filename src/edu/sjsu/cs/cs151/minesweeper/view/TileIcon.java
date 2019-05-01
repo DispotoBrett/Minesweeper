@@ -10,19 +10,13 @@ import java.io.IOException;
 public final class TileIcon implements Icon
 {
 	//----------------Public Interface-------------------------
-
-	/**
-	 * Constructs a new TileIcon.
-	 *
-	 * @param revealed indicates if the tile has been revealed
-	 * @param flagged  indicates if the tile has been flagged
-	 */
-	public TileIcon(boolean revealed, boolean flagged)
+	public enum TileState
 	{
-		this.flagged = flagged;
-		this.revealed = revealed;
-		this.adjMines = 0;
-		
+		revealed, unrevealed, flagged, mineShowing
+	}
+	
+	public TileIcon(TileState state)
+	{
 		try
 		{
 			if(flagIcon == null)
@@ -33,34 +27,14 @@ public final class TileIcon implements Icon
 		{
 			e.printStackTrace();
 		}
+		adjMines = 0;
+		this.state = state;
 	}
-
-	/**
-	 * Constructs a new TileIcon.
-	 *
-	 * @param revealed indicates if the tile has been revealed
-	 * @param flagged  indicates if the tile has been flagged
-	 * @param adjMines the number of mines adjacent to this mine
-	 */
-	public TileIcon(boolean revealed, boolean flagged, int adjMines)
+	
+	public TileIcon(TileState state, int adjMines)
 	{
-		this.flagged = flagged;
-		this.revealed = revealed;
+		this(state);
 		this.adjMines = adjMines;
-	}
-
-	/* Constructs a new TileIcon.
-	 *
-	 * @param revealed indicates if the tile has been revealed
-	 * @param flagged  indicates if the tile has been flagged
-	 * @param showMine paints a mine on the icon if revealed
-	 */
-	public TileIcon(boolean revealed, boolean flagged, boolean showMine)
-	{
-		this.flagged = flagged;
-		this.revealed = revealed;
-		this.adjMines = 0;
-		this.showMine = showMine;
 	}
 
 	/**
@@ -75,18 +49,14 @@ public final class TileIcon implements Icon
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		Rectangle rec = new Rectangle(WIDTH, HEIGHT);
-		g2.setColor(revealed ? Color.WHITE : Color.LIGHT_GRAY);
+		g2.setColor((state == TileState.revealed) ? Color.WHITE : Color.LIGHT_GRAY);
 		g2.fill(rec);
 
-		if (showMine)
+		if (state == TileState.mineShowing)
 		{
-            if (revealed)
-            {
-                g2.setColor(Color.RED);
-            }
 			g2.drawImage(mineIcon, 0, 0, WIDTH, HEIGHT, g2.getColor(), null);
 		}
-		else if (flagged)
+		else if (state == TileState.flagged)
 		{
 			g2.drawImage(mineIcon, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
 		}
@@ -134,16 +104,6 @@ public final class TileIcon implements Icon
 		return HEIGHT;
 	}
 
-	/**
-	 * Tells if the tile has been flagged
-	 *
-	 * @return boolean indicating if the tile has been flagged
-	 */
-	public boolean isFlagged()    //FIXME unused?
-	{
-		return flagged;
-	}
-
 	//----------------Private Methods/Fields----------------------
 	//private static final int WIDTH = 25, HEIGHT = 25;
 	public static final int WIDTH = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
@@ -156,9 +116,6 @@ public final class TileIcon implements Icon
 	private static final int MIN_RED = 4;
 	private static BufferedImage flagIcon = null;
 	private static BufferedImage mineIcon = null;
-	
-	private boolean flagged;
+	private TileState state;
 	private int adjMines;
-	private boolean showMine;
-	private boolean revealed;
 }
