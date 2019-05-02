@@ -208,8 +208,7 @@ public final class Board implements Iterable<Tile>
 		}
 		else
 		{
-			SingleRandom randomNumberGenerator = SingleRandom.getInstance();
-			Collections.shuffle(mines, new Random(randomNumberGenerator.nextInt()));
+			Collections.shuffle(mines, new Random());
 		}
 
 		mines = new ArrayList<>(mines.subList(0, NUM_MINES));
