@@ -74,7 +74,7 @@ public class View
 		boardPanel.gameWon();
 		GameWonAnimation winAnimation = new GameWonAnimation();
 
-		animationTimer = new Timer(10, e -> {
+		animationTimer = new Timer(1 , e -> {
 			winAnimation.move();
 			frame.repaint();
 		});
@@ -139,6 +139,12 @@ public class View
 		return messageQueue;
 	}
 
+	/**
+	 * Resets the visual board.
+	 * @param row the number of rows.
+	 * @param col the number of columns.
+	 * @param adjMines indicates number of mines adjacent to (i, j) tile.
+	 */
 	public void resetTo(int row, int col, int[][] adjMines)
 	{
 		if (animationTimer != null && animationTimer.isRunning())
@@ -171,7 +177,7 @@ public class View
 	 */
 	public static int difficultyChanged()
 	{
-		return JOptionPane.showConfirmDialog(frame, "Reset the game now?");
+		return JOptionPane.showConfirmDialog(frame, "Reset the game now?", "Please Confirm" ,JOptionPane.YES_NO_OPTION, 0, new TileIcon(TileIcon.TileState.flagged));
 	}
 
 	//-------------------------Private Fields/Methods------------------
@@ -183,7 +189,6 @@ public class View
 	private BlockingQueue<Message> messageQueue;
 	private Timer animationTimer;
 	private WelcomePanel welcome;
-	private ButtonGroup difficulties;
 
 	/**
 	 * Constructor for View.
@@ -217,12 +222,12 @@ public class View
 		JMenuBar menuBar = new JMenuBar();
 
 		JMenu game = new JMenu("Game");
-
 		menuBar.add(game);
+
 
 		JMenu difficultyMenu = new JMenu("Difficulty");
 
-		difficulties = new ButtonGroup();
+		ButtonGroup difficulties = new ButtonGroup();
 		JRadioButtonMenuItem easy = new JRadioButtonMenuItem("Easy");
 		easy.addActionListener(new ChangeDifficultyAction(Difficulty.EASY));
 		difficulties.add(easy);
@@ -254,7 +259,6 @@ public class View
 			break;
 
 		default:
-			easy.setSelected(true);
 			break;
 		}
 
@@ -370,20 +374,21 @@ public class View
 
 	private class GameWonAnimation extends JLabel
 	{
+		public GameWonAnimation()
+		{
+			try
+			{
+				winnerImage = ImageIO.read(new File("resources/winner.png"));
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
 		@Override
 		public void paint(Graphics g)
 		{
-			if (winnerImage == null)
-			{
-				try
-				{
-					winnerImage = ImageIO.read(new File("resources/winner.png"));
-				}
-				catch (IOException e)
-				{
-					e.printStackTrace();
-				}
-			}
 			Graphics2D g2 = (Graphics2D) g;
 			g2.drawImage(winnerImage, x, IMAGE_Y, IMAGE_WIDTH, IMAGE_HEIGHT, null, null);
 		}

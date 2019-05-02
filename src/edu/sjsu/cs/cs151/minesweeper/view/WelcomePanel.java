@@ -43,11 +43,7 @@ public class WelcomePanel extends JPanel
 
 	public void animate()
 	{
-		animation.x++;
-		if (animation.x > 400)
-		{
-			animation.x = -50;
-		}
+		animation.animate();
 	}
 
 	//-------------------------Private Fields/Methods------------------
@@ -168,14 +164,30 @@ public class WelcomePanel extends JPanel
 			return new Dimension(400, 50);
 		}
 
+		public void animate()
+		{
+			if(movingRight)
+				x++;
+			else
+				x--;
+			if (x > WelcomePanel.this.getPreferredSize().getWidth() - WIDTH)
+					movingRight = false;
+			if(x < 0)
+				movingRight = true;
+
+		}
+
 		private int x;
+		private boolean movingRight;
 		private BufferedImage mineIcon;
 		private static final long serialVersionUID = 1L;
+		private static final int WIDTH = 50;
 
 		private MineAnimation(BufferedImage mineIcon)
 		{
-			x = -50;
+			x = -WIDTH;
 			this.mineIcon = mineIcon;
+			movingRight = true;
 		}
 	}
 }

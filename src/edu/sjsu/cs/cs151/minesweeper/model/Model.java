@@ -30,7 +30,7 @@ public class Model
 	 *
 	 * @param d The difficulty level to set Model to.
 	 */
-	public void setDifficulty(Difficulty d)
+	public void setDifficultyAndReset(Difficulty d)
 	{
 		currentDifficulty = d;
 

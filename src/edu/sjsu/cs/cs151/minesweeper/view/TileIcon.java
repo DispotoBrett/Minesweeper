@@ -63,7 +63,7 @@ public final class TileIcon implements Icon
 		}
 		else if (state == TileState.flagged)
 		{
-			g2.drawImage(mineIcon, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
+			g2.drawImage(flagIcon, 0, 0, WIDTH, HEIGHT, Color.LIGHT_GRAY, null);
 		}
 		else if (adjMines != 0)
 		{
@@ -113,7 +113,8 @@ public final class TileIcon implements Icon
 	//private static final int WIDTH = 25, HEIGHT = 25;
 	public static final int WIDTH = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
 		  .getDisplayMode().getWidth() / 76.8);
-	public static final int HEIGHT = WIDTH;
+	public static final int HEIGHT = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
+			.getDisplayMode().getWidth() / 76.8);
 	private static final int FONT_SIZE = (int) (HEIGHT * .76);
 	private static final int FONT_X = (int) (HEIGHT * .28);
 	private static final int FONT_Y = HEIGHT - (int) (HEIGHT * .2);

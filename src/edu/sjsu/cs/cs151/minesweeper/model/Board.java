@@ -14,11 +14,6 @@ import java.util.Random;
 public final class Board implements Iterable<Tile>
 {
 	//-------------------------Public Interface-----------------------
-
-	public static final int REVEAL = 0;
-	public static final int FLAG = 1;
-	public static final int UNFLAG = 2;
-
 	/**
 	 * Constructs a Board with or without randomized mine placement.
 	 *
