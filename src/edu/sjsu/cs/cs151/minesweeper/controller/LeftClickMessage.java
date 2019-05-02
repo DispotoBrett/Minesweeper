@@ -1,6 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.controller;
 
-public class LeftClickMessage extends Message
+public class LeftClickMessage implements Message
 {
 	public LeftClickMessage(int row, int col)
 	{

@@ -1,6 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.controller;
 
-public class ResetMessage extends Message
+public class ResetMessage implements Message
 {
 	public ResetMessage()
 	{

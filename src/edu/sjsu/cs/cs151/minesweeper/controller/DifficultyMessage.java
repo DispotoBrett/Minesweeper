@@ -2,7 +2,7 @@ package edu.sjsu.cs.cs151.minesweeper.controller;
 
 import edu.sjsu.cs.cs151.minesweeper.model.Model.Difficulty;
 
-public class DifficultyMessage extends Message
+public class DifficultyMessage implements Message
 {
 	public DifficultyMessage(Difficulty difficulty, boolean changeNow)
 	{

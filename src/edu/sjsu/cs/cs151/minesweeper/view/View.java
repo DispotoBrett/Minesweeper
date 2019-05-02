@@ -34,14 +34,26 @@ public class View
 	public static final int HARD_DIFFICULTY = 6;
 
 	/**
-	 * Constructor for View
-	 */
-	public View(BlockingQueue<Message> messages)
+	 * Gets the instance of view the returns the View
+	 * @postcondition if a view has already been initialized,
+	 * 				  a new one is NOT constructed, and the parameter will be ignored.
+	 * @return the instance of view.
+	 * * */
+	public static View init(BlockingQueue<Message> messages)
 	{
-		frame = new JFrame("Minesweeper");
-		messageQueue = messages; //TODO: reassess
+		if(instance == null)
+			instance = new View(messages);
+		return instance;
+	}
 
-		initializeWelcomeMenu();
+	/**
+	 * Get the instance of View
+	 * @preconditon the view must have already been initialized.
+	 * @return the instance of view.
+	 */
+	public View getInstance()
+	{
+		return instance;
 	}
 
 	/**
@@ -170,6 +182,7 @@ public class View
 	}
 
 	//-------------------------Private Fields/Methods------------------
+	private static View instance;
 	private static JFrame frame;
 	private BoardPanel boardPanel;
 	private int rows;
@@ -178,6 +191,18 @@ public class View
 	private Timer animationTimer;
 	private WelcomePanel welcome;
 	private ButtonGroup difficulties;
+
+	/**
+	 * Constructor for View.
+	 * @param messages the message queue.
+	 */
+	private View(BlockingQueue<Message> messages)
+	{
+		frame = new JFrame("Minesweeper");
+		messageQueue = messages;
+
+		initializeWelcomeMenu();
+	}
 
 	/**
 	 * Creates frame, creates the boardPanel, and fills the boardPanel with buttons
@@ -387,7 +412,6 @@ public class View
 		private final int IMAGE_HEIGHT = frame.getWidth() / 3;
 		private final int IMAGE_Y = boardPanel.getY() + frame.getHeight() / 4;
 		private BufferedImage winnerImage = null;
-
 	}
 
 }

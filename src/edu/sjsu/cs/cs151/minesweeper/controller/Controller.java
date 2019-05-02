@@ -1,6 +1,5 @@
 package edu.sjsu.cs.cs151.minesweeper.controller;
 
-import edu.sjsu.cs.cs151.minesweeper.controller.Valve.ValveResponse;
 import edu.sjsu.cs.cs151.minesweeper.model.Board;
 import edu.sjsu.cs.cs151.minesweeper.model.BoardIterator;
 import edu.sjsu.cs.cs151.minesweeper.model.Model;
@@ -35,10 +34,10 @@ public class Controller
 
 	public void mainLoop()
 	{
-		ValveResponse response = ValveResponse.EXECUTED;
+		Valve.ValveResponse response = Valve.ValveResponse.EXECUTED;
 		Message message = null;
 
-		while (response != ValveResponse.FINISH)
+		while (response != Valve.ValveResponse.FINISH)
 		{
 			try
 			{
@@ -53,7 +52,7 @@ public class Controller
 			{
 				response = valve.execute(message);
 
-				if (response != ValveResponse.MISS)
+				if (response != Valve.ValveResponse.MISS)
 				{
 					break;
 				}
@@ -118,7 +117,7 @@ public class Controller
 		valves.add(message -> {
 			if (message.getClass() != RightClickMessage.class)
 			{
-				return ValveResponse.MISS;
+				return Valve.ValveResponse.MISS;
 			}
 			RightClickMessage msg = (RightClickMessage) message;
 			if (!gameOver)
@@ -134,7 +133,7 @@ public class Controller
 			{
 				e.printStackTrace();
 			}
-			return ValveResponse.EXECUTED;
+			return Valve.ValveResponse.EXECUTED;
 		});
 
 		// Adds listening for left clicks
@@ -147,23 +146,38 @@ public class Controller
 		valves.add(message -> {
 			if (message.getClass() != ResetMessage.class)
 			{
-				return ValveResponse.MISS;
+				return Valve.ValveResponse.MISS;
 			}
 			reset();
-			return ValveResponse.EXECUTED;
+			return Valve.ValveResponse.EXECUTED;
 		});
 
 		// Adds exit functionality
 		valves.add(message -> {
 			if (message.getClass() != ExitMessage.class)
 			{
-				return ValveResponse.MISS;
+				return Valve.ValveResponse.MISS;
 			}
-			return ValveResponse.FINISH;
+			return Valve.ValveResponse.FINISH;
 		});
 	}
 
 	//-------------------------Private Classes------------------
+
+	public interface Valve
+	{
+		enum ValveResponse
+		{MISS, EXECUTED, FINISH}
+
+		/**
+		 * Acts on the Model/View based on the message
+		 *
+		 * @param message the message that it will act on
+		 * @return MISS if the Valve cannot process the message, EXECUTED if it can, and FINISH if the game is over
+		 */
+		ValveResponse execute(Message message);
+	}
+
 
 	private class DifficultyValve implements Valve
 	{

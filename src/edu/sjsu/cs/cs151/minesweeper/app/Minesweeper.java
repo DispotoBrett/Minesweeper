@@ -25,7 +25,7 @@ public class Minesweeper
 
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException
 	{
-		view = new View(queue);
+		view = View.init(queue);
 		model = new Model(false);
 		Controller control = new Controller(model, view, queue);
 

@@ -1,6 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.controller;
 
-public class RightClickMessage extends Message
+public class RightClickMessage implements Message
 {
 	public RightClickMessage(int row, int col)
 	{
