@@ -111,6 +111,25 @@ public class Controller
 	private boolean passedMenu;
 	private Model.Difficulty difficulty;
 
+	private View.Difficulty translateDifficulty(Model.Difficulty translateMe)
+	{
+		switch (translateMe)
+		{
+			case EASY:
+				return View.Difficulty.EASY;
+
+			case MEDIUM:
+				return View.Difficulty.MEDIUM;
+
+			case HARD:
+				return View.Difficulty.HARD;
+
+			default:
+				return null;
+		}
+	}
+
+
 	private void initValves()
 	{
 		// Adds listening for right clicks
@@ -197,7 +216,7 @@ public class Controller
 				passedMenu = true;
 				model.setDifficulty(difficulty);
 				Board gameBoard = model.getBoard();
-				view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(), difficulty);
+				view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(), translateDifficulty(difficulty));
 			}
 			else if (msg.shouldBeChangedNow())
 			{

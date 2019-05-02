@@ -1,16 +1,32 @@
 package edu.sjsu.cs.cs151.minesweeper.controller;
 
-import edu.sjsu.cs.cs151.minesweeper.model.Model.Difficulty;
-
+import edu.sjsu.cs.cs151.minesweeper.model.Model;
+import edu.sjsu.cs.cs151.minesweeper.view.View;
 public class DifficultyMessage implements Message
 {
-	public DifficultyMessage(Difficulty difficulty, boolean changeNow)
+	public DifficultyMessage(View.Difficulty difficulty, boolean changeNow)
 	{
-		this.difficulty = difficulty;
+		//Translate View.Difficulty -> Model.Difficulty
+		switch(difficulty)
+		{
+			case EASY:
+				this.difficulty = Model.Difficulty.EASY;
+				break;
+
+			case MEDIUM:
+				this.difficulty = Model.Difficulty.MEDIUM;
+				break;
+
+			case HARD:
+				this.difficulty = Model.Difficulty.HARD;
+				break;
+
+			default:
+		}
 		this.changeNow = changeNow;
 	}
 
-	public Difficulty getDifficulty()
+	public Model.Difficulty getDifficulty()
 	{
 		return difficulty;
 	}
@@ -20,6 +36,7 @@ public class DifficultyMessage implements Message
 		return changeNow;
 	}
 
-	private Difficulty difficulty;
+
+	private Model.Difficulty difficulty;
 	private boolean changeNow;
 }

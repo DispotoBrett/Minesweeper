@@ -4,7 +4,6 @@ import edu.sjsu.cs.cs151.minesweeper.controller.DifficultyMessage;
 import edu.sjsu.cs.cs151.minesweeper.controller.ExitMessage;
 import edu.sjsu.cs.cs151.minesweeper.controller.Message;
 import edu.sjsu.cs.cs151.minesweeper.controller.ResetMessage;
-import edu.sjsu.cs.cs151.minesweeper.model.Model.Difficulty;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -25,13 +24,7 @@ import java.util.concurrent.BlockingQueue;
  */
 public class View
 {
-	public static final int EXIT = 0;
-	public static final int RIGHT_CLICK = 1;
-	public static final int LEFT_CLICK = 2;
-	public static final int RESET_GAME = 3;
-	public static final int EASY_DIFFICULTY = 4;
-	public static final int MEDIUM_DIFFICULTY = 5;
-	public static final int HARD_DIFFICULTY = 6;
+	public enum Difficulty{EASY, MEDIUM, HARD}
 
 	/**
 	 * Gets the instance of view the returns the View
