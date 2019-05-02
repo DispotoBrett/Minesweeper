@@ -17,7 +17,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @author PatrickSilvestre
  */
 
-public class App
+public class Minesweeper
 {
 	private static BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
 	private static View view;
