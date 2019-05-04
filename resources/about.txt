@@ -1,0 +1,11 @@
+ Welcome to Minesweeper, a game first created 
+ by Microsoft in 1990, and later bundled with
+ all versions of Windows between Windows 3.1 
+ and Windows 7. This version of the game was 
+ created in Java by Brett Dispotto, Patrick
+ Silvestre, and Jordan Conragan as a group 
+ project for CS 151, Object-Oriented Design,
+ at San Jose State University for the Spring
+ 2019 Semester. A complete list of the rules 
+ can be found in the "How To Play" menu item
+ under the help menu. 
