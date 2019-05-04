@@ -11,7 +11,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 
@@ -284,6 +287,7 @@ public class View
 
 		JMenu help = new JMenu("Help");
 		JMenuItem about = new JMenuItem("About");
+		about.addActionListener(e -> initializeAbout() );
 		JMenuItem howTo = new JMenuItem("How to Play");
 
 		help.add(about);
@@ -296,7 +300,7 @@ public class View
 		frame.setLocationRelativeTo(null);
 	}
 
-	private void initializeWelcomeMenu()
+	private void initializeWelcomeMenu() 
 	{
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -323,6 +327,46 @@ public class View
 		animationTimer.start();
 	}
 
+	private void initializeAbout() 
+	{
+		String aboutFile = "resources/about.txt";
+		JFrame aboutFrame = new JFrame("About");
+		JPanel textContainer = new JPanel();
+		textContainer.setLayout(new BoxLayout(textContainer, BoxLayout.Y_AXIS));
+	
+		try(BufferedReader in = new BufferedReader(new FileReader(aboutFile)))
+		{
+			String nextLine = in.readLine();
+			
+			while(nextLine != null)
+			{
+				textContainer.add(new JLabel(nextLine));
+				
+				nextLine = in.readLine();
+			}
+		} 
+		catch (IOException e)
+		{
+			System.out.println(aboutFile + " could not be found");
+			e.printStackTrace();
+		} 
+		
+		BufferedImage img = null;
+		try
+		{
+			img = ImageIO.read(new File("resources/mine.png"));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		aboutFrame.setIconImage(img);
+		aboutFrame.add(textContainer);
+		aboutFrame.pack();
+		aboutFrame.setResizable(false);
+		aboutFrame.setVisible(true);
+	}
 	//-------------------------Private Classes------------------
 	private class ChangeDifficultyAction implements ActionListener
 	{
