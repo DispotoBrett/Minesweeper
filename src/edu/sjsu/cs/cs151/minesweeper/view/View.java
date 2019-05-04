@@ -366,7 +366,10 @@ public class View
 		aboutFrame.pack();
 		aboutFrame.setResizable(false);
 		aboutFrame.setVisible(true);
+		aboutFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		aboutFrame.setLocationRelativeTo(frame);
 	}
+
 	//-------------------------Private Classes------------------
 	private class ChangeDifficultyAction implements ActionListener
 	{
