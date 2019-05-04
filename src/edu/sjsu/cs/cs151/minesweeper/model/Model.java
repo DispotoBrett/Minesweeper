@@ -19,7 +19,7 @@ public class Model
 	public Model(Boolean usePresetSeed)
 	{
 		this.usePresetSeed = usePresetSeed;
-		gameBoard = new Board(0, 0, 0, this.usePresetSeed);
+		gameBoard = new Board(EASY_SIZE, EASY_SIZE, EASY_MINES, usePresetSeed);
 		numberOfTiles = gameBoard.getRows() * gameBoard.getColumns();
 		gameWon = false;
 		gameLost = false;
@@ -37,19 +37,19 @@ public class Model
 		switch (d)
 		{
 		case EASY:
-			gameBoard = new Board(9, 9, 9, usePresetSeed);
+			gameBoard = new Board(EASY_SIZE, EASY_SIZE, EASY_MINES, usePresetSeed);
 			break;
 
 		case MEDIUM:
-			gameBoard = new Board(12, 12, 20, usePresetSeed);
+			gameBoard = new Board(MEDIUM_SIZE, MEDIUM_SIZE, MEDIUM_MINES, usePresetSeed);
 			break;
 
 		case HARD:
-			gameBoard = new Board(16, 16, 40, usePresetSeed);
+			gameBoard = new Board(HARD_SIZE, HARD_SIZE, HARD_MINES, usePresetSeed);
 			break;
 
 		default:
-			gameBoard = new Board(9, 9, 9, usePresetSeed);
+			gameBoard = new Board(EASY_SIZE, EASY_SIZE, EASY_MINES, usePresetSeed);
 			currentDifficulty = Difficulty.EASY;
 		}
 
@@ -148,6 +148,12 @@ public class Model
 	}
 
 	//-------------------------Private Fields/Methods------------------
+	private int EASY_SIZE 	= 9;
+	private int MEDIUM_SIZE = 12;
+	private int HARD_SIZE 	= 16;
+	private int EASY_MINES 	= 8;
+	private int MEDIUM_MINES= 20;
+	private int HARD_MINES 	= 40;
 	private Board gameBoard;
 	private boolean usePresetSeed;
 	private int numberOfTiles;

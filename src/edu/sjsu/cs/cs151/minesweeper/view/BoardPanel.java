@@ -2,8 +2,12 @@ package edu.sjsu.cs.cs151.minesweeper.view;
 
 import edu.sjsu.cs.cs151.minesweeper.controller.Message;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -29,7 +33,7 @@ public class BoardPanel extends JPanel
 		super();
 
 		setLayout(new GridLayout(rows, cols));
-
+		parentFrame = frame;
 		tileButtons = new TileButton[rows][cols];
 
 		// Fills the boardPanel with buttons
@@ -105,7 +109,10 @@ public class BoardPanel extends JPanel
 		tileButtons[row][col].exposeMine();
 	}
 
-	public void gameWon()
+	/**
+	 *  Makes the tiles colorful upon winning a game of Minesweeper.
+	 */
+	public void colorTiles()
 	{
 		for (int i = 0; i < tileButtons.length; i++)
 		{
@@ -130,14 +137,95 @@ public class BoardPanel extends JPanel
 		}
 	}
 
+	/**
+	 * Animation displaying "Game Won!", upon a Minesweeper game win.
+	 */
+	public void gameWonAnimate()
+	{
+		GameWonAnimation winAnimation = new GameWonAnimation();
+
+		gameWonTimer = new Timer( ANIMATION_DELAY  , (e) ->
+												{
+													winAnimation.move();
+													parentFrame.repaint();
+												});
+		gameWonTimer.start();
+
+		parentFrame.setGlassPane(winAnimation);
+		parentFrame.getGlassPane().setVisible(true);
+	}
+
+	/**
+	 * Stops the "Game Won" animation from moving and repainting
+	 */
+	public void stopAnimation()
+	{
+		if(gameWonTimer != null && gameWonTimer.isRunning())
+			gameWonTimer.stop();
+		parentFrame.getGlassPane().setVisible(false);
+	}
+
+	private static final int ANIMATION_DELAY = 12;
 	private TileButton[][] tileButtons;
-	public static final int EASY_ROW_SIZE = 9;
-	public static final int MED_ROW_SIZE = 12;
-	public static final int HARD_ROW_SIZE = 16;
-	public static final Dimension EASY_SIZE = new Dimension(TileIcon.WIDTH * EASY_ROW_SIZE,
+	private JFrame parentFrame; //for glass pane purposes
+	private static final int EASY_ROW_SIZE = 9;
+	private static final int MED_ROW_SIZE = 12;
+	private static final int HARD_ROW_SIZE = 16;
+	private static final Dimension EASY_SIZE = new Dimension(TileIcon.WIDTH * EASY_ROW_SIZE,
 		  TileIcon.WIDTH * EASY_ROW_SIZE);
-	public static final Dimension MEDIUM_SIZE = new Dimension(TileIcon.WIDTH * MED_ROW_SIZE,
+	private static final Dimension MEDIUM_SIZE = new Dimension(TileIcon.WIDTH * MED_ROW_SIZE,
 		  TileIcon.WIDTH * MED_ROW_SIZE);
-	public static final Dimension HARD_SIZE = new Dimension(TileIcon.WIDTH * HARD_ROW_SIZE,
+	private static final Dimension HARD_SIZE = new Dimension(TileIcon.WIDTH * HARD_ROW_SIZE,
 		  TileIcon.WIDTH * HARD_ROW_SIZE);
+	private javax.swing.Timer gameWonTimer;
+
+	/**
+	 * Responsible for animating the "Game Won" banner.
+	 */
+	private class GameWonAnimation extends JLabel
+	{
+		/**
+		 * Constructs a game won animation
+		 */
+		public GameWonAnimation()
+		{
+			try
+			{
+				winnerImage = ImageIO.read(new File(PATH));
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void paint(Graphics g)
+		{
+			Graphics2D g2 = (Graphics2D) g;
+			g2.drawImage(winnerImage, x, IMAGE_Y, IMAGE_WIDTH, IMAGE_HEIGHT, null, null);
+		}
+
+		/**
+		 * Moves the banner along the frame.
+		 */
+		public void move()
+		{
+			if (x < parentFrame.getWidth())
+			{
+				x++;
+			}
+			else
+			{
+				x = -IMAGE_WIDTH;
+			}
+		}
+
+		private int x = 0;
+		private final int IMAGE_WIDTH = parentFrame.getWidth() / 3;
+		private final int IMAGE_HEIGHT = parentFrame.getWidth() / 3;
+		private final int IMAGE_Y = BoardPanel.this.getY() + parentFrame.getHeight() / 4;
+		private static final String PATH = "resources/winner.png";
+		private BufferedImage winnerImage = null;
+	}
 }

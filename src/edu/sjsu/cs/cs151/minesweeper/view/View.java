@@ -71,17 +71,8 @@ public class View
 	 */
 	public void gameWon()
 	{
-		boardPanel.gameWon();
-		GameWonAnimation winAnimation = new GameWonAnimation();
-
-		animationTimer = new Timer(1 , e -> {
-			winAnimation.move();
-			frame.repaint();
-		});
-
-		animationTimer.start();
-		frame.setGlassPane(winAnimation);
-		frame.getGlassPane().setVisible(true);
+		boardPanel.colorTiles();
+		boardPanel.gameWonAnimate();
 	}
 
 	/**
@@ -147,10 +138,7 @@ public class View
 	 */
 	public void resetTo(int row, int col, int[][] adjMines)
 	{
-		if (animationTimer != null && animationTimer.isRunning())
-		{
-			animationTimer.stop();
-		}
+		boardPanel.stopAnimation();
 		rows = row;
 		columns = col;
 		frame.remove(boardPanel);
@@ -187,8 +175,9 @@ public class View
 	private int rows;
 	private int columns;
 	private BlockingQueue<Message> messageQueue;
-	private Timer animationTimer;
+	private javax.swing.Timer animationTimer;
 	private WelcomePanel welcome;
+	private static final int DELAY = 12;
 
 	/**
 	 * Constructor for View.
@@ -327,7 +316,7 @@ public class View
 		frame.setResizable(false);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		animationTimer = new Timer(10, e -> {
+		animationTimer = new Timer(DELAY, e -> {
 			welcome.animate();
 			frame.repaint();
 		});
@@ -337,33 +326,22 @@ public class View
 	//-------------------------Private Classes------------------
 	private class ChangeDifficultyAction implements ActionListener
 	{
-		public ChangeDifficultyAction(Difficulty difficulty)
-		{
+		public ChangeDifficultyAction(Difficulty difficulty) {
 			this.difficulty = difficulty;
 		}
 
 		@Override
-		public void actionPerformed(ActionEvent e)
-		{
-			if (JOptionPane.YES_OPTION == View.difficultyChanged())
-			{
-				try
-				{
+		public void actionPerformed(ActionEvent e) {
+			if (JOptionPane.YES_OPTION == View.difficultyChanged()) {
+				try {
 					messageQueue.put(new DifficultyMessage(difficulty, true));
-				}
-				catch (InterruptedException e1)
-				{
+				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-			}
-			else
-			{
-				try
-				{
+			} else {
+				try {
 					messageQueue.put(new DifficultyMessage(difficulty, false));
-				}
-				catch (InterruptedException e1)
-				{
+				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
 			}
@@ -371,45 +349,4 @@ public class View
 
 		private Difficulty difficulty;
 	}
-
-	private class GameWonAnimation extends JLabel
-	{
-		public GameWonAnimation()
-		{
-			try
-			{
-				winnerImage = ImageIO.read(new File("resources/winner.png"));
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-
-		@Override
-		public void paint(Graphics g)
-		{
-			Graphics2D g2 = (Graphics2D) g;
-			g2.drawImage(winnerImage, x, IMAGE_Y, IMAGE_WIDTH, IMAGE_HEIGHT, null, null);
-		}
-
-		public void move()
-		{
-			if (x < frame.getWidth())
-			{
-				x++;
-			}
-			else
-			{
-				x = -IMAGE_WIDTH;
-			}
-		}
-
-		private int x = 0;
-		private final int IMAGE_WIDTH = frame.getWidth() / 3;
-		private final int IMAGE_HEIGHT = frame.getWidth() / 3;
-		private final int IMAGE_Y = boardPanel.getY() + frame.getHeight() / 4;
-		private BufferedImage winnerImage = null;
-	}
-
 }

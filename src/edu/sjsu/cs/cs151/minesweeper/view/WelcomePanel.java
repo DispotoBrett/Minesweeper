@@ -38,7 +38,7 @@ public class WelcomePanel extends JPanel
 	@Override
 	public Dimension getPreferredSize()
 	{
-		return new Dimension(400, 200);
+		return new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT);
 	}
 
 	public void animate()
@@ -48,6 +48,9 @@ public class WelcomePanel extends JPanel
 
 	//-------------------------Private Fields/Methods------------------
 	private MineAnimation animation;
+	private static final int PREFERRED_WIDTH = 400;
+	private static final int PREFERRED_HEIGHT = 200;
+
 
 	private void setUpNorth()
 	{
@@ -72,7 +75,7 @@ public class WelcomePanel extends JPanel
 		JPanel difficultyPanel = new JPanel();
 		difficultyPanel.setLayout(new GridLayout(2, 3, 10, 10));
 
-		//using empty JLabels to fill grid cells (any alternative?)
+		//using empty JLabels to fill grid cells
 		difficultyPanel.add(new JLabel());
 
 		JLabel difficultyLabel = new JLabel("Select a difficulty:");
@@ -80,7 +83,6 @@ public class WelcomePanel extends JPanel
 
 		difficultyPanel.add(new JLabel());
 
-		//FIXME unchecked calls to add as a member of a raw type (Queue)
 		JButton easyButton = new JButton("Easy");
 		easyButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		easyButton.setBackground(Color.YELLOW);
@@ -155,7 +157,7 @@ public class WelcomePanel extends JPanel
 		public void paint(Graphics g)
 		{
 			Graphics2D g2 = (Graphics2D) g;
-			g2.drawImage(mineIcon, x, 0, 50, 50, null, null);
+			g2.drawImage(mineIcon, x, 0, WIDTH, WIDTH, null, null);
 		}
 
 		@Override
