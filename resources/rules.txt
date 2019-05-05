@@ -1,0 +1,56 @@
+This version of Minesweeper is similar to 
+the version created by Microsoft. A full 
+list of the rules can be found here. 
+
+* Flagging:  Right click on an unrevealed
+	square in order to flag it. Right 
+	click again on a flagged tile to unflag
+	it. You cannot reveal a flagged tile.
+	Flagging a square signifies that you 
+	believe that there is a mine under 
+	that square. You are given an unlimited
+	number of flags to use or not use. 
+	
+* Revealing:  Left click on an unrevealed 
+	square in order to reveal it. You 
+	cannot reveal a flagged square.	If 
+	you try to reveal a square that contains 
+	a mine, the game is over. A revealed 
+	square is a lighter color than an
+	unrevealed square. A revealed square 
+	will display a number that shows how 
+	many mines are vertically, horizontally,
+	or diagonally adjacent to that square.
+	If there are no adjacent mines, then 
+	the surrounding squares will be revealed
+	until there is an adjacent mine. 
+	
+* Winning and Losing:  If you reveal a 
+	mine, it will blow up and display a
+	game over screen. Congratulations, 
+	you just got yourself killed. If you
+	reveal every square on the board that
+	isn't a mine, then you win and will 
+	be presented with a victory screen.
+	Congratulations, your prize is living.
+	
+* Difficulty:  There are three difficulties,
+	each with a different number of squares
+	and mines. 
+    Easy: 9x9 board with 8 mines
+    Medium: 12x12 board with 20 mines
+    Hard: 16x16 board with 40 mines
+	
+* Changing Difficulty:  Under the Game 
+	Menu, there is a Difficulty Menu. 
+	The difficulty selected indicates
+	which difficulty will be used upon
+	starting a new game, not necessarily
+	the difficulty of the current game.
+
+* Restarting:  To restart the game,
+	click on Start New Game in the 
+	Game Menu. A new game will be
+	immediately started using the 
+	difficulty selected in the 
+	Difficulty Menu. 
