@@ -208,7 +208,11 @@ public class View
 
 		frame.pack();
 	}
-
+	
+	/**
+	 * Creates the menu bar and all of its submenus, 
+	 * @param difficulty
+	 */
 	private void initializeMenu(Difficulty difficulty)
 	{
 		JMenuBar menuBar = new JMenuBar();
@@ -216,7 +220,8 @@ public class View
 		JMenu game = new JMenu("Game");
 		menuBar.add(game);
 
-
+		
+		// Creates the difficulty menu 
 		JMenu difficultyMenu = new JMenu("Difficulty");
 
 		ButtonGroup difficulties = new ButtonGroup();
@@ -235,7 +240,8 @@ public class View
 
 		difficulties.add(hard);
 		difficultyMenu.add(hard);
-
+		
+		// Selects the correct Difficulty radio button based on the starting difficulty
 		switch (difficulty)
 		{
 		case EASY:
@@ -255,7 +261,8 @@ public class View
 		}
 
 		game.add(difficultyMenu);
-
+		
+		// Adds reset functionality. 
 		JMenuItem startNew = new JMenuItem("Start New Game");
 		startNew.addActionListener(e -> {
 			try
@@ -271,7 +278,8 @@ public class View
 		game.add(startNew);
 
 		game.addSeparator();
-
+		
+		// Allows the user to exit from within the application
 		JMenuItem exit = new JMenuItem("Exit");
 		exit.addActionListener(e -> {
 			try
@@ -289,6 +297,7 @@ public class View
 		JMenuItem about = new JMenuItem("About");
 		about.addActionListener(e -> initializeAbout() );
 		JMenuItem howTo = new JMenuItem("How to Play");
+		howTo.addActionListener( e -> initializeHowToPlay());
 
 		help.add(about);
 		help.add(howTo);
@@ -326,21 +335,25 @@ public class View
 		});
 		animationTimer.start();
 	}
-
+	
+	/**
+	 * Creates and displays the About menu item
+	 */
 	private void initializeAbout() 
 	{
 		String aboutFile = "resources/about.txt";
 		JFrame aboutFrame = new JFrame("About");
-		JPanel textContainer = new JPanel();
-		textContainer.setLayout(new BoxLayout(textContainer, BoxLayout.Y_AXIS));
-	
+		
+		String aboutText = "";
+		
 		try(BufferedReader in = new BufferedReader(new FileReader(aboutFile)))
 		{
 			String nextLine = in.readLine();
 			
 			while(nextLine != null)
 			{
-				textContainer.add(new JLabel(nextLine));
+				aboutText += nextLine;
+				aboutText += "\n";
 				
 				nextLine = in.readLine();
 			}
@@ -360,7 +373,10 @@ public class View
 		{
 			e.printStackTrace();
 		}
-
+		
+		JTextArea textContainer = new JTextArea(aboutText);
+		textContainer.setEditable(false);
+		
 		aboutFrame.setIconImage(img);
 		aboutFrame.add(textContainer);
 		aboutFrame.pack();
@@ -370,25 +386,101 @@ public class View
 		aboutFrame.setLocationRelativeTo(frame);
 	}
 
+	/**
+	 * Creates and displays the How To Play menu item
+	 */
+	private void initializeHowToPlay()
+	{
+		String rulesFile = "resources/rules.txt";
+		JFrame rulesFrame = new JFrame("How To Play");
+		
+		String rulesText = "";
+		
+		try(BufferedReader in = new BufferedReader(new FileReader(rulesFile)))
+		{
+			String nextLine = in.readLine();
+			
+			while(nextLine != null)
+			{
+				rulesText += nextLine;
+				rulesText += "\n";
+				
+				nextLine = in.readLine();
+			}
+		} 
+		catch (IOException e)
+		{
+			System.out.println(rulesFile + " could not be found");
+			e.printStackTrace();
+		} 
+		
+		BufferedImage img = null;
+		try
+		{
+			img = ImageIO.read(new File("resources/mine.png"));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+		JTextArea textArea = new JTextArea(rulesText, 15, 23); // Magic numbers. 15 rows and 23 columns just happened to look good. 
+		textArea.setEditable(false);
+		textArea.setTabSize(2); // Magic number. A tab size of 2 just happened to look good. 
+		JScrollPane scroll = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		rulesFrame.setIconImage(img);
+		rulesFrame.add(scroll);
+		rulesFrame.pack();
+		rulesFrame.setResizable(true);
+		rulesFrame.setVisible(true);
+		rulesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		rulesFrame.setLocationRelativeTo(frame);
+	}
+	
+	
 	//-------------------------Private Classes------------------
+	
+	/**
+	 * 
+	 * Called when the user attempts to change the difficulty in the Difficulty Menu
+	 * Prompts the user if they want to restart the game upon changing difficulty or continue playing
+	 */
 	private class ChangeDifficultyAction implements ActionListener
 	{
-		public ChangeDifficultyAction(Difficulty difficulty) {
+		/**
+		 * Constructs the ChangeDifficultyAction with a certain difficulty
+		 * @param difficulty
+		 */
+		public ChangeDifficultyAction(Difficulty difficulty) 
+		{
 			this.difficulty = difficulty;
 		}
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (JOptionPane.YES_OPTION == View.difficultyChanged()) {
-				try {
+		public void actionPerformed(ActionEvent e) 
+		{
+			if (JOptionPane.YES_OPTION == View.difficultyChanged()) // True if the user wants to restart the game immediately with the new difficulty setting
+			{
+				try 
+				{
 					messageQueue.put(new DifficultyMessage(difficulty, true));
-				} catch (InterruptedException e1) {
+				} 
+				catch (InterruptedException e1) 
+				{
 					e1.printStackTrace();
 				}
-			} else {
-				try {
+			} 
+			
+			else // Otherwise, it just changes the difficulty stored in the Controller
+			{
+				try 
+				{
 					messageQueue.put(new DifficultyMessage(difficulty, false));
-				} catch (InterruptedException e1) {
+				} 
+				catch (InterruptedException e1) 
+				{
 					e1.printStackTrace();
 				}
 			}
