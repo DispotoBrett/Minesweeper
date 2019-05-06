@@ -114,7 +114,7 @@ public final class TileIcon implements Icon
 	public static final int WIDTH = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
 		  .getDisplayMode().getWidth() / 76.8);
 	public static final int HEIGHT = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
-			.getDisplayMode().getWidth() / 76.8);
+		  .getDisplayMode().getWidth() / 76.8);
 	private static final int FONT_SIZE = (int) (HEIGHT * .76);
 	private static final int FONT_X = (int) (HEIGHT * .28);
 	private static final int FONT_Y = HEIGHT - (int) (HEIGHT * .2);

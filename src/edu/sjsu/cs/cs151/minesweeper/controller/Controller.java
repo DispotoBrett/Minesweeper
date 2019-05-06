@@ -115,20 +115,19 @@ public class Controller
 	{
 		switch (translateMe)
 		{
-			case EASY:
-				return View.Difficulty.EASY;
+		case EASY:
+			return View.Difficulty.EASY;
 
-			case MEDIUM:
-				return View.Difficulty.MEDIUM;
+		case MEDIUM:
+			return View.Difficulty.MEDIUM;
 
-			case HARD:
-				return View.Difficulty.HARD;
+		case HARD:
+			return View.Difficulty.HARD;
 
-			default:
-				return null;
+		default:
+			return null;
 		}
 	}
-
 
 	private void initValves()
 	{
@@ -197,7 +196,6 @@ public class Controller
 		ValveResponse execute(Message message);
 	}
 
-
 	private class DifficultyValve implements Valve
 	{
 		public ValveResponse execute(Message message)
@@ -216,7 +214,8 @@ public class Controller
 				passedMenu = true;
 				model.setDifficultyAndReset(difficulty);
 				Board gameBoard = model.getBoard();
-				view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(), translateDifficulty(difficulty));
+				view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(),
+					  translateDifficulty(difficulty));
 			}
 			else if (msg.shouldBeChangedNow())
 			{

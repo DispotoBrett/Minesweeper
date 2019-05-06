@@ -110,7 +110,7 @@ public class BoardPanel extends JPanel
 	}
 
 	/**
-	 *  Makes the tiles colorful upon winning a game of Minesweeper.
+	 * Makes the tiles colorful upon winning a game of Minesweeper.
 	 */
 	public void colorTiles()
 	{
@@ -144,11 +144,10 @@ public class BoardPanel extends JPanel
 	{
 		GameWonAnimation winAnimation = new GameWonAnimation();
 
-		gameWonTimer = new Timer( ANIMATION_DELAY  , (e) ->
-												{
-													winAnimation.move();
-													parentFrame.repaint();
-												});
+		gameWonTimer = new Timer(ANIMATION_DELAY, (e) -> {
+			winAnimation.move();
+			parentFrame.repaint();
+		});
 		gameWonTimer.start();
 
 		parentFrame.setGlassPane(winAnimation);
@@ -160,8 +159,10 @@ public class BoardPanel extends JPanel
 	 */
 	public void stopAnimation()
 	{
-		if(gameWonTimer != null && gameWonTimer.isRunning())
+		if (gameWonTimer != null && gameWonTimer.isRunning())
+		{
 			gameWonTimer.stop();
+		}
 		parentFrame.getGlassPane().setVisible(false);
 	}
 

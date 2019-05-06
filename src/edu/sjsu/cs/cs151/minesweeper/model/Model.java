@@ -148,12 +148,12 @@ public class Model
 	}
 
 	//-------------------------Private Fields/Methods------------------
-	private int EASY_SIZE 	= 9;
+	private int EASY_SIZE = 9;
 	private int MEDIUM_SIZE = 12;
-	private int HARD_SIZE 	= 16;
-	private int EASY_MINES 	= 8;
-	private int MEDIUM_MINES= 20;
-	private int HARD_MINES 	= 40;
+	private int HARD_SIZE = 16;
+	private int EASY_MINES = 8;
+	private int MEDIUM_MINES = 20;
+	private int HARD_MINES = 40;
 	private Board gameBoard;
 	private boolean usePresetSeed;
 	private int numberOfTiles;

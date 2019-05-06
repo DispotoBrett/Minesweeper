@@ -7,13 +7,11 @@ import edu.sjsu.cs.cs151.minesweeper.controller.ResetMessage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
@@ -27,25 +25,31 @@ import java.util.concurrent.BlockingQueue;
  */
 public class View
 {
-	public enum Difficulty{EASY, MEDIUM, HARD}
+	public enum Difficulty
+	{EASY, MEDIUM, HARD}
 
 	/**
 	 * Gets the instance of view the returns the View
-	 * @postcondition if a view has already been initialized,
-	 * 				  a new one is NOT constructed, and the parameter will be ignored.
+	 *
 	 * @return the instance of view.
-	 * * */
+	 * *
+	 * @postcondition if a view has already been initialized,
+	 * a new one is NOT constructed, and the parameter will be ignored.
+	 */
 	public static View init(BlockingQueue<Message> messages)
 	{
-		if(instance == null)
+		if (instance == null)
+		{
 			instance = new View(messages);
+		}
 		return instance;
 	}
 
 	/**
 	 * Get the instance of View
-	 * @preconditon the view must have already been initialized.
+	 *
 	 * @return the instance of view.
+	 * @preconditon the view must have already been initialized.
 	 */
 	public View getInstance()
 	{
@@ -135,8 +139,9 @@ public class View
 
 	/**
 	 * Resets the visual board.
-	 * @param row the number of rows.
-	 * @param col the number of columns.
+	 *
+	 * @param row      the number of rows.
+	 * @param col      the number of columns.
 	 * @param adjMines indicates number of mines adjacent to (i, j) tile.
 	 */
 	public void resetTo(int row, int col, int[][] adjMines)
@@ -168,7 +173,9 @@ public class View
 	 */
 	public static int difficultyChanged()
 	{
-		return JOptionPane.showConfirmDialog(frame, "Reset the game now?", "Please Confirm" ,JOptionPane.YES_NO_OPTION, 0, new TileIcon(TileIcon.TileState.flagged));
+		return JOptionPane
+			  .showConfirmDialog(frame, "Reset the game now?", "Please Confirm", JOptionPane.YES_NO_OPTION, 0,
+					new TileIcon(TileIcon.TileState.flagged));
 	}
 
 	//-------------------------Private Fields/Methods------------------
@@ -184,6 +191,7 @@ public class View
 
 	/**
 	 * Constructor for View.
+	 *
 	 * @param messages the message queue.
 	 */
 	private View(BlockingQueue<Message> messages)
@@ -208,9 +216,10 @@ public class View
 
 		frame.pack();
 	}
-	
+
 	/**
-	 * Creates the menu bar and all of its submenus, 
+	 * Creates the menu bar and all of its submenus,
+	 *
 	 * @param difficulty
 	 */
 	private void initializeMenu(Difficulty difficulty)
@@ -220,8 +229,7 @@ public class View
 		JMenu game = new JMenu("Game");
 		menuBar.add(game);
 
-		
-		// Creates the difficulty menu 
+		// Creates the difficulty menu
 		JMenu difficultyMenu = new JMenu("Difficulty");
 
 		ButtonGroup difficulties = new ButtonGroup();
@@ -240,7 +248,7 @@ public class View
 
 		difficulties.add(hard);
 		difficultyMenu.add(hard);
-		
+
 		// Selects the correct Difficulty radio button based on the starting difficulty
 		switch (difficulty)
 		{
@@ -261,7 +269,7 @@ public class View
 		}
 
 		game.add(difficultyMenu);
-		
+
 		// Adds reset functionality. 
 		JMenuItem startNew = new JMenuItem("Start New Game");
 		startNew.addActionListener(e -> {
@@ -278,7 +286,7 @@ public class View
 		game.add(startNew);
 
 		game.addSeparator();
-		
+
 		// Allows the user to exit from within the application
 		JMenuItem exit = new JMenuItem("Exit");
 		exit.addActionListener(e -> {
@@ -295,9 +303,9 @@ public class View
 
 		JMenu help = new JMenu("Help");
 		JMenuItem about = new JMenuItem("About");
-		about.addActionListener(e -> initializeAbout() );
+		about.addActionListener(e -> initializeAbout());
 		JMenuItem howTo = new JMenuItem("How to Play");
-		howTo.addActionListener( e -> initializeHowToPlay());
+		howTo.addActionListener(e -> initializeHowToPlay());
 
 		help.add(about);
 		help.add(howTo);
@@ -309,7 +317,7 @@ public class View
 		frame.setLocationRelativeTo(null);
 	}
 
-	private void initializeWelcomeMenu() 
+	private void initializeWelcomeMenu()
 	{
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -335,35 +343,35 @@ public class View
 		});
 		animationTimer.start();
 	}
-	
+
 	/**
 	 * Creates and displays the About menu item
 	 */
-	private void initializeAbout() 
+	private void initializeAbout()
 	{
 		String aboutFile = "resources/about.txt";
 		JFrame aboutFrame = new JFrame("About");
-		
+
 		String aboutText = "";
-		
-		try(BufferedReader in = new BufferedReader(new FileReader(aboutFile)))
+
+		try (BufferedReader in = new BufferedReader(new FileReader(aboutFile)))
 		{
 			String nextLine = in.readLine();
-			
-			while(nextLine != null)
+
+			while (nextLine != null)
 			{
 				aboutText += nextLine;
 				aboutText += "\n";
-				
+
 				nextLine = in.readLine();
 			}
-		} 
+		}
 		catch (IOException e)
 		{
 			System.out.println(aboutFile + " could not be found");
 			e.printStackTrace();
-		} 
-		
+		}
+
 		BufferedImage img = null;
 		try
 		{
@@ -373,10 +381,10 @@ public class View
 		{
 			e.printStackTrace();
 		}
-		
+
 		JTextArea textContainer = new JTextArea(aboutText);
 		textContainer.setEditable(false);
-		
+
 		aboutFrame.setIconImage(img);
 		aboutFrame.add(textContainer);
 		aboutFrame.pack();
@@ -393,27 +401,27 @@ public class View
 	{
 		String rulesFile = "resources/rules.txt";
 		JFrame rulesFrame = new JFrame("How To Play");
-		
+
 		String rulesText = "";
-		
-		try(BufferedReader in = new BufferedReader(new FileReader(rulesFile)))
+
+		try (BufferedReader in = new BufferedReader(new FileReader(rulesFile)))
 		{
 			String nextLine = in.readLine();
-			
-			while(nextLine != null)
+
+			while (nextLine != null)
 			{
 				rulesText += nextLine;
 				rulesText += "\n";
-				
+
 				nextLine = in.readLine();
 			}
-		} 
+		}
 		catch (IOException e)
 		{
 			System.out.println(rulesFile + " could not be found");
 			e.printStackTrace();
-		} 
-		
+		}
+
 		BufferedImage img = null;
 		try
 		{
@@ -423,13 +431,14 @@ public class View
 		{
 			e.printStackTrace();
 		}
-		
-		
-		JTextArea textArea = new JTextArea(rulesText, 15, 23); // Magic numbers. 15 rows and 23 columns just happened to look good. 
+
+		JTextArea textArea = new JTextArea(rulesText, 15,
+			  23); // Magic numbers. 15 rows and 23 columns just happened to look good.
 		textArea.setEditable(false);
 		textArea.setTabSize(2); // Magic number. A tab size of 2 just happened to look good. 
-		JScrollPane scroll = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
+		JScrollPane scroll = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+			  JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
 		rulesFrame.setIconImage(img);
 		rulesFrame.add(scroll);
 		rulesFrame.pack();
@@ -438,12 +447,10 @@ public class View
 		rulesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		rulesFrame.setLocationRelativeTo(frame);
 	}
-	
-	
+
 	//-------------------------Private Classes------------------
-	
+
 	/**
-	 * 
 	 * Called when the user attempts to change the difficulty in the Difficulty Menu
 	 * Prompts the user if they want to restart the game upon changing difficulty or continue playing
 	 */
@@ -451,35 +458,37 @@ public class View
 	{
 		/**
 		 * Constructs the ChangeDifficultyAction with a certain difficulty
+		 *
 		 * @param difficulty
 		 */
-		public ChangeDifficultyAction(Difficulty difficulty) 
+		public ChangeDifficultyAction(Difficulty difficulty)
 		{
 			this.difficulty = difficulty;
 		}
 
 		@Override
-		public void actionPerformed(ActionEvent e) 
+		public void actionPerformed(ActionEvent e)
 		{
-			if (JOptionPane.YES_OPTION == View.difficultyChanged()) // True if the user wants to restart the game immediately with the new difficulty setting
+			if (JOptionPane.YES_OPTION == View
+				  .difficultyChanged()) // True if the user wants to restart the game immediately with the new difficulty setting
 			{
-				try 
+				try
 				{
 					messageQueue.put(new DifficultyMessage(difficulty, true));
-				} 
-				catch (InterruptedException e1) 
+				}
+				catch (InterruptedException e1)
 				{
 					e1.printStackTrace();
 				}
-			} 
-			
+			}
+
 			else // Otherwise, it just changes the difficulty stored in the Controller
 			{
-				try 
+				try
 				{
 					messageQueue.put(new DifficultyMessage(difficulty, false));
-				} 
-				catch (InterruptedException e1) 
+				}
+				catch (InterruptedException e1)
 				{
 					e1.printStackTrace();
 				}

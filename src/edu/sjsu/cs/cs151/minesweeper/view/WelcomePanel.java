@@ -51,7 +51,6 @@ public class WelcomePanel extends JPanel
 	private static final int PREFERRED_WIDTH = 400;
 	private static final int PREFERRED_HEIGHT = 200;
 
-
 	private void setUpNorth()
 	{
 		JLabel logo;
@@ -168,14 +167,22 @@ public class WelcomePanel extends JPanel
 
 		public void animate()
 		{
-			if(movingRight)
+			if (movingRight)
+			{
 				x++;
+			}
 			else
+			{
 				x--;
+			}
 			if (x > WelcomePanel.this.getPreferredSize().getWidth() - WIDTH)
-					movingRight = false;
-			if(x < 0)
+			{
+				movingRight = false;
+			}
+			if (x < 0)
+			{
 				movingRight = true;
+			}
 
 		}
 

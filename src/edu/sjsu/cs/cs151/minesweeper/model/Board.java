@@ -14,6 +14,7 @@ import java.util.Random;
 public final class Board implements Iterable<Tile>
 {
 	//-------------------------Public Interface-----------------------
+
 	/**
 	 * Constructs a Board with or without randomized mine placement.
 	 *
