@@ -3,7 +3,6 @@ package edu.sjsu.cs.cs151.minesweeper.controller;
 import edu.sjsu.cs.cs151.minesweeper.model.Model;
 import edu.sjsu.cs.cs151.minesweeper.view.View;
 
-
 public class DifficultyMessage implements Message
 {
 	public DifficultyMessage(View.Difficulty difficulty, boolean changeNow)

@@ -7,7 +7,6 @@ package edu.sjsu.cs.cs151.minesweeper.model;
  * @author BrettDispoto
  * @author PatrickSilvestre
  */
-@SuppressWarnings("FieldCanBeLocal")
 public class Model
 {
 	//-------------------------Public Interface-----------------------
