@@ -38,8 +38,8 @@ list of the rules can be found here.
 	each with a different number of squares
 	and mines. 
     Easy: 9x9 board with 8 mines
-    Medium: 12x12 board with 20 mines
-    Hard: 16x16 board with 40 mines
+    Medium: 11x11 board with 14 mines
+    Hard: 14x14 board with 34 mines
 	
 * Changing Difficulty:  Under the Game 
 	Menu, there is a Difficulty Menu. 
