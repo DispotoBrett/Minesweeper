@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * Iterates over the entire gameBoard in order left -> right, top -> down.
+ * Iterates over a Board in order left -> right, top -> down.
  *
  * @author JordanConragan
  * @author BrettDispoto
@@ -13,9 +13,9 @@ import java.util.NoSuchElementException;
 public class BoardIterator implements Iterator<Tile>
 {
 	/**
-	 * Constructs a new board iterator.
+	 * Constructs a new Board iterator.
 	 *
-	 * @param board the board to be iterated over
+	 * @param board The board to be iterated over.
 	 */
 	BoardIterator(Board board)
 	{
@@ -27,7 +27,7 @@ public class BoardIterator implements Iterator<Tile>
 	/**
 	 * Tells if the iterator has the next tile.
 	 *
-	 * @return if the iterator has the next tile
+	 * @return True if there is a next tile, false otherwise.
 	 */
 	public boolean hasNext()
 	{
@@ -37,7 +37,7 @@ public class BoardIterator implements Iterator<Tile>
 	/**
 	 * Advances the cursor and returns element passed over.
 	 *
-	 * @return the tile passed over
+	 * @return The tile passed over.
 	 */
 	public Tile next()
 	{
@@ -57,9 +57,9 @@ public class BoardIterator implements Iterator<Tile>
 	}
 
 	/**
-	 * gets the row of the previously retrieved tile.
+	 * Gets the row of the previously retrieved tile.
 	 *
-	 * @return the row of the previously retrieved tile
+	 * @return The row of the previously retrieved tile
 	 */
 	public int prevRow()
 	{
@@ -67,9 +67,9 @@ public class BoardIterator implements Iterator<Tile>
 	}
 
 	/**
-	 * gets the column of the previously retrieved tile.
+	 * Gets the column of the previously retrieved tile.
 	 *
-	 * @return the column of the previously retrieved tile
+	 * @return The column of the previously retrieved tile.
 	 */
 	public int prevCol()
 	{

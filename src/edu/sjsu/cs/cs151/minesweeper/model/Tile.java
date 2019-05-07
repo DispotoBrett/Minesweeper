@@ -24,9 +24,9 @@ public final class Tile
 	}
 
 	/**
-	 * Accessor to determine is this tile has an underlying mine.
+	 * Accessor to determine if this tile has an underlying mine.
 	 *
-	 * @return isMine denotes if this tile is a mine.
+	 * @return True if this tile is a mine, false otherwise.
 	 */
 	public boolean isMine()
 	{
@@ -34,9 +34,9 @@ public final class Tile
 	}
 
 	/**
-	 * Accessor to determine is this tile has been revealed.
+	 * Accessor to determine if this tile has been revealed.
 	 *
-	 * @return isRevealed denotes if this tile has been revealed.
+	 * @return True if this tile is revealed, false otherwise.
 	 */
 	public boolean isRevealed()
 	{
@@ -46,7 +46,7 @@ public final class Tile
 	/**
 	 * Accessor to determine is this tile has been flagged.
 	 *
-	 * @return isFlagged denotes if this tile has been flagged.
+	 * @return True if this tile is flagged, false otherwise.
 	 */
 	public boolean isFlagged()
 	{
@@ -56,8 +56,8 @@ public final class Tile
 	/**
 	 * Reveals this tile, this action cannot be undone.
 	 *
-	 * @return boolean indicating if the tile could be revealed successfully.
-	 * @precondition a tile cannot be revealed if it is currently flagged.
+	 * @return True if the tile was revealed successfully, false otherwise.
+	 * @precondition A tile cannot be successfully revealed if it is currently flagged.
 	 */
 
 	public boolean reveal()
@@ -72,9 +72,9 @@ public final class Tile
 	}
 
 	/**
-	 * Adds or removed a flag from this tile.
+	 * Flags or unflags a tile based on its current state.
 	 *
-	 * @precondition this tile must be unrevealed in order to be flagged/unflagged.
+	 * @precondition A tile must be unrevealed in order to be flagged or unflagged.
 	 */
 	public void toggleFlag()
 	{

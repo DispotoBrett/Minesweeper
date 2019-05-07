@@ -46,10 +46,10 @@ public final class Board implements Iterable<Tile>
 	}
 
 	/**
-	 * Reveals the tile specified, and all surrounding tiles without mines, recursively.
+	 * Reveals the specified tile, and all surrounding tiles without mines, recursively.
 	 *
-	 * @param row the row of the tile specified
-	 * @param col the column of the tile specified
+	 * @param row The row of the specified tile.
+	 * @param col The column of the specified tile.
 	 */
 	public void revealTile(int row, int col)
 	{
@@ -70,9 +70,11 @@ public final class Board implements Iterable<Tile>
 			currentTile.reveal();
 			numberTilesRevealed++;
 
-			for (int i = row - 1; i <= row + 1; i++) //Begins with the row directly above the clicked tile and moves down
+			//Begin with the row directly above the clicked tile and move down
+			for (int i = row - 1; i <= row + 1; i++)
 			{
-				for (int j = col - 1; j <= col + 1; j++) //Begins from the column directly left of the clicked tile and moves right
+				//Begin with the column directly left of the clicked tile and move right
+				for (int j = col - 1; j <= col + 1; j++)
 				{
 					if (i >= 0 && j >= 0 && i < NUM_ROWS && j < NUM_COLS) //Only true if i and j are valid indices
 					{
@@ -84,10 +86,10 @@ public final class Board implements Iterable<Tile>
 	}
 
 	/**
-	 * Flags the tile specified.
+	 * Flags the specified tile.
 	 *
-	 * @param row the row of the tile specified
-	 * @param col the column of the tile specified
+	 * @param row The row of the specified tile.
+	 * @param col The column of the specified tile.
 	 */
 	public void toggleFlag(int row, int col)
 	{
@@ -95,10 +97,10 @@ public final class Board implements Iterable<Tile>
 	}
 
 	/**
-	 * Gets the number of mines adjacent to the tile specified.
+	 * Gets the number of mines adjacent to the specified tile.
 	 *
-	 * @param row the row of the tile specified
-	 * @param col the column of the tile specified
+	 * @param row The row of the specified tile.
+	 * @param col The column of the specified tile.
 	 */
 	public int adjacentMines(int row, int col)
 	{
@@ -108,7 +110,7 @@ public final class Board implements Iterable<Tile>
 	/**
 	 * Gets the number of tiles revealed on the Board.
 	 *
-	 * @return The number of tiles revealed
+	 * @return The number of tiles revealed.
 	 */
 	public int getNumberTilesRevealed()
 	{
@@ -116,9 +118,9 @@ public final class Board implements Iterable<Tile>
 	}
 
 	/**
-	 * gets the tile at the specified location.
+	 * Gets the Tile at the specified location.
 	 *
-	 * @return Tile at the specified location
+	 * @return Tile at the specified location.
 	 */
 	public Tile getTileAt(int row, int col)
 	{
@@ -126,9 +128,9 @@ public final class Board implements Iterable<Tile>
 	}
 
 	/**
-	 * Determines if the tile at the specified location is a mine
+	 * Determines if the Tile at the specified location is a mine.
 	 *
-	 * @return Whether the tile at (row, col) is a mine
+	 * @return True if the Tile is a mine, false otherwise.
 	 */
 	public Boolean isMine(int row, int col)
 	{
@@ -136,9 +138,9 @@ public final class Board implements Iterable<Tile>
 	}
 
 	/**
-	 * Gets the table of indicating adjacent mines.
+	 * Gets the "table" indicating adjacent mines.
 	 *
-	 * @return table of indicating adjacent mines
+	 * @return The 2D array "table" of indicating adjacent mines.
 	 */
 	public int[][] adjacentMines()
 	{
@@ -146,9 +148,9 @@ public final class Board implements Iterable<Tile>
 	}
 
 	/**
-	 * Gets the maximum number of rows in the Board
+	 * Gets the number of rows in the Board.
 	 *
-	 * @return the number of rows in the Board
+	 * @return The number of rows in the Board.
 	 */
 	public int getRows()
 	{
@@ -156,9 +158,9 @@ public final class Board implements Iterable<Tile>
 	}
 
 	/**
-	 * Gets the maximum number of columns in the Board
+	 * Gets the number of columns in the Board.
 	 *
-	 * @return the number of columns in the Board
+	 * @return The number of columns in the Board.
 	 */
 	public int getColumns()
 	{
@@ -166,9 +168,9 @@ public final class Board implements Iterable<Tile>
 	}
 
 	/**
-	 * Gets the maximum number of mines in the Board
+	 * Gets the number of mines in the Board.
 	 *
-	 * @return the number of mines in the Board
+	 * @return The number of mines in the Board
 	 */
 	public int getNumMines()
 	{
@@ -180,8 +182,12 @@ public final class Board implements Iterable<Tile>
 	private final int NUM_COLS;
 	private final int NUM_MINES;
 	private final int DEFAULT_SEED = 0;
+
 	private Tile[][] tiles;
-	private int[][] adjMines; // Each index in adjMines stores a value that indicates how many mines are adjacent to the same index in tiles
+
+	// Each index in adjMines stores a value that indicates how many mines are adjacent to the same index in tiles
+	private int[][] adjMines;
+
 	private int numberTilesRevealed;
 
 	/**
@@ -200,6 +206,7 @@ public final class Board implements Iterable<Tile>
 
 		if (usePresetSeed)
 		{
+			//Generates a Board with identical mine placement every time the game is played.
 			Collections.shuffle(mines, new Random(DEFAULT_SEED));
 		}
 		else
@@ -241,9 +248,9 @@ public final class Board implements Iterable<Tile>
 			{
 				int mines = 0;
 
-				for (int i = row - 1; i <= row + 1; i++) //Begins with the row directly above the clicked tile
+				for (int i = row - 1; i <= row + 1; i++) //Begin with the row directly above the clicked tile
 				{
-					for (int j = col - 1; j <= col + 1; j++) //Begins from the column directly left of the clicked tile
+					for (int j = col - 1; j <= col + 1; j++) //Begin from the column directly left of the clicked tile
 					{
 						if (i >= 0 && j >= 0 && i < NUM_ROWS && j < NUM_COLS) //Only true if i and j are valid indices
 						{
