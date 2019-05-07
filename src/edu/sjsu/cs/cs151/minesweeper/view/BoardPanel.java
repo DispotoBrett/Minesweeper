@@ -171,8 +171,8 @@ public class BoardPanel extends JPanel
 	private JFrame parentFrame; //for glass pane purposes
 
 	private static final int EASY_ROW_SIZE = 9;
-	private static final int MED_ROW_SIZE = 12;
-	private static final int HARD_ROW_SIZE = 16;
+	private static final int MED_ROW_SIZE = 11;
+	private static final int HARD_ROW_SIZE = 14;
 
 	private static final Dimension EASY_SIZE = new Dimension(TileIcon.WIDTH * EASY_ROW_SIZE,
 		  TileIcon.WIDTH * EASY_ROW_SIZE);
