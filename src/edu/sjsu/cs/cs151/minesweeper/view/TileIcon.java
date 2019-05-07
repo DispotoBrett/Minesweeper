@@ -15,6 +15,11 @@ public final class TileIcon implements Icon
 		revealed, unrevealed, flagged, mineShowing
 	}
 
+	/**
+	 * Constructs a TileIcon based on the current state of the Tile it represents.
+	 *
+	 * @param state The state of the Tile that this TileIcon represents.
+	 */
 	public TileIcon(TileState state)
 	{
 		try
@@ -36,6 +41,12 @@ public final class TileIcon implements Icon
 		this.state = state;
 	}
 
+	/**
+	 * Constructs a TileIcon based on the current state of the Tile it represents, and the number of adjacent mines.
+	 *
+	 * @param state    The state of the Tile that this TileIcon represents.
+	 * @param adjMines The number of mines adjacent to the Tile that this TileIcon represents.
+	 */
 	public TileIcon(TileState state, int adjMines)
 	{
 		this(state);
@@ -110,18 +121,22 @@ public final class TileIcon implements Icon
 	}
 
 	//----------------Private Methods/Fields----------------------
-	//private static final int WIDTH = 25, HEIGHT = 25;
 	public static final int WIDTH = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
 		  .getDisplayMode().getWidth() / 76.8);
 	public static final int HEIGHT = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
 		  .getDisplayMode().getWidth() / 76.8);
+
 	private static final int FONT_SIZE = (int) (HEIGHT * .76);
 	private static final int FONT_X = (int) (HEIGHT * .28);
 	private static final int FONT_Y = HEIGHT - (int) (HEIGHT * .2);
+
 	private static final int MIN_YELLOW = 2;
 	private static final int MIN_RED = 4;
+
 	private static BufferedImage flagIcon = null;
 	private static BufferedImage mineIcon = null;
+
 	private TileState state;
+
 	private int adjMines;
 }

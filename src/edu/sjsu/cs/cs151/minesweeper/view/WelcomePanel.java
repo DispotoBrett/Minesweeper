@@ -24,7 +24,7 @@ public class WelcomePanel extends JPanel
 	/**
 	 * Constructor for WelcomePanel.
 	 *
-	 * @param messageQueue A queue to hold messages (user inputs).
+	 * @param messageQueue The message queue to collect user input.
 	 */
 	public WelcomePanel(BlockingQueue<Message> messageQueue)
 	{
@@ -41,6 +41,9 @@ public class WelcomePanel extends JPanel
 		return new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT);
 	}
 
+	/**
+	 * Initiates the mine animation.
+	 */
 	public void animate()
 	{
 		animation.animate();
@@ -48,9 +51,13 @@ public class WelcomePanel extends JPanel
 
 	//-------------------------Private Fields/Methods------------------
 	private MineAnimation animation;
+
 	private static final int PREFERRED_WIDTH = 400;
 	private static final int PREFERRED_HEIGHT = 200;
 
+	/**
+	 * Set up the north region of the WelcomePanel, which contains the textual logo of the game.
+	 */
 	private void setUpNorth()
 	{
 		JLabel logo;
@@ -69,6 +76,11 @@ public class WelcomePanel extends JPanel
 		add(logo, BorderLayout.NORTH);
 	}
 
+	/**
+	 * Set up the center region of the WelcomePanel, which contains difficulty selection functionality.
+	 *
+	 * @param messageQueue The message queue to collect user input.
+	 */
 	private void setUpCenter(BlockingQueue<Message> messageQueue)
 	{
 		JPanel difficultyPanel = new JPanel();
@@ -134,6 +146,9 @@ public class WelcomePanel extends JPanel
 		difficultyPanel.setBackground(Color.LIGHT_GRAY);
 	}
 
+	/**
+	 * Set up the south region of the WelcomePanel, which contains the mine animation.
+	 */
 	private void setUpSouth()
 	{
 		BufferedImage mineIcon = null;
@@ -150,6 +165,9 @@ public class WelcomePanel extends JPanel
 		add(animation, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * Animates a mine moving from left to right in a marquee-like fashion.
+	 */
 	private class MineAnimation extends JPanel
 	{
 		@Override
@@ -165,6 +183,9 @@ public class WelcomePanel extends JPanel
 			return new Dimension(400, 50);
 		}
 
+		/**
+		 * Animates the mine by setting its position based on its location in the panel.
+		 */
 		public void animate()
 		{
 			if (movingRight)
@@ -187,11 +208,18 @@ public class WelcomePanel extends JPanel
 		}
 
 		private int x;
+
 		private boolean movingRight;
+
 		private BufferedImage mineIcon;
+
 		private static final long serialVersionUID = 1L;
 		private static final int WIDTH = 50;
 
+		/**
+		 * Constructs the MineAnimation.
+		 * @param mineIcon The image used to represent the mine.
+		 */
 		private MineAnimation(BufferedImage mineIcon)
 		{
 			x = -WIDTH;

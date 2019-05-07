@@ -7,7 +7,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- * Draws an explosion in a content pane (swing).
+ * Draws an explosion in a Swing content pane.
  *
  * @author JordanConragan
  * @author BrettDispoto
@@ -18,14 +18,12 @@ public class Explosion extends JComponent
 	//----------------Public Interface-------------------------
 
 	/**
-	 * Creates a new explosion instance.
+	 * Constructs a Explosion.
 	 *
-	 * @param x                 the x-coordinate of the upper left-hand corner
-	 *                          of the bounding rectangle of the explosion.
-	 * @param y                 the y-coordinate of the upper left-hand corner
-	 *                          of the bounding rectangle of the explosion.
-	 * @param contentPaneWidth  the width of the frame.
-	 * @param contentPaneHeight the height of the frame.
+	 * @param x                 The x-coordinate of the upper left-hand corner of the bounding rectangle of the explosion.
+	 * @param y                 The y-coordinate of the upper left-hand corner of the bounding rectangle of the explosion.
+	 * @param contentPaneWidth  The width of the content pane.
+	 * @param contentPaneHeight The height of the content pane.
 	 */
 	public Explosion(int x, int y, int contentPaneWidth, int contentPaneHeight)
 	{
@@ -36,11 +34,11 @@ public class Explosion extends JComponent
 		count = 0;
 		this.contentPaneWidth = contentPaneWidth;
 		this.contentPaneHeight = contentPaneHeight;
-		fadeOut = 255;
+		fadeOut = MAX_ALPHA;
 	}
 
 	/**
-	 * Initiates the explosion animation.
+	 * Initiates the Explosion animation.
 	 */
 	public void explode()
 	{
@@ -56,10 +54,9 @@ public class Explosion extends JComponent
 	}
 
 	/**
-	 * Tells whether the explosion is done, must stop
-	 * calling explode() at this point.
+	 * Gets whether the Explosion is "done" in order to know when to stop the explosion.
 	 *
-	 * @return whether or not the explosion is done
+	 * @return True if the Explosion is done, false otherwise.
 	 */
 	public boolean isDone()
 	{
@@ -72,9 +69,9 @@ public class Explosion extends JComponent
 	}
 
 	/**
-	 * Paints the explosion onto the graphics context.
+	 * Paints the Explosion onto the graphics context.
 	 *
-	 * @param g the graphics context.
+	 * @param g The graphical context.
 	 */
 	public void paint(Graphics g)
 	{
@@ -111,11 +108,19 @@ public class Explosion extends JComponent
 	}
 
 	//----------------Private Methods/Fields----------------------
-	private int x, y, fadeOut, height, width, count, contentPaneWidth, contentPaneHeight;
+	private int x;
+	private int y;
+	private int fadeOut;
+	private int height;
+	private int width;
+	private int count;
+	private int contentPaneWidth;
+	private int contentPaneHeight;
+
+	private static final int MAX_ALPHA = 255;
 	private static final int CONTENT_PANE_OFFSET = 3;
 	private static final int EXPONENT = 3;
 	private static final int FONT_SIZE = 32;
 	private static final double DELTA_OFFSET = 0.001;
 	private static final long serialVersionUID = 1L;
-
 }
