@@ -116,11 +116,6 @@ public class TileButton extends JButton
 			}
 			else if (e == EXPLODE)
 			{
-				/*
-				TODO: Somehow feed the explosion the BoardPanel's width and height, b/c when
-				 menus are added, they are be painted over.
-				 */
-
 				exploded = true;
 
 				setBackground(Color.red);
@@ -198,11 +193,11 @@ public class TileButton extends JButton
 
 	// ----------------Private Methods/Fields----------------------
 
-	private static final ActionEvent REVEAL = new ActionEvent(new Object(), 0, "reveal");
-	private static final ActionEvent FLAG = new ActionEvent(new Object(), 1, "flag");
-	private static final ActionEvent UNFLAG = new ActionEvent(new Object(), 2, "unflag");
-	private static final ActionEvent EXPLODE = new ActionEvent(new Object(), 3, "explode");
-	private static final ActionEvent EXPOSE_MINE = new ActionEvent(new Object(), 4, "explode");
+	private static final ActionEvent REVEAL = new ActionEvent("reveal", 1, "reveal");
+	private static final ActionEvent FLAG = new ActionEvent("flag", 2, "flag");
+	private static final ActionEvent UNFLAG = new ActionEvent("unflag", 3, "unflag");
+	private static final ActionEvent EXPLODE = new ActionEvent("explode", 4, "explode");
+	private static final ActionEvent EXPOSE_MINE = new ActionEvent("expose", 5, "expose");
 
 	private static final TileIcon UNREVEALED_ICON = new TileIcon(TileIcon.TileState.unrevealed);
 	private static final TileIcon FLAGGED_ICON = new TileIcon(TileIcon.TileState.flagged);

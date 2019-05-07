@@ -38,7 +38,6 @@ public class SingleRandom extends Random
      */
     public static SingleRandom getInstance()
     {
-        //"Supply a static method that returns a reference to the single instance."
         return instance;
     }
 
@@ -47,11 +46,9 @@ public class SingleRandom extends Random
      */
     private SingleRandom()
     {
-        //"Define a class with a private constructor."
         generator = new Random();
     }
 
     private Random generator;
-    //"The class constructs a single instance of itself", "global variable"
     private static SingleRandom instance = new SingleRandom();
 }

@@ -220,7 +220,7 @@ public class View
 	/**
 	 * Creates the menu bar and all of its submenus,
 	 *
-	 * @param difficulty
+	 * @param difficulty the initial difficulty
 	 */
 	private void initializeMenu(Difficulty difficulty)
 	{
@@ -317,6 +317,9 @@ public class View
 		frame.setLocationRelativeTo(null);
 	}
 
+	/**
+	 * Initializes the Welcome Menu.
+	 */
 	private void initializeWelcomeMenu()
 	{
 		frame.setVisible(true);
@@ -352,7 +355,7 @@ public class View
 		String aboutFile = "resources/about.txt";
 		JFrame aboutFrame = new JFrame("About");
 
-		String aboutText = "";
+		StringBuilder aboutText = new StringBuilder();
 
 		try (BufferedReader in = new BufferedReader(new FileReader(aboutFile)))
 		{
@@ -360,8 +363,8 @@ public class View
 
 			while (nextLine != null)
 			{
-				aboutText += nextLine;
-				aboutText += "\n";
+				aboutText.append(nextLine);
+				aboutText.append("\n");
 
 				nextLine = in.readLine();
 			}
@@ -382,7 +385,7 @@ public class View
 			e.printStackTrace();
 		}
 
-		JTextArea textContainer = new JTextArea(aboutText);
+		JTextArea textContainer = new JTextArea(aboutText.toString());
 		textContainer.setEditable(false);
 
 		aboutFrame.setIconImage(img);
@@ -402,7 +405,7 @@ public class View
 		String rulesFile = "resources/rules.txt";
 		JFrame rulesFrame = new JFrame("How To Play");
 
-		String rulesText = "";
+		StringBuilder rulesText = new StringBuilder();
 
 		try (BufferedReader in = new BufferedReader(new FileReader(rulesFile)))
 		{
@@ -410,8 +413,8 @@ public class View
 
 			while (nextLine != null)
 			{
-				rulesText += nextLine;
-				rulesText += "\n";
+				rulesText.append(nextLine);
+				rulesText.append("\n");
 
 				nextLine = in.readLine();
 			}
@@ -432,7 +435,7 @@ public class View
 			e.printStackTrace();
 		}
 
-		JTextArea textArea = new JTextArea(rulesText, 15,
+		JTextArea textArea = new JTextArea(rulesText.toString(), 15,
 			  23); // Magic numbers. 15 rows and 23 columns just happened to look good.
 		textArea.setEditable(false);
 		textArea.setTabSize(2); // Magic number. A tab size of 2 just happened to look good. 

@@ -181,7 +181,6 @@ public final class Board implements Iterable<Tile>
 	private final int NUM_ROWS;
 	private final int NUM_COLS;
 	private final int NUM_MINES;
-	private final int DEFAULT_SEED = 0;
 
 	private Tile[][] tiles;
 
@@ -207,6 +206,7 @@ public final class Board implements Iterable<Tile>
 		if (usePresetSeed)
 		{
 			//Generates a Board with identical mine placement every time the game is played.
+			int DEFAULT_SEED = 0;
 			Collections.shuffle(mines, new Random(DEFAULT_SEED));
 		}
 		else
