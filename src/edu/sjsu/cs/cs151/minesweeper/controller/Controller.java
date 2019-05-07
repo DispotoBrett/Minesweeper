@@ -284,14 +284,14 @@ public class Controller
 			}
 
 			LeftClickMessage msg = (LeftClickMessage) message;
-
+			
+			// Does nothing if the game has already been won or lost
 			if (!gameOver)
 			{
+				// Reveals a Tile in the Model
 				model.revealTile(msg.getRow(), msg.getColumn());
-			}
-
-			if (!gameOver)
-			{
+				
+				// Updates the View to reflect the Model
 				try
 				{
 					updateView();
@@ -300,11 +300,10 @@ public class Controller
 				{
 					e.printStackTrace();
 				}
-			}
-
-			if (!gameOver)
-			{
+				
 				gameOver = model.gameLost() || model.gameWon();
+				
+				// If revealing a Tile in the Model caused the game to be won or lost, proceed with the game over sequence. 
 				if (gameOver)
 				{
 					try
@@ -328,6 +327,7 @@ public class Controller
 					}
 				}
 			}
+				
 			return ValveResponse.EXECUTED;
 		}
 	}
