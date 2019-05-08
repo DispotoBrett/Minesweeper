@@ -91,6 +91,7 @@ public class View
 	public void reveal(int row, int col)
 	{
 		boardPanel.reveal(row, col);
+		boardPanel.repaint();
 	}
 
 	/**
