@@ -9,6 +9,6 @@ To Run the game ``git clone``, then click on Minesweeper.jar in the top level fo
 <h2>
 Screenshots
 </h2>
-![Alt text](resources/screencap1.png?raw=true "The Game Board")
+![alt text](resources/gameplay.png)
+![alt text](resources/gameplay1.png)
 
-<img src="![Alt text](resources/screencap.png?raw=true "The Game Board")">'
