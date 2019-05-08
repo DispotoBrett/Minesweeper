@@ -56,6 +56,12 @@ public class View
 		return instance;
 	}
 
+	//Testing something
+	public void repaint()
+	{
+		boardPanel.repaint();
+	}
+
 	/**
 	 * Starts the game.
 	 *
@@ -91,7 +97,6 @@ public class View
 	public void reveal(int row, int col)
 	{
 		boardPanel.reveal(row, col);
-		boardPanel.repaint();
 	}
 
 	/**

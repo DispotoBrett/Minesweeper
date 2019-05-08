@@ -107,6 +107,7 @@ public class Controller
 				SwingUtilities.invokeAndWait(() -> view.flag(it.prevRow(), it.prevCol(), current.isFlagged()));
 			}
 		}
+		view.repaint();
 	}
 	
 	/**
