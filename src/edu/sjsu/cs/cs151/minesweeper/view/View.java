@@ -56,7 +56,9 @@ public class View
 		return instance;
 	}
 
-	//Testing something
+	/**
+	 * Repaints the boardPanel
+	 */
 	public void repaint()
 	{
 		boardPanel.repaint();
