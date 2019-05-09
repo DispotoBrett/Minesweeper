@@ -57,7 +57,6 @@ public final class Tile
 	 * Reveals this tile, this action cannot be undone.
 	 *
 	 * @return True if the tile was revealed successfully, false otherwise.
-	 * @precondition A tile cannot be successfully revealed if it is currently flagged.
 	 */
 
 	public boolean reveal()
@@ -73,8 +72,6 @@ public final class Tile
 
 	/**
 	 * Flags or unflags a tile based on its current state.
-	 *
-	 * @precondition A tile must be unrevealed in order to be flagged or unflagged.
 	 */
 	public void toggleFlag()
 	{

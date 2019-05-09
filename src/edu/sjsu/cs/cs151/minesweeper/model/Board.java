@@ -101,6 +101,7 @@ public final class Board implements Iterable<Tile>
 	 *
 	 * @param row The row of the specified tile.
 	 * @param col The column of the specified tile.
+	 * @return the number of adjacent mines
 	 */
 	public int adjacentMines(int row, int col)
 	{
@@ -120,6 +121,8 @@ public final class Board implements Iterable<Tile>
 	/**
 	 * Gets the Tile at the specified location.
 	 *
+	 * @param row the row
+	 * @param col the column
 	 * @return Tile at the specified location.
 	 */
 	public Tile getTileAt(int row, int col)
@@ -130,6 +133,8 @@ public final class Board implements Iterable<Tile>
 	/**
 	 * Determines if the Tile at the specified location is a mine.
 	 *
+	 * @param row the row
+	 * @param col the column
 	 * @return True if the Tile is a mine, false otherwise.
 	 */
 	public Boolean isMine(int row, int col)

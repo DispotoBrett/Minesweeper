@@ -31,10 +31,8 @@ public class View
 	/**
 	 * Gets the instance of view the returns the View
 	 *
+	 * @param  messages the message queue
 	 * @return the instance of view.
-	 * *
-	 * @postcondition if a view has already been initialized,
-	 * a new one is NOT constructed, and the parameter will be ignored.
 	 */
 	public static View init(BlockingQueue<Message> messages)
 	{
@@ -49,7 +47,6 @@ public class View
 	 * Get the instance of View
 	 *
 	 * @return the instance of view.
-	 * @preconditon the view must have already been initialized.
 	 */
 	public View getInstance()
 	{
@@ -62,6 +59,7 @@ public class View
 	 * @param rows     the number of rows of tiles that the View will display
 	 * @param cols     the number of columns of tiles that the View will display
 	 * @param adjMines the 2d array that stores the number of adjacent mines for each tile
+	 * @param difficulty the difficulty
 	 */
 	public void startGame(int rows, int cols, int[][] adjMines, Difficulty difficulty)
 	{
@@ -111,6 +109,7 @@ public class View
 	 *
 	 * @param row the row the tile
 	 * @param col the column of the tile
+	 * @param flag indicates if there is a flag
 	 */
 	public void flag(int row, int col, boolean flag)
 	{
