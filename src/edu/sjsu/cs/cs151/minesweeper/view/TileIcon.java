@@ -121,8 +121,8 @@ public final class TileIcon implements Icon
 	}
 
 	//----------------Private Methods/Fields----------------------
-	public static final int WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth())/ 25;
-	public static final int HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth())/ 25;
+	public static final int WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth())/ 55;
+	public static final int HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth())/ 55;
 
 	private static final int FONT_SIZE = (int) (HEIGHT * .76);
 	private static final int FONT_X = (int) (HEIGHT * .28);
