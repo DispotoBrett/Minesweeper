@@ -1,9 +1,9 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
-import edu.sjsu.cs.cs151.minesweeper.controller.DifficultyMessage;
-import edu.sjsu.cs.cs151.minesweeper.controller.ExitMessage;
-import edu.sjsu.cs.cs151.minesweeper.controller.Message;
-import edu.sjsu.cs.cs151.minesweeper.controller.ResetMessage;
+import edu.sjsu.cs.cs151.minesweeper.message.DifficultyMessage;
+import edu.sjsu.cs.cs151.minesweeper.message.ExitMessage;
+import edu.sjsu.cs.cs151.minesweeper.message.Message;
+import edu.sjsu.cs.cs151.minesweeper.message.ResetMessage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
