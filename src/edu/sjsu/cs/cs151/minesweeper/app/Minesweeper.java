@@ -1,7 +1,7 @@
 package edu.sjsu.cs.cs151.minesweeper.app;
 
 import edu.sjsu.cs.cs151.minesweeper.controller.Controller;
-import edu.sjsu.cs.cs151.minesweeper.controller.Message;
+import edu.sjsu.cs.cs151.minesweeper.message.Message;
 import edu.sjsu.cs.cs151.minesweeper.model.Model;
 import edu.sjsu.cs.cs151.minesweeper.view.View;
 

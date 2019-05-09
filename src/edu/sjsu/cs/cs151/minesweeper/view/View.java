@@ -1,9 +1,9 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
-import edu.sjsu.cs.cs151.minesweeper.controller.DifficultyMessage;
-import edu.sjsu.cs.cs151.minesweeper.controller.ExitMessage;
-import edu.sjsu.cs.cs151.minesweeper.controller.Message;
-import edu.sjsu.cs.cs151.minesweeper.controller.ResetMessage;
+import edu.sjsu.cs.cs151.minesweeper.message.DifficultyMessage;
+import edu.sjsu.cs.cs151.minesweeper.message.ExitMessage;
+import edu.sjsu.cs.cs151.minesweeper.message.Message;
+import edu.sjsu.cs.cs151.minesweeper.message.ResetMessage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -54,6 +54,14 @@ public class View
 	}
 
 	/**
+	 * Repaints the boardPanel
+	 */
+	public void repaint()
+	{
+		boardPanel.repaint();
+	}
+
+	/**
 	 * Starts the game.
 	 *
 	 * @param rows     the number of rows of tiles that the View will display
@@ -89,7 +97,6 @@ public class View
 	public void reveal(int row, int col)
 	{
 		boardPanel.reveal(row, col);
-		boardPanel.repaint();
 	}
 
 	/**

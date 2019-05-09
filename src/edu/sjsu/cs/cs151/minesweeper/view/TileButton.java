@@ -1,8 +1,8 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
-import edu.sjsu.cs.cs151.minesweeper.controller.LeftClickMessage;
-import edu.sjsu.cs.cs151.minesweeper.controller.Message;
-import edu.sjsu.cs.cs151.minesweeper.controller.RightClickMessage;
+import edu.sjsu.cs.cs151.minesweeper.message.LeftClickMessage;
+import edu.sjsu.cs.cs151.minesweeper.message.Message;
+import edu.sjsu.cs.cs151.minesweeper.message.RightClickMessage;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;

@@ -1,5 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.controller;
 
+import edu.sjsu.cs.cs151.minesweeper.message.*;
 import edu.sjsu.cs.cs151.minesweeper.model.Board;
 import edu.sjsu.cs.cs151.minesweeper.model.BoardIterator;
 import edu.sjsu.cs.cs151.minesweeper.model.Model;
@@ -107,6 +108,7 @@ public class Controller
 				SwingUtilities.invokeAndWait(() -> view.flag(it.prevRow(), it.prevCol(), current.isFlagged()));
 			}
 		}
+		view.repaint();
 	}
 	
 	/**

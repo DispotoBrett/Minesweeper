@@ -1,6 +1,6 @@
 package edu.sjsu.cs.cs151.minesweeper.view;
 
-import edu.sjsu.cs.cs151.minesweeper.controller.Message;
+import edu.sjsu.cs.cs151.minesweeper.message.Message;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
