@@ -21,318 +21,277 @@ import java.util.concurrent.BlockingQueue;
  * @author PatrickSilvestre
  */
 
-public class Controller
-{
-	//-------------------------Public Interface-----------------------
+public class Controller {
+    //-------------------------Public Interface-----------------------
 
-	/**
-	 * Creates the Controller
-	 *
-	 * @param model        the Model that the Controller acts on
-	 * @param view         the View that the Controller acts on
-	 * @param messageQueue the queue that will contain messages sent from the View to be processed by the Controller
-	 */
-	public Controller(Model model, View view, BlockingQueue<Message> messageQueue)
-	{
-		this.model = model;
-		this.view = view;
-		messages = messageQueue;
-		onWelcomeMenu = true;
+    /**
+     * Creates the Controller
+     *
+     * @param model        the Model that the Controller acts on
+     * @param view         the View that the Controller acts on
+     * @param messageQueue the queue that will contain messages sent from the View to be processed by the Controller
+     */
+    public Controller(Model model, View view, BlockingQueue<Message> messageQueue) {
+        this.model = model;
+        this.view = view;
+        messages = messageQueue;
+        onWelcomeMenu = true;
 
-		initValves();
-	}
+        initValves();
+    }
 
-	/**
-	 * Main loop of the game. Handles input from the View.
-	 * When this method stops running, the game is over and the program can begin shutting down
-	 */
-	public void mainLoop()
-	{
-		Valve.ValveResponse response = Valve.ValveResponse.EXECUTED;
-		Message message = null;
+    /**
+     * Main loop of the game. Handles input from the View.
+     * When this method stops running, the game is over and the program can begin shutting down
+     */
+    public void mainLoop() {
+        Valve.ValveResponse response = Valve.ValveResponse.EXECUTED;
+        Message message = null;
 
-		while (response != Valve.ValveResponse.FINISH)
-		{
-			try
-			{
-				message = messages.take();
-			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
+        while (response != Valve.ValveResponse.FINISH) {
+            try {
+                message = messages.take();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-			for (Valve valve : valves)
-			{
-				response = valve.execute(message);
+            for (Valve valve : valves) {
+                response = valve.execute(message);
 
-				if (response != Valve.ValveResponse.MISS)
-				{
-					break;
-				}
-			}
-		}
-	}
+                if (response != Valve.ValveResponse.MISS) {
+                    break;
+                }
+            }
+        }
+    }
 
-	/**
-	 * Starts a new game. Model and View are reset to the last chosen difficulty
-	 */
-	public void reset()
-	{
-		gameOver = false;
-		model.setDifficultyAndReset(difficulty);
-		view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
-	}
+    /**
+     * Starts a new game. Model and View are reset to the last chosen difficulty
+     */
+    public void reset() {
+        gameOver = false;
+        model.setDifficultyAndReset(difficulty);
+        view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
+        view.setRemainingMines(model.getBoard().getRows() * model.getBoard().getColumns() -
+                        model.getBoard().getNumberTilesRevealed() - model.getBoard().getNumMines());
 
-	/**
-	 * Updates the View based on the Model. Called whenever something is changed in the Model
-	 *
-	 * @throws InvocationTargetException
-	 * @throws InterruptedException
-	 */
-	public void updateView() throws InvocationTargetException, InterruptedException
-	{
+    }
 
-		BoardIterator it = model.boardIterator();
+    /**
+     * Updates the View based on the Model. Called whenever something is changed in the Model
+     *
+     * @throws InvocationTargetException
+     * @throws InterruptedException
+     */
+    public void updateView() throws InvocationTargetException, InterruptedException {
 
-		// Iterates through the Tiles stored by the Board in the Model in a left to right, top to bottom fashion
-		while (it.hasNext())
-		{
-			Tile current = it.next();
+        BoardIterator it = model.boardIterator();
 
-			if (current.isRevealed())
-			{
-				SwingUtilities.invokeAndWait(() -> view.reveal(it.prevRow(), it.prevCol()));
-			}
-			else
-			{
-				SwingUtilities.invokeAndWait(() -> view.flag(it.prevRow(), it.prevCol(), current.isFlagged()));
-			}
-		}
-		view.repaint();
-	}
+        // Iterates through the Tiles stored by the Board in the Model in a left to right, top to bottom fashion
+        while (it.hasNext()) {
+            Tile current = it.next();
 
-	/**
-	 * Handles displaying all mines on the board when the player triggers a game over
-	 *
-	 * @throws InvocationTargetException
-	 * @throws InterruptedException
-	 */
-	public void gameOver() throws InvocationTargetException, InterruptedException
-	{
-		BoardIterator it = model.boardIterator();
+            if (current.isRevealed()) {
+                SwingUtilities.invokeAndWait(() -> view.reveal(it.prevRow(), it.prevCol()));
+            } else {
+                SwingUtilities.invokeAndWait(() -> view.flag(it.prevRow(), it.prevCol(), current.isFlagged()));
+            }
+        }
+        view.repaint();
+        view.setRemainingMines(model.getBoard().getRows() * model.getBoard().getColumns() -
+                            model.getBoard().getNumberTilesRevealed() - model.getBoard().getNumMines());
+    }
 
-		while (it.hasNext())
-		{
-			Tile current = it.next();
-			if (current.isMine())
-			{
-				SwingUtilities.invokeAndWait(() -> view.exposeMine(it.prevRow(), it.prevCol()));
-			}
-		}
-	}
+    /**
+     * Handles displaying all mines on the board when the player triggers a game over
+     *
+     * @throws InvocationTargetException
+     * @throws InterruptedException
+     */
+    public void gameOver() throws InvocationTargetException, InterruptedException {
+        BoardIterator it = model.boardIterator();
 
-	//-------------------------Private Fields/Methods------------------
-	private Model model;
-	private View view;
-	private BlockingQueue<Message> messages;
-	private List<Valve> valves = new LinkedList<>();
-	private static boolean gameOver;
-	private boolean onWelcomeMenu; // Indicates whether the player is still on the Welcome Menu. True until they advance past it
-	private Model.Difficulty difficulty;
+        while (it.hasNext()) {
+            Tile current = it.next();
+            if (current.isMine()) {
+                SwingUtilities.invokeAndWait(() -> view.exposeMine(it.prevRow(), it.prevCol()));
+            }
+        }
+    }
 
-	/**
-	 * Translates a Difficulty from the Model into the corresponding Difficulty in the View
-	 *
-	 * @param translateMe the Model Difficulty that is going to be translated
-	 * @return the corresponding Difficulty in the View
-	 */
-	private View.Difficulty translateDifficulty(Model.Difficulty translateMe)
-	{
-		switch (translateMe)
-		{
-		case EASY:
-			return View.Difficulty.EASY;
+    //-------------------------Private Fields/Methods------------------
+    private Model model;
+    private View view;
+    private BlockingQueue<Message> messages;
+    private List<Valve> valves = new LinkedList<>();
+    private static boolean gameOver;
+    private boolean onWelcomeMenu; // Indicates whether the player is still on the Welcome Menu. True until they advance past it
+    private Model.Difficulty difficulty;
 
-		case MEDIUM:
-			return View.Difficulty.MEDIUM;
+    /**
+     * Translates a Difficulty from the Model into the corresponding Difficulty in the View
+     *
+     * @param translateMe the Model Difficulty that is going to be translated
+     * @return the corresponding Difficulty in the View
+     */
+    private View.Difficulty translateDifficulty(Model.Difficulty translateMe) {
+        switch (translateMe) {
+            case EASY:
+                return View.Difficulty.EASY;
 
-		case HARD:
-			return View.Difficulty.HARD;
+            case MEDIUM:
+                return View.Difficulty.MEDIUM;
 
-		default:
-			return null;
-		}
-	}
+            case HARD:
+                return View.Difficulty.HARD;
 
-	/**
-	 * Initializes the Valves used by the Controller
-	 */
-	private void initValves()
-	{
-		// Adds listening for right clicks
-		valves.add(message -> {
-			if (message.getClass() != RightClickMessage.class)
-			{
-				return Valve.ValveResponse.MISS;
-			}
-			RightClickMessage msg = (RightClickMessage) message;
-			if (!gameOver)
-			{
-				model.toggleFlag(msg.getRow(), msg.getColumn());
-			}
+            default:
+                return null;
+        }
+    }
 
-			try
-			{
-				updateView();
-			}
-			catch (InvocationTargetException | InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-			return Valve.ValveResponse.EXECUTED;
-		});
+    /**
+     * Initializes the Valves used by the Controller
+     */
+    private void initValves() {
+        // Adds listening for right clicks
+        valves.add(message -> {
+            if (message.getClass() != RightClickMessage.class) {
+                return Valve.ValveResponse.MISS;
+            }
+            RightClickMessage msg = (RightClickMessage) message;
+            if (!gameOver) {
+                model.toggleFlag(msg.getRow(), msg.getColumn());
+            }
 
-		// Adds listening for left clicks
-		valves.add(new LeftClickValve());
+            try {
+                updateView();
+            } catch (InvocationTargetException | InterruptedException e) {
+                e.printStackTrace();
+            }
+            return Valve.ValveResponse.EXECUTED;
+        });
 
-		// Looks for beginning difficulty
-		valves.add(new DifficultyValve());
+        // Adds listening for left clicks
+        valves.add(new LeftClickValve());
 
-		// Adds reset functionality
-		valves.add(message -> {
-			if (message.getClass() != ResetMessage.class)
-			{
-				return Valve.ValveResponse.MISS;
-			}
-			reset();
-			return Valve.ValveResponse.EXECUTED;
-		});
+        // Looks for beginning difficulty
+        valves.add(new DifficultyValve());
 
-		// Adds exit functionality
-		valves.add(message -> {
-			if (message.getClass() != ExitMessage.class)
-			{
-				return Valve.ValveResponse.MISS;
-			}
-			return Valve.ValveResponse.FINISH;
-		});
-	}
+        // Adds reset functionality
+        valves.add(message -> {
+            if (message.getClass() != ResetMessage.class) {
+                return Valve.ValveResponse.MISS;
+            }
+            reset();
+            return Valve.ValveResponse.EXECUTED;
+        });
 
-	//-------------------------Private Classes------------------
+        // Adds exit functionality
+        valves.add(message -> {
+            if (message.getClass() != ExitMessage.class) {
+                return Valve.ValveResponse.MISS;
+            }
+            return Valve.ValveResponse.FINISH;
+        });
+    }
 
-	/**
-	 * Valves handle the execution of messages generated by the View
-	 */
-	private interface Valve
-	{
-		enum ValveResponse
-		{MISS, EXECUTED, FINISH}
+    //-------------------------Private Classes------------------
 
-		/**
-		 * Acts on the Model/View based on the message
-		 *
-		 * @param message the message that it will act on
-		 * @return MISS if the Valve cannot process the message, EXECUTED if it can, and FINISH if the game is over
-		 */
-		ValveResponse execute(Message message);
-	}
+    /**
+     * Valves handle the execution of messages generated by the View
+     */
+    private interface Valve {
+        enum ValveResponse {MISS, EXECUTED, FINISH}
 
-	/**
-	 * Handles changing the difficulty in Controller to reflect the choice in View
-	 * Also handles resetting the game
-	 */
-	private class DifficultyValve implements Valve
-	{
-		public ValveResponse execute(Message message)
-		{
-			if (message.getClass() != DifficultyMessage.class)
-			{
-				return ValveResponse.MISS;
-			}
+        /**
+         * Acts on the Model/View based on the message
+         *
+         * @param message the message that it will act on
+         * @return MISS if the Valve cannot process the message, EXECUTED if it can, and FINISH if the game is over
+         */
+        ValveResponse execute(Message message);
+    }
 
-			DifficultyMessage msg = (DifficultyMessage) message;
+    /**
+     * Handles changing the difficulty in Controller to reflect the choice in View
+     * Also handles resetting the game
+     */
+    private class DifficultyValve implements Valve {
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != DifficultyMessage.class) {
+                return ValveResponse.MISS;
+            }
 
-			difficulty = msg.getDifficulty();
+            DifficultyMessage msg = (DifficultyMessage) message;
 
-			if (onWelcomeMenu) // True if the message was generated by the Welcome Menu
-			{
-				onWelcomeMenu = false;
-				model.setDifficultyAndReset(difficulty);
-				Board gameBoard = model.getBoard();
-				view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(),
-						translateDifficulty(difficulty));
-			}
-			else if (msg.shouldBeChangedNow())
-			{
-				reset();
-			}
+            difficulty = msg.getDifficulty();
 
-			return ValveResponse.EXECUTED;
-		}
+            if (onWelcomeMenu) // True if the message was generated by the Welcome Menu
+            {
+                onWelcomeMenu = false;
+                model.setDifficultyAndReset(difficulty);
+                Board gameBoard = model.getBoard();
+                view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(),
+                        translateDifficulty(difficulty));
+                view.setRemainingMines(model.getBoard().getRows() * model.getBoard().getColumns() -
+                                    model.getBoard().getNumberTilesRevealed() - model.getBoard().getNumMines());
 
-	}
+            } else if (msg.shouldBeChangedNow()) {
+                reset();
+            }
 
-	/**
-	 * Handles left click input, which involves revealing Tiles
-	 */
-	private class LeftClickValve implements Valve
-	{
+            return ValveResponse.EXECUTED;
+        }
 
-		public ValveResponse execute(Message message)
-		{
-			if (message.getClass() != LeftClickMessage.class)
-			{
-				return ValveResponse.MISS;
-			}
+    }
 
-			LeftClickMessage msg = (LeftClickMessage) message;
+    /**
+     * Handles left click input, which involves revealing Tiles
+     */
+    private class LeftClickValve implements Valve {
 
-			// Does nothing if the game has already been won or lost
-			if (!gameOver)
-			{
-				// Reveals a Tile in the Model
-				model.revealTile(msg.getRow(), msg.getColumn());
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != LeftClickMessage.class) {
+                return ValveResponse.MISS;
+            }
 
-				// Updates the View to reflect the Model
-				try
-				{
-					updateView();
-				}
-				catch (InvocationTargetException | InterruptedException e)
-				{
-					e.printStackTrace();
-				}
+            LeftClickMessage msg = (LeftClickMessage) message;
 
-				gameOver = model.gameLost() || model.gameWon();
+            // Does nothing if the game has already been won or lost
+            if (!gameOver) {
+                // Reveals a Tile in the Model
+                model.revealTile(msg.getRow(), msg.getColumn());
 
-				// If revealing a Tile in the Model caused the game to be won or lost, proceed with the game over sequence. 
-				if (gameOver)
-				{
-					try
-					{
-						if (model.gameWon())
-						{
-							Thread.sleep(500);
-							view.gameWon();
-						}
-						else
-						{
-							SwingUtilities.invokeAndWait(() -> view.explode(msg.getRow(), msg.getColumn()));
-							Thread.sleep(3500);
-							gameOver();
-						}
+                // Updates the View to reflect the Model
+                try {
+                    updateView();
+                } catch (InvocationTargetException | InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-					}
-					catch (InvocationTargetException | InterruptedException e)
-					{
-						e.printStackTrace();
-					}
-				}
-			}
+                gameOver = model.gameLost() || model.gameWon();
 
-			return ValveResponse.EXECUTED;
-		}
-	}
+                // If revealing a Tile in the Model caused the game to be won or lost, proceed with the game over sequence.
+                if (gameOver) {
+                    try {
+                        if (model.gameWon()) {
+                            Thread.sleep(500);
+                            view.gameWon();
+                        } else {
+                            SwingUtilities.invokeAndWait(() -> view.explode(msg.getRow(), msg.getColumn()));
+                            Thread.sleep(3500);
+                            gameOver();
+                        }
+
+                    } catch (InvocationTargetException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            return ValveResponse.EXECUTED;
+        }
+    }
 
 }

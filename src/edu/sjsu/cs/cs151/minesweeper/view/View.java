@@ -186,6 +186,7 @@ public class View
 	}
 
 	//-------------------------Private Fields/Methods------------------
+	private JMenuBar menuBar;
 	private static View instance;
 	private static JFrame frame;
 	private BoardPanel boardPanel;
@@ -195,6 +196,7 @@ public class View
 	private javax.swing.Timer animationTimer;
 	private WelcomePanel welcome;
 	private static final int DELAY = 12;
+	private static final int COUNT_INDEX = 2;
 
 	/**
 	 * Constructor for View.
@@ -207,6 +209,18 @@ public class View
 		messageQueue = messages;
 
 		initializeWelcomeMenu();
+	}
+
+	/**
+	 * Set the number of remaining unrevealed tiles
+	 * @param n number of remaining unrevealed tiles
+	 */
+	public void setRemainingMines(int n)
+	{
+		if(menuBar.getMenuCount() == COUNT_INDEX + 1)
+			menuBar.remove(COUNT_INDEX);
+		menuBar.add(new JMenuItem("Remaining Tiles: " + n));
+		frame.setJMenuBar(menuBar);
 	}
 
 	/**
@@ -231,7 +245,7 @@ public class View
 	 */
 	private void initializeMenu(Difficulty difficulty)
 	{
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 
 		JMenu game = new JMenu("Game");
 		menuBar.add(game);
@@ -318,6 +332,10 @@ public class View
 		help.add(howTo);
 
 		menuBar.add(help);
+
+		JMenuItem t = new JMenuItem();
+		menuBar.add(t);
+
 
 		frame.setJMenuBar(menuBar);
 		frame.pack();
