@@ -218,6 +218,7 @@ public class WelcomePanel extends JPanel
 
 		/**
 		 * Constructs the MineAnimation.
+		 *
 		 * @param mineIcon The image used to represent the mine.
 		 */
 		private MineAnimation(BufferedImage mineIcon)

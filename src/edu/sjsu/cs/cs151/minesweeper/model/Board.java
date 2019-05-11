@@ -56,7 +56,7 @@ public final class Board implements Iterable<Tile>
 		Tile currentTile = tiles[row][col];
 
 		if (currentTile.isMine() || currentTile.isFlagged() || currentTile
-			  .isRevealed()) // Tile can neither be a mine, flagged, or revealed
+				.isRevealed()) // Tile can neither be a mine, flagged, or revealed
 		{
 			return;
 		}
@@ -243,11 +243,14 @@ public final class Board implements Iterable<Tile>
 	/**
 	 * Initializes the 2d array that stores the number of adjacent mines for each index in tiles
 	 */
-	private void initializeAdjacentMines() {
+	private void initializeAdjacentMines()
+	{
 		adjMines = new int[NUM_ROWS][NUM_COLS];
 
-		for (int row = 0; row < NUM_ROWS; row++) {
-			for (int col = 0; col < NUM_COLS; col++) {
+		for (int row = 0; row < NUM_ROWS; row++)
+		{
+			for (int col = 0; col < NUM_COLS; col++)
+			{
 				int mines = 0;
 
 				for (int i = row - 1; i <= row + 1; i++) //Begin with the row directly above the clicked tile
@@ -256,7 +259,8 @@ public final class Board implements Iterable<Tile>
 					{
 						if (i >= 0 && j >= 0 && i < NUM_ROWS && j < NUM_COLS) //Only true if i and j are valid indices
 						{
-							if (tiles[i][j].isMine()) {
+							if (tiles[i][j].isMine())
+							{
 								mines++;
 							}
 						}

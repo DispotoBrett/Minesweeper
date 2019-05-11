@@ -31,7 +31,7 @@ public class View
 	/**
 	 * Gets the instance of view the returns the View
 	 *
-	 * @param  messages the message queue
+	 * @param messages the message queue
 	 * @return the instance of view.
 	 */
 	public static View init(BlockingQueue<Message> messages)
@@ -64,9 +64,9 @@ public class View
 	/**
 	 * Starts the game.
 	 *
-	 * @param rows     the number of rows of tiles that the View will display
-	 * @param cols     the number of columns of tiles that the View will display
-	 * @param adjMines the 2d array that stores the number of adjacent mines for each tile
+	 * @param rows       the number of rows of tiles that the View will display
+	 * @param cols       the number of columns of tiles that the View will display
+	 * @param adjMines   the 2d array that stores the number of adjacent mines for each tile
 	 * @param difficulty the difficulty
 	 */
 	public void startGame(int rows, int cols, int[][] adjMines, Difficulty difficulty)
@@ -114,8 +114,8 @@ public class View
 	/**
 	 * Flags the tiles at the specified location
 	 *
-	 * @param row the row the tile
-	 * @param col the column of the tile
+	 * @param row  the row the tile
+	 * @param col  the column of the tile
 	 * @param flag indicates if there is a flag
 	 */
 	public void flag(int row, int col, boolean flag)
@@ -181,8 +181,8 @@ public class View
 	public static int difficultyChanged()
 	{
 		return JOptionPane
-			  .showConfirmDialog(frame, "Reset the game now?", "Please Confirm", JOptionPane.YES_NO_OPTION, 0,
-					new TileIcon(TileIcon.TileState.flagged));
+				.showConfirmDialog(frame, "Reset the game now?", "Please Confirm", JOptionPane.YES_NO_OPTION, 0,
+						new TileIcon(TileIcon.TileState.flagged));
 	}
 
 	//-------------------------Private Fields/Methods------------------
@@ -443,11 +443,11 @@ public class View
 		}
 
 		JTextArea textArea = new JTextArea(rulesText.toString(), 15,
-			  23); // Magic numbers. 15 rows and 23 columns just happened to look good.
+				23); // Magic numbers. 15 rows and 23 columns just happened to look good.
 		textArea.setEditable(false);
 		textArea.setTabSize(2); // Magic number. A tab size of 2 just happened to look good. 
 		JScrollPane scroll = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-			  JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 		rulesFrame.setIconImage(img);
 		rulesFrame.add(scroll);
@@ -480,7 +480,7 @@ public class View
 		public void actionPerformed(ActionEvent e)
 		{
 			if (JOptionPane.YES_OPTION == View
-				  .difficultyChanged()) // True if the user wants to restart the game immediately with the new difficulty setting
+					.difficultyChanged()) // True if the user wants to restart the game immediately with the new difficulty setting
 			{
 				try
 				{

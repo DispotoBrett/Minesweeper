@@ -104,7 +104,7 @@ public class Explosion extends JComponent
 
 		//draw string at center of given frame
 		g2.drawString(text, (int) (contentPaneWidth - extent) / 2,
-			  (int) (((contentPaneHeight - (ascent + descent)) / 2) + ascent));
+				(int) (((contentPaneHeight - (ascent + descent)) / 2) + ascent));
 	}
 
 	//----------------Private Methods/Fields----------------------

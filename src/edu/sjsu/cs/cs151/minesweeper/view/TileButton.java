@@ -122,7 +122,7 @@ public class TileButton extends JButton
 				setIcon(SHOW_MINE_ICON);
 
 				explosion = new Explosion(getX(), getY(), frame.getContentPane().getWidth(),
-					  frame.getContentPane().getHeight());
+						frame.getContentPane().getHeight());
 				frame.setGlassPane(explosion);
 				explosion.setVisible(true);
 
@@ -130,7 +130,7 @@ public class TileButton extends JButton
 
 					Rectangle bound = explosion.repaintArea();
 					frame.repaint((int) Math.ceil(bound.getX()), (int) Math.ceil(bound.getY()),
-						  (int) Math.ceil(bound.getWidth()), (int) Math.ceil(bound.getHeight()));
+							(int) Math.ceil(bound.getWidth()), (int) Math.ceil(bound.getHeight()));
 
 					explosion.explode();
 

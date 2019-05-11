@@ -175,11 +175,11 @@ public class BoardPanel extends JPanel
 	private static final int HARD_ROW_SIZE = 14;
 
 	private static final Dimension EASY_SIZE = new Dimension(TileIcon.WIDTH * EASY_ROW_SIZE,
-		  TileIcon.WIDTH * EASY_ROW_SIZE);
+			TileIcon.WIDTH * EASY_ROW_SIZE);
 	private static final Dimension MEDIUM_SIZE = new Dimension(TileIcon.WIDTH * MED_ROW_SIZE,
-		  TileIcon.WIDTH * MED_ROW_SIZE);
+			TileIcon.WIDTH * MED_ROW_SIZE);
 	private static final Dimension HARD_SIZE = new Dimension(TileIcon.WIDTH * HARD_ROW_SIZE,
-		  TileIcon.WIDTH * HARD_ROW_SIZE);
+			TileIcon.WIDTH * HARD_ROW_SIZE);
 
 	private javax.swing.Timer gameWonTimer;
 

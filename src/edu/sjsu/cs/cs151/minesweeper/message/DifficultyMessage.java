@@ -10,8 +10,9 @@ public class DifficultyMessage implements Message
 {
 	/**
 	 * Creates the DifficultyMessage based on the options selected in the View
+	 *
 	 * @param difficulty the difficulty selected in the View using its View.Difficulty enum
-	 * @param changeNow Whether the Controller should restart the game with the given difficulty
+	 * @param changeNow  Whether the Controller should restart the game with the given difficulty
 	 */
 	public DifficultyMessage(View.Difficulty difficulty, boolean changeNow)
 	{
@@ -34,18 +35,20 @@ public class DifficultyMessage implements Message
 		}
 		this.changeNow = changeNow;
 	}
-	
+
 	/**
 	 * Gets the Model.Difficulty enum equivalent of the View.Difficulty used to construct this Message
+	 *
 	 * @return the Model.Difficulty enum equivalent of the View.Difficulty used to construct this Message
 	 */
 	public Model.Difficulty getDifficulty()
 	{
 		return difficulty;
 	}
-	
+
 	/**
 	 * Gets whether the Controller should restart the game with the given difficulty
+	 *
 	 * @return whether the Controller should restart the game with the given difficulty
 	 */
 	public boolean shouldBeChangedNow()

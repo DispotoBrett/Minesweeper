@@ -7,9 +7,9 @@ package edu.sjsu.cs.cs151.minesweeper.message;
 public class ExitMessage implements Message
 {
 	/**
-	 * Constructor that does nothing 
+	 * Constructor that does nothing
 	 */
-	public ExitMessage() 
+	public ExitMessage()
 	{
 	}
 }
