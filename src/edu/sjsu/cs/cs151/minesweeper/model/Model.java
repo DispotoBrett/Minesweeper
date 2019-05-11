@@ -32,8 +32,6 @@ public class Model
 	 */
 	public void setDifficultyAndReset(Difficulty d)
 	{
-		currentDifficulty = d;
-
 		switch (d)
 		{
 		case EASY:
@@ -50,7 +48,6 @@ public class Model
 
 		default:
 			gameBoard = new Board(EASY_SIZE, EASY_SIZE, EASY_MINES, usePresetSeed);
-			currentDifficulty = Difficulty.EASY;
 		}
 
 		numberOfTiles = gameBoard.getRows() * gameBoard.getColumns();
@@ -78,20 +75,6 @@ public class Model
 		return gameLost;
 	}
 
-	/**
-	 * Resets the Model
-	 */
-	public void reset()
-	{
-		gameWon = false;
-		gameLost = false;
-
-		int rows = gameBoard.getRows();
-		int cols = gameBoard.getColumns();
-		int mines = gameBoard.getNumMines();
-
-		gameBoard = new Board(rows, cols, mines, usePresetSeed);
-	}
 
 	/**
 	 * Reveals the tile specified, and all surrounding tiles without mines, recursively, and updates game win/loss state.
@@ -159,5 +142,4 @@ public class Model
 	private int numberOfTiles;
 	private boolean gameWon;
 	private boolean gameLost;
-	private Difficulty currentDifficulty;
 }

@@ -135,16 +135,6 @@ public class View
 	}
 
 	/**
-	 * Gets the message queue (messages from user input).
-	 *
-	 * @return the message queue
-	 */
-	public BlockingQueue<Message> getQueue()
-	{
-		return messageQueue;
-	}
-
-	/**
 	 * Resets the visual board.
 	 *
 	 * @param row      the number of rows.
@@ -178,10 +168,10 @@ public class View
 	 *
 	 * @return JOptionPane button chosen indicator
 	 */
-	public static int difficultyChanged()
+	private static int difficultyChanged()
 	{
 		return JOptionPane
-				.showConfirmDialog(frame, "Reset the game now?", "Please Confirm", JOptionPane.YES_NO_OPTION, 0,
+				.showConfirmDialog(frame, "Reset the game now?", "Please Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 						new TileIcon(TileIcon.TileState.flagged));
 	}
 
@@ -469,7 +459,7 @@ public class View
 		/**
 		 * Constructs the ChangeDifficultyAction with a certain difficulty
 		 *
-		 * @param difficulty
+		 * @param difficulty The difficulty level to set the game to.
 		 */
 		public ChangeDifficultyAction(Difficulty difficulty)
 		{

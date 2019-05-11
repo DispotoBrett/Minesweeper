@@ -174,7 +174,7 @@ public class WelcomePanel extends JPanel
 		public void paint(Graphics g)
 		{
 			Graphics2D g2 = (Graphics2D) g;
-			g2.drawImage(mineIcon, x, 0, WIDTH, WIDTH, null, null);
+			g2.drawImage(mineIcon, x, 0, MINE_WIDTH, MINE_HEIGHT, null, null);
 		}
 
 		@Override
@@ -196,7 +196,7 @@ public class WelcomePanel extends JPanel
 			{
 				x--;
 			}
-			if (x > WelcomePanel.this.getPreferredSize().getWidth() - WIDTH)
+			if (x > WelcomePanel.this.getPreferredSize().getWidth() - MINE_WIDTH)
 			{
 				movingRight = false;
 			}
@@ -214,7 +214,8 @@ public class WelcomePanel extends JPanel
 		private BufferedImage mineIcon;
 
 		private static final long serialVersionUID = 1L;
-		private static final int WIDTH = 50;
+		private static final int MINE_WIDTH = 50;
+		private static final int MINE_HEIGHT = 50;
 
 		/**
 		 * Constructs the MineAnimation.
@@ -223,7 +224,7 @@ public class WelcomePanel extends JPanel
 		 */
 		private MineAnimation(BufferedImage mineIcon)
 		{
-			x = -WIDTH;
+			x = -MINE_WIDTH;
 			this.mineIcon = mineIcon;
 			movingRight = true;
 		}

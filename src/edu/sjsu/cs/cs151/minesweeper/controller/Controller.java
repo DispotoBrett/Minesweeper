@@ -77,7 +77,7 @@ public class Controller
 	/**
 	 * Starts a new game. Model and View are reset to the last chosen difficulty
 	 */
-	public void reset()
+	private void reset()
 	{
 		gameOver = false;
 		model.setDifficultyAndReset(difficulty);
@@ -85,12 +85,12 @@ public class Controller
 	}
 
 	/**
-	 * Updates the View based on the Model. Called whenever something is changed in the Model
+	 * Updates the View based on the Model. Called whenever something is changed in the Model.
 	 *
-	 * @throws InvocationTargetException
-	 * @throws InterruptedException
+	 * @throws InvocationTargetException Thrown when any invoked constructors / methods throw exceptions.
+	 * @throws InterruptedException      Thrown when an attempt to reveal or flag a tile is interrupted.
 	 */
-	public void updateView() throws InvocationTargetException, InterruptedException
+	private void updateView() throws InvocationTargetException, InterruptedException
 	{
 
 		BoardIterator it = model.boardIterator();
@@ -115,10 +115,10 @@ public class Controller
 	/**
 	 * Handles displaying all mines on the board when the player triggers a game over
 	 *
-	 * @throws InvocationTargetException
-	 * @throws InterruptedException
+	 * @throws InvocationTargetException Thrown when any invoked constructors / methods throw exceptions.
+	 * @throws InterruptedException      Thrown when an attempt to expose a mine is interrupted.
 	 */
-	public void gameOver() throws InvocationTargetException, InterruptedException
+	private void gameOver() throws InvocationTargetException, InterruptedException
 	{
 		BoardIterator it = model.boardIterator();
 
@@ -278,7 +278,6 @@ public class Controller
 	 */
 	private class LeftClickValve implements Valve
 	{
-
 		public ValveResponse execute(Message message)
 		{
 			if (message.getClass() != LeftClickMessage.class)
@@ -334,5 +333,4 @@ public class Controller
 			return ValveResponse.EXECUTED;
 		}
 	}
-
 }

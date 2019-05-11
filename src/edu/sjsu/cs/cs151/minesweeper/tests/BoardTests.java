@@ -124,6 +124,8 @@ public class BoardTests
 		tileCount = 0;
 
 		BoardIterator iter = test.iterator();
+
+		//noinspection WhileLoopReplaceableByForEach
 		while (iter.hasNext())
 		{
 			iter.next();

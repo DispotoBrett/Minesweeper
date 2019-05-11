@@ -5,7 +5,6 @@ import edu.sjsu.cs.cs151.minesweeper.message.Message;
 import edu.sjsu.cs.cs151.minesweeper.model.Model;
 import edu.sjsu.cs.cs151.minesweeper.view.View;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -23,7 +22,7 @@ public class Minesweeper
 	private static View view;
 	private static Model model;
 
-	public static void main(String[] args) throws InvocationTargetException, InterruptedException
+	public static void main(String[] args)
 	{
 		view = View.init(queue);
 		model = new Model(false);
