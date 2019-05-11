@@ -210,7 +210,7 @@ public class TileButton extends JButton
 
 	private Explosion explosion;
 
-	static Timer t;
+	private static Timer t;
 
 	private void stopTimer()
 	{

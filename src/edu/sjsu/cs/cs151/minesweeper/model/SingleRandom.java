@@ -13,16 +13,6 @@ import java.util.Random;
 public class SingleRandom extends Random
 {
 	/**
-	 * Sets the seed of the single random number generator.
-	 *
-	 * @param seed The seed to used to seed the random number generator.
-	 */
-	public void setSeed(int seed)
-	{
-		generator.setSeed(seed);
-	}
-
-	/**
 	 * Gets the next (pseudo)random int from the single random number generator.
 	 *
 	 * @return The next (pseudo)random int from the single random number generator.
