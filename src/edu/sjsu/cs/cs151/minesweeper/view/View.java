@@ -170,9 +170,8 @@ public class View
 	 */
 	private static int difficultyChanged()
 	{
-		return JOptionPane
-				.showConfirmDialog(frame, "Reset the game now?", "Please Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
-						new TileIcon(TileIcon.TileState.flagged));
+		return JOptionPane.showConfirmDialog(frame, "Reset the game now?", "Please Confirm", JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE, new TileIcon(TileIcon.TileState.flagged));
 	}
 
 	//-------------------------Private Fields/Methods------------------
@@ -203,12 +202,15 @@ public class View
 
 	/**
 	 * Set the number of remaining unrevealed tiles
+	 *
 	 * @param n number of remaining unrevealed tiles
 	 */
 	public void setRemainingMines(int n)
 	{
-		if(menuBar.getMenuCount() == COUNT_INDEX + 1)
+		if (menuBar.getMenuCount() == COUNT_INDEX + 1)
+		{
 			menuBar.remove(COUNT_INDEX);
+		}
 		menuBar.add(new JMenuItem("Remaining Tiles: " + n));
 		frame.setJMenuBar(menuBar);
 	}
@@ -325,7 +327,6 @@ public class View
 
 		JMenuItem t = new JMenuItem();
 		menuBar.add(t);
-
 
 		frame.setJMenuBar(menuBar);
 		frame.pack();

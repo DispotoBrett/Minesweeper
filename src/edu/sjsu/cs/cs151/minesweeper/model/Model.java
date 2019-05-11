@@ -75,7 +75,6 @@ public class Model
 		return gameLost;
 	}
 
-
 	/**
 	 * Reveals the tile specified, and all surrounding tiles without mines, recursively, and updates game win/loss state.
 	 *
