@@ -82,8 +82,7 @@ public class Controller
 		gameOver = false;
 		model.setDifficultyAndReset(difficulty);
 		view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
-		view.setRemainingMines(model.getBoard().getRows() * model.getBoard().getColumns() - model.getBoard()
-				.getNumberTilesRevealed() - model.getBoard().getNumMines());
+		view.setRemainingMines(model.getBoard().getNumMines() - model.getBoard().getNumberTilesFlagged());
 
 	}
 
@@ -113,8 +112,7 @@ public class Controller
 			}
 		}
 		view.repaint();
-		view.setRemainingMines(model.getBoard().getRows() * model.getBoard().getColumns() - model.getBoard()
-				.getNumberTilesRevealed() - model.getBoard().getNumMines());
+		view.setRemainingMines(model.getBoard().getNumMines() - model.getBoard().getNumberTilesFlagged());
 	}
 
 	/**
@@ -267,8 +265,7 @@ public class Controller
 				Board gameBoard = model.getBoard();
 				view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(),
 						translateDifficulty(difficulty));
-				view.setRemainingMines(model.getBoard().getRows() * model.getBoard().getColumns() - model.getBoard()
-						.getNumberTilesRevealed() - model.getBoard().getNumMines());
+				view.setRemainingMines(model.getBoard().getNumMines() - model.getBoard().getNumberTilesFlagged());
 
 			}
 			else if (msg.shouldBeChangedNow())

@@ -211,7 +211,7 @@ public class View
 		{
 			menuBar.remove(COUNT_INDEX);
 		}
-		menuBar.add(new JMenuItem("Remaining Tiles: " + n));
+		menuBar.add(new JMenuItem("Remaining Mines: " + n));
 		frame.setJMenuBar(menuBar);
 	}
 
@@ -325,8 +325,8 @@ public class View
 
 		menuBar.add(help);
 
-		JMenuItem t = new JMenuItem();
-		menuBar.add(t);
+		JMenuItem remainingMines = new JMenuItem();
+		menuBar.add(remainingMines);
 
 		frame.setJMenuBar(menuBar);
 		frame.pack();

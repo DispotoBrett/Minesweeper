@@ -33,6 +33,7 @@ public final class Board implements Iterable<Tile>
 		initializeTiles(usePresetSeed);
 		initializeAdjacentMines();
 		numberTilesRevealed = 0;
+		numberTilesFlagged = 0;
 	}
 
 	/**
@@ -94,6 +95,15 @@ public final class Board implements Iterable<Tile>
 	public void toggleFlag(int row, int col)
 	{
 		tiles[row][col].toggleFlag();
+
+		if (tiles[row][col].isFlagged())
+		{
+			numberTilesFlagged++;
+		}
+		else
+		{
+			numberTilesFlagged--;
+		}
 	}
 
 	/**
@@ -116,6 +126,16 @@ public final class Board implements Iterable<Tile>
 	public int getNumberTilesRevealed()
 	{
 		return numberTilesRevealed;
+	}
+
+	/**
+	 * Gets the number of tiles flagged on the Board.
+	 *
+	 * @return The number of tiles flagged.
+	 */
+	public int getNumberTilesFlagged()
+	{
+		return numberTilesFlagged;
 	}
 
 	/**
@@ -193,6 +213,7 @@ public final class Board implements Iterable<Tile>
 	private int[][] adjMines;
 
 	private int numberTilesRevealed;
+	private int numberTilesFlagged;
 
 	private final int DEFAULT_SEED = 0;
 
