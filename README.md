@@ -3,7 +3,7 @@
 
 
 # Minesweeper
-Bundled with Windows 3.1 in 1992, this classic game has been a staple for people who want a fun and interesting challenge while they kill time. This version was developed in Java by Brett Dispotto, Patrick Silvestre, and Jordan Conragan as a group project for their CS 151 class at San Jose State University during the Spring 2019 semester. 
+Bundled with Windows 3.1 in 1992, this classic game has been a staple for people who want a fun and interesting challenge while they kill time. This version was developed in Java by Brett Dispoto, Patrick Silvestre, and Jordan Conragan as a group project for their CS 151 class at San Jose State University during the Spring 2019 semester. 
 
 
 
