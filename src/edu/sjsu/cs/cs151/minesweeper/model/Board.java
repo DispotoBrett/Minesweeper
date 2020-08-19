@@ -25,7 +25,6 @@ public final class Board implements Iterable<Tile>
 	 */
 	public Board(int numberOfRows, int numberOfColumns, int numberOfMines, boolean usePresetSeed)
 	{
-		System.out.println("Non-us board created");
 		NUM_ROWS = numberOfRows;
 		NUM_COLS = numberOfColumns;
 		NUM_MINES = numberOfMines;
@@ -52,7 +51,6 @@ public final class Board implements Iterable<Tile>
 	 */
 	public Board(boolean[][] boardShape, int numberOfMines, boolean usePresetSeed)
 	{
-		System.out.println("USA Board Created");
 		NUM_ROWS = boardShape.length;
 		NUM_COLS = boardShape[0].length;
 		NUM_MINES = numberOfMines;
@@ -313,16 +311,21 @@ public final class Board implements Iterable<Tile>
 		{
 			for (int j = 0; j < NUM_COLS; j++)
 			{
-				if (mines.contains(tileCounter))
+				if(boardShape[i][j])
 				{
-					tiles[i][j] = new Tile(true);
+					if (mines.contains(tileCounter))
+					{
+						tiles[i][j] = new Tile(true);
+					}
+					else
+					{
+						tiles[i][j] = new Tile(false);
+					}
+
+					tileCounter++;
 				}
 				else
-				{
-					tiles[i][j] = new Tile(false);
-				}
-
-				tileCounter++;
+					tiles[i][j] = null;
 			}
 		}
 	}

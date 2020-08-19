@@ -36,7 +36,7 @@ public class BoardIterator implements Iterator<Tile>
 		int i = row;
 		int j = col;
 		
-		while(!hasNext && (i < boardInstance.getRows() -1 || col < boardInstance.getColumns() -1))
+		while(!hasNext && (i < boardInstance.getRows() -1 || j < boardInstance.getColumns() -1))
 		{
 			if (++j == boardInstance.getColumns())
 			{
@@ -46,7 +46,7 @@ public class BoardIterator implements Iterator<Tile>
 			
 			hasNext = boardInstance.tileExistsAt(i, j);
 		}
-		
+
 		return hasNext;
 	}
 
@@ -60,6 +60,7 @@ public class BoardIterator implements Iterator<Tile>
 		try
 		{
 			Tile nextTile;
+
 			do 
 			{
 				if (++col == boardInstance.getColumns())
@@ -69,9 +70,10 @@ public class BoardIterator implements Iterator<Tile>
 				}
 				
 				nextTile = boardInstance.getTileAt(row, col);
+				
 			}
 			while(nextTile == null);
-
+			
 			return nextTile;
 		}
 		catch (ArrayIndexOutOfBoundsException e)

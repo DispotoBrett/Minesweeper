@@ -96,7 +96,7 @@ public class Controller
 	{
 
 		BoardIterator it = model.boardIterator();
-
+		int count = 0;
 		// Iterates through the Tiles stored by the Board in the Model in a left to right, top to bottom fashion
 		while (it.hasNext())
 		{
@@ -111,10 +111,12 @@ public class Controller
 			{
 				SwingUtilities.invokeAndWait(() -> view.flag(it.prevRow(), it.prevCol(), current.isFlagged()));
 			}
+			count++;
 		}
 
 		view.repaint();
 		view.setRemainingMines(model.getBoard().getNumMines() - model.getBoard().getNumberTilesFlagged());
+
 	}
 
 	/**
