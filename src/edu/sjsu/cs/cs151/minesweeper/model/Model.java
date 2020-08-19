@@ -53,7 +53,7 @@ public class Model
 			break;
 		
 		case USA:
-			gameBoard = new Board(readBoardShapeFromFile("resources/USA.png"), MEDIUM_MINES, usePresetSeed);
+			gameBoard = new Board(readBoardShapeFromFile("resources/USA.png"), USA_MINES, usePresetSeed);
 			break;
 			
 		default:
@@ -147,6 +147,7 @@ public class Model
 	private int EASY_MINES = 8;
 	private int MEDIUM_MINES = 14;
 	private int HARD_MINES = 34;
+	private int USA_MINES = 20;
 	private Board gameBoard;
 	private boolean usePresetSeed;
 	private int numberOfTiles;

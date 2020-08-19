@@ -50,7 +50,11 @@ public class BoardPanel extends JPanel
 					add(button);
 				}
 				else 
+				{
 					add(Box.createHorizontalGlue() );
+					tileButtons[i][j] = null;
+				}
+					
 			}
 		}
 	}
@@ -129,20 +133,23 @@ public class BoardPanel extends JPanel
 		{
 			for (int j = 0; j < tileButtons[0].length; j++)
 			{
-				switch ((j + i) % 3)
+				if(tileButtons[i][j] != null)
 				{
-				case 0:
-					tileButtons[i][j].setBackground(Color.yellow);
-					break;
-
-				case 1:
-
-					tileButtons[i][j].setBackground(Color.cyan);
-					break;
-
-				case 2:
-					tileButtons[i][j].setBackground(Color.red);
-					break;
+					switch ((j + i) % 3)
+					{
+					case 0:
+						tileButtons[i][j].setBackground(Color.yellow);
+						break;
+	
+					case 1:
+	
+						tileButtons[i][j].setBackground(Color.cyan);
+						break;
+	
+					case 2:
+						tileButtons[i][j].setBackground(Color.red);
+						break;
+					}
 				}
 			}
 		}
