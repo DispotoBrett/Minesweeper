@@ -1,5 +1,11 @@
 package edu.sjsu.cs.cs151.minesweeper.model;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 /**
  * The over-arching model class. Manages data, logic, and rules.
  *
@@ -11,7 +17,7 @@ public class Model
 {
 	//-------------------------Public Interface-----------------------
 	public enum Difficulty
-	{EASY, MEDIUM, HARD}
+	{EASY, MEDIUM, HARD, USA}
 
 	/**
 	 * @param usePresetSeed True if mine placement is to be predetermined, false otherwise.
@@ -19,8 +25,8 @@ public class Model
 	public Model(Boolean usePresetSeed)
 	{
 		this.usePresetSeed = usePresetSeed;
-		gameBoard = new Board(EASY_SIZE, EASY_SIZE, EASY_MINES, usePresetSeed);
-		numberOfTiles = gameBoard.getRows() * gameBoard.getColumns();
+		//gameBoard = new Board(EASY_SIZE, EASY_SIZE, EASY_MINES, usePresetSeed);
+		//numberOfTiles = gameBoard.getNumberOfTiles();
 		gameWon = false;
 		gameLost = false;
 	}
@@ -45,12 +51,16 @@ public class Model
 		case HARD:
 			gameBoard = new Board(HARD_SIZE, HARD_SIZE, HARD_MINES, usePresetSeed);
 			break;
-
+		
+		case USA:
+			gameBoard = new Board(readBoardShapeFromFile("resources/USA.png"), MEDIUM_MINES, usePresetSeed);
+			break;
+			
 		default:
 			gameBoard = new Board(EASY_SIZE, EASY_SIZE, EASY_MINES, usePresetSeed);
 		}
 
-		numberOfTiles = gameBoard.getRows() * gameBoard.getColumns();
+		numberOfTiles = gameBoard.getNumberOfTiles();
 		gameWon = false;
 		gameLost = false;
 	}
@@ -96,6 +106,7 @@ public class Model
 		{
 			gameWon = true;
 		}
+
 	}
 
 	/**
@@ -141,4 +152,45 @@ public class Model
 	private int numberOfTiles;
 	private boolean gameWon;
 	private boolean gameLost;
+	
+	/**
+	 * Creates a board shape array using the black pixels (and only the black pixels) in the input picture
+	 * @param filename the file name of the input picture
+	 * @return a board shape where black pixel = true and any other color = false
+	 */
+	private boolean[][] readBoardShapeFromFile(String filename)
+	{
+		boolean[][] shape = null;
+		BufferedImage img = null;
+
+		try 
+		{
+		    img = ImageIO.read(new File(filename)); 
+		    
+		    int height = img.getHeight();
+		    int width = img.getWidth();
+		    
+		    shape = new boolean[height][width];
+		    
+		    for(int row = 0; row < height; row++)
+		    {
+		    	for(int col = 0; col < width; col++)
+		    	{
+		    		if(img.getRGB(col, row) == 0xffffffff) //if it is white, it is false
+		    		{
+		    			shape[row][col] = false;
+		    		}
+		    			
+		    		else
+		    			shape[row][col] = true;
+		    	}
+		    }
+		} 
+		catch (IOException e) 
+		{
+		    e.printStackTrace();
+		}
+		
+		return shape;
+	}
 }

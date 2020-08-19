@@ -84,7 +84,7 @@ public class WelcomePanel extends JPanel
 	private void setUpCenter(BlockingQueue<Message> messageQueue)
 	{
 		JPanel difficultyPanel = new JPanel();
-		difficultyPanel.setLayout(new GridLayout(2, 3, 10, 10));
+		difficultyPanel.setLayout(new GridLayout(3, 3, 10, 10)); //TODO: this causes a weird layout. 
 
 		//using empty JLabels to fill grid cells
 		difficultyPanel.add(new JLabel());
@@ -141,6 +141,23 @@ public class WelcomePanel extends JPanel
 		hardButton.setBackground(Color.RED);
 		hardButton.setOpaque(true);
 		difficultyPanel.add(hardButton);
+		
+		JButton usaButton = new JButton("USA");
+		usaButton.addActionListener(e -> {
+			try
+			{
+				messageQueue.put(new DifficultyMessage(View.Difficulty.USA, true));
+			}
+			catch (InterruptedException e1)
+			{
+				e1.printStackTrace();
+			}
+		});
+		usaButton.setBorder(BorderFactory.createLineBorder(Color.black));
+		usaButton.setBackground(Color.BLUE);
+		usaButton.setOpaque(true);
+		difficultyPanel.add(usaButton);
+
 
 		add(difficultyPanel, BorderLayout.CENTER);
 		difficultyPanel.setBackground(Color.LIGHT_GRAY);

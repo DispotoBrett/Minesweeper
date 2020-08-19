@@ -30,7 +30,10 @@ public class DifficultyMessage implements Message
 		case HARD:
 			this.difficulty = Model.Difficulty.HARD;
 			break;
-
+		
+		case USA:
+			this.difficulty = Model.Difficulty.USA;
+			
 		default:
 		}
 		this.changeNow = changeNow;

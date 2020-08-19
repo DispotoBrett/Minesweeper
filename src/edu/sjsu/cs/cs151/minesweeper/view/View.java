@@ -26,7 +26,7 @@ import java.util.concurrent.BlockingQueue;
 public class View
 {
 	public enum Difficulty
-	{EASY, MEDIUM, HARD}
+	{EASY, MEDIUM, HARD, USA}
 
 	/**
 	 * Gets the instance of view the returns the View
@@ -69,13 +69,13 @@ public class View
 	 * @param adjMines   the 2d array that stores the number of adjacent mines for each tile
 	 * @param difficulty the difficulty
 	 */
-	public void startGame(int rows, int cols, int[][] adjMines, Difficulty difficulty)
+	public void startGame(boolean[][] boardShape, int[][] adjMines, Difficulty difficulty)
 	{
-		this.rows = rows;
-		this.columns = cols;
+		this.rows = boardShape.length;
+		this.columns = boardShape[0].length;
 		animationTimer.stop();
 		frame.remove(welcome);
-		initializeFrame(adjMines);
+		initializeFrame(boardShape, adjMines);
 		initializeMenu(difficulty);
 	}
 
@@ -141,14 +141,14 @@ public class View
 	 * @param col      the number of columns.
 	 * @param adjMines indicates number of mines adjacent to (i, j) tile.
 	 */
-	public void resetTo(int row, int col, int[][] adjMines)
+	public void resetTo(boolean[][] boardShape, int[][] adjMines)
 	{
 		boardPanel.stopAnimation();
-		rows = row;
-		columns = col;
+		rows = boardShape.length;
+		columns = boardShape[0].length;
 		frame.remove(boardPanel);
 		frame.getGlassPane().setVisible(false);
-		boardPanel = new BoardPanel(rows, columns, messageQueue, frame, adjMines);
+		boardPanel = new BoardPanel(boardShape, messageQueue, frame, adjMines);
 		frame.add(boardPanel);
 		frame.pack();
 		frame.revalidate();
@@ -221,9 +221,9 @@ public class View
 	 *
 	 * @param adjMines the 2d array that stores the number of adjacent mines for each tile
 	 */
-	private void initializeFrame(int[][] adjMines)
+	private void initializeFrame(boolean[][] boardShape, int[][] adjMines)
 	{
-		boardPanel = new BoardPanel(rows, columns, messageQueue, frame, adjMines);
+		boardPanel = new BoardPanel(boardShape, messageQueue, frame, adjMines);
 
 		frame.add(boardPanel);
 
@@ -261,6 +261,11 @@ public class View
 
 		difficulties.add(hard);
 		difficultyMenu.add(hard);
+		
+		JRadioButtonMenuItem usa = new JRadioButtonMenuItem("USA");
+		usa.addActionListener(new ChangeDifficultyAction(Difficulty.USA));
+		difficulties.add(usa);
+		difficultyMenu.add(usa);
 
 		// Selects the correct Difficulty radio button based on the starting difficulty
 		switch (difficulty)
@@ -275,6 +280,10 @@ public class View
 
 		case HARD:
 			hard.setSelected(true);
+			break;
+			
+		case USA:
+			usa.setSelected(true);
 			break;
 
 		default:

@@ -16,7 +16,7 @@ public final class Board implements Iterable<Tile>
 	//-------------------------Public Interface-----------------------
 
 	/**
-	 * Constructs a Board with or without randomized mine placement.
+	 * Constructs a square Board with or without randomized mine placement.
 	 *
 	 * @param numberOfRows    The number of rows in the Board.
 	 * @param numberOfColumns The number of columns in the Board.
@@ -25,17 +25,46 @@ public final class Board implements Iterable<Tile>
 	 */
 	public Board(int numberOfRows, int numberOfColumns, int numberOfMines, boolean usePresetSeed)
 	{
+		System.out.println("Non-us board created");
 		NUM_ROWS = numberOfRows;
 		NUM_COLS = numberOfColumns;
 		NUM_MINES = numberOfMines;
 
 		tiles = new Tile[NUM_ROWS][NUM_COLS];
+		boardShape = new boolean[NUM_ROWS][NUM_COLS];
+		
+		for(int i = 0; i < NUM_ROWS; i++)
+			for(int j = 0; j < NUM_COLS; j++)
+				boardShape[i][j] = true;
+		
 		initializeTiles(usePresetSeed);
 		initializeAdjacentMines();
 		numberTilesRevealed = 0;
 		numberTilesFlagged = 0;
 	}
 
+	/**
+	 * Constructs a Board with a custom shape or without randomized mine placement.
+	 * 
+	 * @param boardShape 	A 2d array of booleans that define the shape of the board. A true value indicates that a tile should be placed in that location
+	 * @param numberOfMines The number of mines in the Board.
+	 * @param usePresetSeed	True if mine placement is to be predetermined, false otherwise.
+	 */
+	public Board(boolean[][] boardShape, int numberOfMines, boolean usePresetSeed)
+	{
+		System.out.println("USA Board Created");
+		NUM_ROWS = boardShape.length;
+		NUM_COLS = boardShape[0].length;
+		NUM_MINES = numberOfMines;
+
+		tiles = new Tile[NUM_ROWS][NUM_COLS];
+		this.boardShape = boardShape;
+		initializeTiles(usePresetSeed);
+		initializeAdjacentMines();
+		numberTilesRevealed = 0;
+		numberTilesFlagged = 0;
+	}
+	
 	/**
 	 * Constructs an iterator over the board's tiles.
 	 *
@@ -49,11 +78,12 @@ public final class Board implements Iterable<Tile>
 	/**
 	 * Reveals the specified tile, and all surrounding tiles without mines, recursively.
 	 *
+	 * @precondition a tile at row,col must exist
 	 * @param row The row of the specified tile.
 	 * @param col The column of the specified tile.
 	 */
 	public void revealTile(int row, int col)
-	{
+	{		
 		Tile currentTile = tiles[row][col];
 
 		if (currentTile.isMine() || currentTile.isFlagged() || currentTile
@@ -77,7 +107,7 @@ public final class Board implements Iterable<Tile>
 				//Begin with the column directly left of the clicked tile and move right
 				for (int j = col - 1; j <= col + 1; j++)
 				{
-					if (i >= 0 && j >= 0 && i < NUM_ROWS && j < NUM_COLS) //Only true if i and j are valid indices
+					if (tileExistsAt(i, j))
 					{
 						revealTile(i, j);
 					}
@@ -118,6 +148,16 @@ public final class Board implements Iterable<Tile>
 		return adjMines[row][col];
 	}
 
+	/**
+	 * Gets the number of tiles on the Board.
+	 *
+	 * @return The number of tiles.
+	 */
+	public int getNumberOfTiles()
+	{
+		return numberOfTiles;
+	}
+	
 	/**
 	 * Gets the number of tiles revealed on the Board.
 	 *
@@ -171,6 +211,15 @@ public final class Board implements Iterable<Tile>
 	{
 		return adjMines;
 	}
+	
+	/**
+	 * Get the 'shape' of the board, as represented by a 2d array of booleans where a true value indicates that there is a tile in that position
+	 * @return
+	 */
+	public boolean[][] getBoardShape()
+	{
+		return boardShape;
+	}
 
 	/**
 	 * Gets the number of rows in the Board.
@@ -202,16 +251,25 @@ public final class Board implements Iterable<Tile>
 		return NUM_MINES;
 	}
 
+	public boolean tileExistsAt(int row, int col)
+	{
+		return row >= 0 && row < NUM_ROWS &&
+				col >= 0 && col < NUM_COLS &&
+				boardShape[row][col];
+	}
+	
 	//-------------------------Private Fields/Methods------------------
 	private final int NUM_ROWS;
 	private final int NUM_COLS;
 	private final int NUM_MINES;
 
+	private boolean[][] boardShape;
 	private Tile[][] tiles;
 
 	// Each index in adjMines stores a value that indicates how many mines are adjacent to the same index in tiles
 	private int[][] adjMines;
 
+	private int numberOfTiles;
 	private int numberTilesRevealed;
 	private int numberTilesFlagged;
 
@@ -224,13 +282,20 @@ public final class Board implements Iterable<Tile>
 	 */
 	private void initializeTiles(boolean usePresetSeed)
 	{
+		numberOfTiles = 0;
 		ArrayList<Integer> mines = new ArrayList<>();
 
 		for (int i = 0; i < NUM_ROWS * NUM_COLS; i++)
 		{
-			mines.add(i);
-		}
 
+			if(boardShape[i / NUM_COLS][i % NUM_COLS])
+			{
+				mines.add(i);
+				numberOfTiles++;
+			}
+				
+		}
+		
 		if (usePresetSeed)
 		{
 			//Generates a Board with identical mine placement every time the game is played.
@@ -273,23 +338,30 @@ public final class Board implements Iterable<Tile>
 		{
 			for (int col = 0; col < NUM_COLS; col++)
 			{
-				int mines = 0;
-
-				for (int i = row - 1; i <= row + 1; i++) //Begin with the row directly above the clicked tile
+				if(tileExistsAt(row, col))
 				{
-					for (int j = col - 1; j <= col + 1; j++) //Begin from the column directly left of the clicked tile
+					int mines = 0;
+
+					for (int i = row - 1; i <= row + 1; i++) //Begin with the row directly above the clicked tile
 					{
-						if (i >= 0 && j >= 0 && i < NUM_ROWS && j < NUM_COLS) //Only true if i and j are valid indices
+						for (int j = col - 1; j <= col + 1; j++) //Begin from the column directly left of the clicked tile
 						{
-							if (tiles[i][j].isMine())
+							if (tileExistsAt(i, j)) 
 							{
-								mines++;
+								if (tiles[i][j].isMine())
+								{
+									mines++;
+								}
 							}
 						}
 					}
-				}
 
-				adjMines[row][col] = mines;
+					adjMines[row][col] = mines;
+				}
+				else
+				{
+					adjMines[row][col] = 0;
+				}	
 			}
 		}
 	}

@@ -81,7 +81,7 @@ public class Controller
 	{
 		gameOver = false;
 		model.setDifficultyAndReset(difficulty);
-		view.resetTo(model.getBoard().getRows(), model.getBoard().getColumns(), model.getBoard().adjacentMines());
+		view.resetTo(model.getBoard().getBoardShape(), model.getBoard().adjacentMines());
 		view.setRemainingMines(model.getBoard().getNumMines() - model.getBoard().getNumberTilesFlagged());
 
 	}
@@ -101,6 +101,7 @@ public class Controller
 		while (it.hasNext())
 		{
 			Tile current = it.next();
+			
 
 			if (current.isRevealed())
 			{
@@ -111,6 +112,7 @@ public class Controller
 				SwingUtilities.invokeAndWait(() -> view.flag(it.prevRow(), it.prevCol(), current.isFlagged()));
 			}
 		}
+
 		view.repaint();
 		view.setRemainingMines(model.getBoard().getNumMines() - model.getBoard().getNumberTilesFlagged());
 	}
@@ -162,7 +164,9 @@ public class Controller
 
 		case HARD:
 			return View.Difficulty.HARD;
-
+		
+		case USA:
+			return View.Difficulty.USA;
 		default:
 			return null;
 		}
@@ -263,7 +267,7 @@ public class Controller
 				onWelcomeMenu = false;
 				model.setDifficultyAndReset(difficulty);
 				Board gameBoard = model.getBoard();
-				view.startGame(gameBoard.getRows(), gameBoard.getColumns(), gameBoard.adjacentMines(),
+				view.startGame(gameBoard.getBoardShape(), gameBoard.adjacentMines(),
 						translateDifficulty(difficulty));
 				view.setRemainingMines(model.getBoard().getNumMines() - model.getBoard().getNumberTilesFlagged());
 

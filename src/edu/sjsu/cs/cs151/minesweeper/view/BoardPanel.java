@@ -28,10 +28,12 @@ public class BoardPanel extends JPanel
 	 * @param frame        The frame to be painted on (for explosions) (glass pane).
 	 * @param adjMines     The 2D array that stores the number of adjacent mines for each tile.
 	 */
-	public BoardPanel(int rows, int cols, BlockingQueue<Message> messageQueue, JFrame frame, int[][] adjMines)
+	public BoardPanel(boolean[][] boardShape, BlockingQueue<Message> messageQueue, JFrame frame, int[][] adjMines)
 	{
 		super();
-
+		int rows = boardShape.length;
+		int cols = boardShape[0].length;
+		
 		setLayout(new GridLayout(rows, cols));
 		parentFrame = frame;
 		tileButtons = new TileButton[rows][cols];
@@ -41,9 +43,14 @@ public class BoardPanel extends JPanel
 		{
 			for (int j = 0; j < cols; j++)
 			{
-				TileButton button = new TileButton(i, j, messageQueue, frame, adjMines[i][j]);
-				tileButtons[i][j] = button;
-				add(button);
+				if(boardShape[i][j])
+				{
+					TileButton button = new TileButton(i, j, messageQueue, frame, adjMines[i][j]);
+					tileButtons[i][j] = button;
+					add(button);
+				}
+				else 
+					add(Box.createHorizontalGlue() );
 			}
 		}
 	}
@@ -69,6 +76,10 @@ public class BoardPanel extends JPanel
 		if (tileButtons.length == MED_ROW_SIZE)
 		{
 			return MEDIUM_SIZE;
+		}
+		else if(tileButtons.length == USA_ROW_SIZE)
+		{
+			return USA_SIZE;
 		}
 		else
 		{
@@ -173,6 +184,8 @@ public class BoardPanel extends JPanel
 	private static final int EASY_ROW_SIZE = 9;
 	private static final int MED_ROW_SIZE = 11;
 	private static final int HARD_ROW_SIZE = 14;
+	private static final int USA_ROW_SIZE = 12;
+	private static final int USA_COL_SIZE = 20;
 
 	private static final Dimension EASY_SIZE = new Dimension(TileIcon.WIDTH * EASY_ROW_SIZE,
 			TileIcon.WIDTH * EASY_ROW_SIZE);
@@ -180,7 +193,9 @@ public class BoardPanel extends JPanel
 			TileIcon.WIDTH * MED_ROW_SIZE);
 	private static final Dimension HARD_SIZE = new Dimension(TileIcon.WIDTH * HARD_ROW_SIZE,
 			TileIcon.WIDTH * HARD_ROW_SIZE);
-
+	private static final Dimension USA_SIZE = new Dimension(TileIcon.WIDTH * USA_COL_SIZE,
+			TileIcon.WIDTH * USA_ROW_SIZE);
+	
 	private javax.swing.Timer gameWonTimer;
 
 	/**
